@@ -1,0 +1,14 @@
+# hammer
+# hammer-cadence-plugins
+ee209-hammer-internal/hammer-synopsys-plugins
+# hammer-bsg-plugins
+ee209-hammer-internal/bsg_fakeram
+ee209-hammer-internal/basejump_stl
+.vscode
+ee209-hammer-internal/.pyyaml_touch
+**__pycache__/
+**/hammer.log
+**/build
+**/DVEfiles
+**/output.json
+**_rom.v
