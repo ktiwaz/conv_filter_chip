@@ -1,0 +1,7 @@
+devSelect := n nmos2v
+	  propMap := w w l l
+
+devSelect := p pmos2v
+	  propMap := w w l l
+
+devSelect := dn dioden

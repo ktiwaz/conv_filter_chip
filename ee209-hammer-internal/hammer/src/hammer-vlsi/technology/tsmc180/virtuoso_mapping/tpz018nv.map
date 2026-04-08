@@ -1,0 +1,24 @@
+devSelect := N nmos2v
+	  propMap := w w l l
+
+devSelect := P pmos2v
+	  propMap := w w l l
+
+devSelect := ND nmos3v
+	  propMap := w w l l
+
+devSelect := PD pmos3v
+	  propMap := w w l l
+
+devSelect := DB diodesd3v
+
+devSelect := DN dioden
+
+devSelect := DP diodep
+
+devSelect := D1 diodep3v
+
+devSelect := resistor presistor
+
+
+

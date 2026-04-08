@@ -1,0 +1,40 @@
+#! /bin/bash
+
+# Virtuoso
+export CDSHOME=/w/apps4/Cadence/IC231
+source /w/apps4/Cadence/IC231/SETUP
+
+# Spectre
+source /w/apps4/Cadence/SPECTRE231/SETUP
+export PATH=/w/apps4/Cadence/SPECTRE231/bin:$PATH
+
+# Calibre
+source /w/apps4/Mentor/Calibre/2024.3_16.10/SETUP
+# Check Calibre Directory and use the appropriate version prefix below
+export USE_CALIBRE_VCO aok
+export MGC_HOME="/w/apps4/Mentor/Calibre/2024.3_16.10/aok_cal_2024.3_16.10"
+export MGC_FDI_OA_VERSION="22.50"
+
+# PVS
+source /w/apps4/Cadence/PVS231/SETUP
+
+# Assura
+source /w/apps4/Cadence/ASSURA41/SETUP
+
+# EMX
+source /w/apps4/Cadence/INTEGRAND63/SETUP
+export EMX_GDSVIEW_INDIRECT=0
+
+# PDK Location
+export PDK_HOME="/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK"
+
+# Cadence Virtuoso Settings
+export SPECTRE_DEFAULTS=-E
+export CDS_Netlisting_Mode="Analog" # almost always analog, important for calibre, and if it needs to be "Digital" you will know
+export CDS_AUTO_64BIT="ALL"
+export CDS_PROJECT=$PDK_HOME/skill
+
+# Fixes compilation error with veriloga in spectre (compile from disk instead of shared memory)
+export CDS_AHDL_PIPEBUILD_C_FLOW="NO"
+
+virtuoso &

@@ -1,0 +1,139 @@
+# Settings for the tsmc180 technology
+technology.tsmc180:
+  # Override these in project
+  n180rf: "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK"
+  n180rf_std_io: "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital"
+  n180rf_digital: "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital"
+  n180rf_modified: "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS"
+  
+  # Shouldn't need to change these
+  pdk_home: "${technology.tsmc180.n180rf}"
+  pdk_home_meta: lazysubst
+  lvs_deck_sources:
+    - "${technology.tsmc180.n180rf}/Calibre/lvs/calibre.lvs"
+  lvs_deck_sources_meta: lazysubst
+
+# Mentor environment variables
+# Override this in project
+mentor.extra_env_vars_meta: lazydeepsubst
+mentor.extra_env_vars:
+  - PDK_HOME: "${technology.tsmc180.n180rf}"
+
+# Startup files for magic and netgen
+# drc.magic.rcfile: "__missing__"
+# drc.magic.rcfile_meta: lazysubst
+# lvs.netgen.setup_file: "__missing__"
+# lvs.netgen.setup_file_meta: lazysubst
+
+# Set some defaults for this technology.
+vlsi:
+  # Technology dimension
+  core:
+    technology: tsmc180
+    node: 180
+  inputs:
+    # Supply voltages.
+    # TODO: add ability to tie pin to net in Hammer Innovus plugin
+    supplies:
+      power:  [ {name: "VDD",  pin: "VDD"}] 
+      ground: [ {name: "VSS",  pin: "VSS"}]
+      VDD: "1.8 V"
+      GND: "0 V"
+
+    # mmmc corners config
+    mmmc_corners: [
+      {
+        name: "WCCOM",
+        type: "setup",
+        voltage: "1.62 V",
+        temp: "125 C"
+      },
+      {
+        name: "BCCOM",
+        type: "hold",
+        voltage: "1.98 V",
+        temp: "-40 C"
+      },
+      {
+        name: "NCCOM",
+        type: "extra",
+        voltage: "1.80 V",
+        temp: "25 C"
+      }
+    ]
+  technology:
+    # Set standard cell LEF placement site
+    placement_site: "core7T"
+
+    # Set the layer that blocks vias under bumps
+    bump_block_cut_layer: "via4"
+
+    # Set the interval and offset for tap cells
+    tap_cell_interval: "28"     # max: 56; must be a multiple of 0.56
+    tap_cell_offset: "16"       # = (core_width-ceil(core_width/tap_cell_interval)*tap_cell_interval)/2
+                                #     core_width=1600
+
+technology.core:
+  # This key should exist in the stackups list in the tech json
+  stackup: "tsmc_n180rf"
+  # This should specify the TOPMOST metal layer the standard cells use for power rails
+  # Note that this is not usually stackup specific; it is based on the std cell libraries themselves
+  std_cell_rail_layer: "METAL1" 
+  # This is used to provide a reference master for generating standard cells
+  # XXX TSMC180: cannot use tapcell due to weird pin shape (a cross!)
+  #   instead we use the endcap cells which are currently set to FILL2BWP7T
+  tap_cell_rail_reference: "FILL2BWP7T"
+  # default power pins are VDD/VSS
+  std_cell_supplies: 
+    power:  ["VDD"]
+    ground: ["VSS"]
+
+syn.derating_factor: 0.03
+
+par.inputs:
+  gds_merge: true
+  gds_map_mode: manual
+  #gds_map_file: "${technology.tsmc180.n180rf}/tsmc18/tsmc18.layermap"
+  #gds_map_file: "${vlsi.builtins.hammer_vlsi_path}/technology/tsmc180/extra/gds2.map"
+  gds_map_file: "${vlsi.builtins.hammer_vlsi_path}/technology/tsmc180/extra/streamOut.tsmc.map"
+  gds_map_file_meta: lazysubst
+  gds_precision_mode: manual
+  gds_precision: 1000
+  cap_table_file: "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable"
+  # openrcx_techfile: "__missing__"
+  # openrcx_techfile_meta: lazysubst
+  # klayout_techfile_source: "__missing__"
+  # klayout_techfile_source_meta: lazysubst
+
+# Power Straps
+par.max_routing_layer: METAL6
+par.power_straps_mode: generate
+par.generate_power_straps_method: by_tracks
+par.blockage_spacing: 2.0
+par.blockage_spacing_top_layer: METAL4
+par.generate_power_straps_options:
+  by_tracks:
+    strap_layers:
+      - METAL2
+      - METAL3
+      - METAL4
+      - METAL5
+      - METAL6
+    pin_layers:
+      - METAL6
+    # blockage_spacing_METAL2: 4.0
+    track_width: 2
+    # track_width_METAL5: 2
+    track_spacing: 1
+    track_start: 10
+    power_utilization: 0.1
+    # METAL 2 PDN runs over tapcells, so they must align perfectly
+    track_width_METAL2: 1           # tapcell width can only accommodate width-1 M2 power straps
+    track_start_METAL2: 27          # XXX = ceil(tap_cell_offset/0.56)-1
+    track_spacing_METAL2: 0
+    power_utilization_METAL2: 0.04  # XXX = 0.56*2/tap_cell_interval
+    track_start_METAL5: 1
+    power_utilization_METAL4: 0.15
+    power_utilization_METAL5: 0.5
+
+lvs.calibre.virtual_connect_colon: true

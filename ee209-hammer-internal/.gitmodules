@@ -1,0 +1,7 @@
+[submodule "hammer/src/hammer-vlsi/technology/tsmc180"]
+	path = hammer/src/hammer-vlsi/technology/tsmc180
+	url = /w/class.1/ee/ee209b/ee209bta/EE209_Hammer_Flow/ee209-hammer-internal/hammer/src/hammer-vlsi/technology/tsmc180
+
+[submodule "hammer-mentor-plugins"]
+	path = hammer-mentor-plugins
+	url = /w/class.1/ee/ee209b/ee209bta/EE209_Hammer_Flow/ee209-hammer-internal/hammer-mentor-plugins

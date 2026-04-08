@@ -1,0 +1,44 @@
+# Mentor tools:
+mentor.mentor_home: "/w/apps4/Mentor"
+# Mentor license server/file
+mentor.MGLS_LICENSE_FILE: "1717@lm-mentor.seas.ucla.edu"
+lvs.calibre.version: "2024.3_16.10"
+drc.calibre.version: "2024.3_16.10"
+
+# Cadence tools:
+cadence.cadence_home: "/w/apps4/Cadence"
+cadence.CDS_LIC_FILE: "5281@lm-cadence.seas.ucla.edu"
+formal.conformal.version: "241"
+power.voltus.version: "231"
+synthesis.genus.version: "211"
+par.innovus.version: "211"
+timing.tempus.version: "231"
+
+# Add paths to tool plugins
+vlsi.core.synthesis_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/synthesis"] # Append path to plugins
+vlsi.core.synthesis_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.par_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/par"] # Append path to plugins
+vlsi.core.par_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.formal_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/formal"] # Append path to plugins
+vlsi.core.formal_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.timing_tool_path: ["${vlsi.core.local_tool_path}/hammer-cadence-plugins/timing"] # Append path to plugins
+vlsi.core.timing_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.drc_tool_path: ["${vlsi.core.local_tool_path}/hammer-mentor-plugins/hammer/drc"] # Append path to plugins
+vlsi.core.drc_tool_path_meta: ["append", "lazysubst"]
+vlsi.core.lvs_tool_path: ["${vlsi.core.local_tool_path}/hammer-mentor-plugins/hammer/lvs"] # Append path to plugins
+vlsi.core.lvs_tool_path_meta: ["append", "lazysubst"]
+
+# Synopsys tools:
+synopsys.synopsys_home: "/w/apps4/Synopsys"
+sim.vcs.version: "V-2023.12-SP2"
+sim.verdi.version: "V-2023.12-SP2"
+# Add paths to tool plugins
+vlsi.core.sim_tool_path: ["${vlsi.core.local_tool_path}/hammer-synopsys-plugins/sim"] # Append path to plugins
+vlsi.core.sim_tool_path_meta: ["append", "lazysubst"]
+# Synopsys license server/files
+synopsys.SNPSLMD_LICENSE_FILE: "1784@lm-synopsys.seas.ucla.edu"
+# synopsys.SNPSLMD_LICENSE_FILE: "27020@kk9.cs.washington.edu"
+synopsys.MGLS_LICENSE_FILE: "1784@lm-synopsys.seas.ucla.edu"
+
+# Simulation source file
+tsmc180.sim.verilog: "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v"

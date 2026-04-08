@@ -1,0 +1,524 @@
+{
+    "name": "TSMC N180RF Library",
+    "grid_unit": "0.005",
+    "time_unit": "1 ns",
+    "installs": [
+      {
+        "path": "$TSMC180RF",
+        "base var": "technology.tsmc180.n180rf"
+      },
+      {
+        "path": "$TSMC180RF_DIGITAL",
+        "base var": "technology.tsmc180.n180rf_digital"
+      },
+      {
+        "path": "$TSMC180RF_Standard_IO",
+        "base var": "technology.tsmc180.n180rf_std_io"
+      },
+      {
+        "path": "$TSMC180RF_MODIFIED",
+        "base var": "technology.tsmc180.n180rf_modified"
+      }
+    ],
+    "layer_map_file": "$TSMC180RF/tsmc18/tsmc18.layermap",
+    "drc_decks": [
+      {
+        "tool_name": "calibre",
+        "deck_name": "calibre_drc",
+        "path": "$TSMC180RF_MODIFIED/chip_40K.calibre.drc"
+      }
+    ],
+    "additional_drc_text": "",
+    "lvs_decks": [
+      {
+        "tool_name": "calibre",
+        "deck_name": "calibre_lvs",
+        "path": "$TSMC180RF/Calibre/lvs/calibre.lvs"
+      }
+    ],
+    "additional_lvs_text": "",
+    "libraries": [
+      {
+        "lef_file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"
+      },
+      {
+        "ccs_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7ttc_ccs.lib",
+        "nldm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/NLDM/tcb018gbwp7t_270a/tcb018gbwp7ttc.lib",
+        "verilog_sim": "$TSMC180RF_DIGITAL/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v",
+        "lef_file": "$TSMC180RF_DIGITAL/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef",
+        "spice_file": "$TSMC180RF_DIGITAL/Back_End/spice/tcb018gbwp7t_270a/tcb018gbwp7t_270a.spi",
+        "gds_file": "$TSMC180RF_DIGITAL/Back_End/gds/tcb018gbwp7t_270a/tcb018gbwp7t.gds",
+        "tluplus_map_file": "$TSMC180RF_DIGITAL/Back_End/milkyway/tcb018gbwp7t_270a/techfiles/tluplus/t018lo_1p6m_typical.tluplus",
+        "qrc_techfile": "$TSMC180RF_MODIFIED/qrcTechFile",
+        "corner": {
+          "nmos": "typical",
+          "pmos": "typical",
+          "temperature": "25 C"
+        },
+        "supplies": {
+          "VDD": "1.80 V",
+          "VSS": "0 V"
+        },
+        "provides": [
+          {
+            "lib_type": "stdcell",
+            "vt": "RVT"
+          }
+        ]
+      },
+      {
+        "ccs_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tbc_ccs.lib",
+        "nldm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/NLDM/tcb018gbwp7t_270a/tcb018gbwp7tbc.lib",
+        "verilog_sim": "$TSMC180RF_DIGITAL/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v",
+        "lef_file": "$TSMC180RF_DIGITAL/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef",
+        "spice_file": "$TSMC180RF_DIGITAL/Back_End/spice/tcb018gbwp7t_270a/tcb018gbwp7t_270a.spi",
+        "gds_file": "$TSMC180RF_DIGITAL/Back_End/gds/tcb018gbwp7t_270a/tcb018gbwp7t.gds",
+        "tluplus_map_file": "$TSMC180RF_DIGITAL/Back_End/milkyway/tcb018gbwp7t_270a/techfiles/tluplus/t018lo_1p6m_typical.tluplus",
+        "qrc_techfile": "$TSMC180RF_MODIFIED/qrcTechFile",
+        "corner": {
+          "nmos": "fast",
+          "pmos": "fast",
+          "temperature": "0 C"
+        },
+        "supplies": {
+          "VDD": "1.98 V",
+          "VSS": "0 V"
+        },
+        "provides": [
+          {
+            "lib_type": "stdcell",
+            "vt": "RVT"
+          }
+        ]
+      },
+      {
+        "ccs_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tlt_ccs.lib",
+        "nldm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/NLDM/tcb018gbwp7t_270a/tcb018gbwp7tlt.lib",
+        "verilog_sim": "$TSMC180RF_DIGITAL/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v",
+        "lef_file": "$TSMC180RF_DIGITAL/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef",
+        "spice_file": "$TSMC180RF_DIGITAL/Back_End/spice/tcb018gbwp7t_270a/tcb018gbwp7t_270a.spi",
+        "gds_file": "$TSMC180RF_DIGITAL/Back_End/gds/tcb018gbwp7t_270a/tcb018gbwp7t.gds",
+        "tluplus_map_file": "$TSMC180RF_DIGITAL/Back_End/milkyway/tcb018gbwp7t_270a/techfiles/tluplus/t018lo_1p6m_typical.tluplus",
+        "qrc_techfile": "$TSMC180RF_MODIFIED/qrcTechFile",
+        "corner": {
+          "nmos": "fast",
+          "pmos": "fast",
+          "temperature": "-40 C"
+        },
+        "supplies": {
+          "VDD": "1.98 V",
+          "VSS": "0 V"
+        },
+        "provides": [
+          {
+            "lib_type": "stdcell",
+            "vt": "RVT"
+          }
+        ]
+      },
+      {
+        "ccs_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tml_ccs.lib",
+        "nldm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/NLDM/tcb018gbwp7t_270a/tcb018gbwp7tml.lib",
+        "verilog_sim": "$TSMC180RF_DIGITAL/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v",
+        "lef_file": "$TSMC180RF_DIGITAL/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef",
+        "spice_file": "$TSMC180RF_DIGITAL/Back_End/spice/tcb018gbwp7t_270a/tcb018gbwp7t_270a.spi",
+        "gds_file": "$TSMC180RF_DIGITAL/Back_End/gds/tcb018gbwp7t_270a/tcb018gbwp7t.gds",
+        "tluplus_map_file": "$TSMC180RF_DIGITAL/Back_End/milkyway/tcb018gbwp7t_270a/techfiles/tluplus/t018lo_1p6m_typical.tluplus",
+        "qrc_techfile": "$TSMC180RF_MODIFIED/qrcTechFile",
+        "corner": {
+          "nmos": "fast",
+          "pmos": "fast",
+          "temperature": "125 C"
+        },
+        "supplies": {
+          "VDD": "1.98 V",
+          "VSS": "0 V"
+        },
+        "provides": [
+          {
+            "lib_type": "stdcell",
+            "vt": "RVT"
+          }
+        ]
+      },
+      {
+        "ccs_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib",
+        "nldm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/NLDM/tcb018gbwp7t_270a/tcb018gbwp7twc.lib",
+        "verilog_sim": "$TSMC180RF_DIGITAL/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v",
+        "lef_file": "$TSMC180RF_DIGITAL/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef",
+        "spice_file": "$TSMC180RF_DIGITAL/Back_End/spice/tcb018gbwp7t_270a/tcb018gbwp7t_270a.spi",
+        "gds_file": "$TSMC180RF_DIGITAL/Back_End/gds/tcb018gbwp7t_270a/tcb018gbwp7t.gds",
+        "tluplus_map_file": "$TSMC180RF_DIGITAL/Back_End/milkyway/tcb018gbwp7t_270a/techfiles/tluplus/t018lo_1p6m_typical.tluplus",
+        "qrc_techfile": "$TSMC180RF_MODIFIED/qrcTechFile",
+        "corner": {
+          "nmos": "slow",
+          "pmos": "slow",
+          "temperature": "125 C"
+        },
+        "supplies": {
+          "VDD": "1.62 V",
+          "VSS": "0 V"
+        },
+        "provides": [
+          {
+            "lib_type": "stdcell",
+            "vt": "RVT"
+          }
+        ]
+      },
+      {
+        "ccs_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twcl_ccs.lib",
+        "nldm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/NLDM/tcb018gbwp7t_270a/tcb018gbwp7twcl.lib",
+        "verilog_sim": "$TSMC180RF_DIGITAL/Front_End/verilog/tcb018gbwp7t_270a/tcb018gbwp7t.v",
+        "lef_file": "$TSMC180RF_DIGITAL/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef",
+        "spice_file": "$TSMC180RF_DIGITAL/Back_End/spice/tcb018gbwp7t_270a/tcb018gbwp7t_270a.spi",
+        "gds_file": "$TSMC180RF_DIGITAL/Back_End/gds/tcb018gbwp7t_270a/tcb018gbwp7t.gds",
+        "tluplus_map_file": "$TSMC180RF_DIGITAL/Back_End/milkyway/tcb018gbwp7t_270a/techfiles/tluplus/t018lo_1p6m_typical.tluplus",
+        "qrc_techfile": "$TSMC180RF_MODIFIED/qrcTechFile",
+        "corner": {
+          "nmos": "slow",
+          "pmos": "slow",
+          "temperature": "-40 C"
+        },
+        "supplies": {
+          "VDD": "1.62 V",
+          "VSS": "0 V"
+        },
+        "provides": [
+          {
+            "lib_type": "stdcell",
+            "vt": "RVT"
+          }
+        ]
+      },
+      {
+        "nldm_liberty_file": "$TSMC180RF_Standard_IO/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib",
+        "verilog_sim": "$TSMC180RF_Standard_IO/Front_End/verilog/tpd018nv_260a/tpd018nv.v",
+        "lef_file": "$TSMC180RF_MODIFIED/tpd018nv_6lm_modified.lef",
+        "spice_file": "$TSMC180RF_Standard_IO/Back_End/spice/tpd018nv_270a/tpd018nv_1_2.spi",
+        "gds_file": "$TSMC180RF_Standard_IO/Back_End/gds/tpd018nv_280a/mt_2/6lm/tpd018nv.gds",
+        "corner": {
+          "nmos": "slow",
+          "pmos": "slow",
+          "temperature": "125 C"
+        },
+        "supplies": {
+          "VDD": "1.62 V",
+          "VSS": "0 V"
+        }
+      },
+      {
+        "nldm_liberty_file": "$TSMC180RF_Standard_IO/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvbc.lib",
+        "verilog_sim": "$TSMC180RF_Standard_IO/Front_End/verilog/tpd018nv_260a/tpd018nv.v",
+        "lef_file": "$TSMC180RF_MODIFIED/tpd018nv_6lm_modified.lef",
+        "spice_file": "$TSMC180RF_Standard_IO/Back_End/spice/tpd018nv_270a/tpd018nv_1_2.spi",
+        "gds_file": "$TSMC180RF_Standard_IO/Back_End/gds/tpd018nv_280a/mt_2/6lm/tpd018nv.gds",
+        "corner": {
+          "nmos": "fast",
+          "pmos": "fast",
+          "temperature": "0 C"
+        },
+        "supplies": {
+          "VDD": "1.98 V",
+          "VSS": "0 V"
+        }
+      },
+      {
+        "nldm_liberty_file": "$TSMC180RF_Standard_IO/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvtc.lib",
+        "verilog_sim": "$TSMC180RF_Standard_IO/Front_End/verilog/tpd018nv_260a/tpd018nv.v",
+        "lef_file": "$TSMC180RF_MODIFIED/tpd018nv_6lm_modified.lef",
+        "spice_file": "$TSMC180RF_Standard_IO/Back_End/spice/tpd018nv_270a/tpd018nv_1_2.spi",
+        "gds_file": "$TSMC180RF_Standard_IO/Back_End/gds/tpd018nv_280a/mt_2/6lm/tpd018nv.gds",
+        "corner": {
+          "nmos": "typical",
+          "pmos": "typical",
+          "temperature": "25 C"
+        },
+        "supplies": {
+          "VDD": "1.80 V",
+          "VSS": "0 V"
+        }
+      },
+      {
+        "nldm_liberty_file": "$TSMC180RF_Standard_IO/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib",
+        "verilog_sim": "$TSMC180RF_Standard_IO/Front_End/verilog/tpd018nv_260a/tpd018nv.v",
+        "lef_file": "$TSMC180RF_MODIFIED/tpd018nv_6lm_modified.lef",
+        "spice_file": "$TSMC180RF_Standard_IO/Back_End/spice/tpd018nv_270a/tpd018nv_1_2.spi",
+        "gds_file": "$TSMC180RF_Standard_IO/Back_End/gds/tpd018nv_280a/mt_2/6lm/tpd018nv.gds",
+        "corner": {
+          "nmos": "fast",
+          "pmos": "fast",
+          "temperature": "-40 C"
+        },
+        "supplies": {
+          "VDD": "1.98 V",
+          "VSS": "0 V"
+        }
+      },
+      {
+        "lef_file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef",
+        "gds_file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"
+      }
+    ],
+    "physical_only_cells_list": [
+        "TAPCELLBWP7T",
+        "FILL1BWP7T",
+        "FILL2BWP7T",
+        "FILL4BWP7T",
+        "FILL8BWP7T",
+        "FILL16BWP7T",
+        "FILL32BWP7T",
+        "FILL64BWP7T",
+        "PCORNER",
+        "PFILLER20",
+        "PFILLER10",
+        "PFILLER5",
+        "PFILLER1",
+        "PFILLER05",
+        "PFILLER0005",
+        "PAD50LAU_TRL",
+        "PAD60LAU_TRL",
+        "PAD60LU_TRL"
+    ],
+    "dont_use_list": [
+        "G*"
+    ],
+    "antenna_cell": "ANTENNABWP7T",
+    "special_cells": [
+      {
+        "cell_type": "tiehicell",
+        "name": [ "TIEHBWP7T" ],
+        "output_ports": [ "Z" ]
+      },
+      {
+        "cell_type": "tielocell",
+        "name": [ "TIELBWP7T" ],
+        "output_ports": [ "ZN" ]
+      },
+      {
+        "cell_type": "stdfiller",
+        "name": [
+            "FILL1BWP7T",
+            "FILL2BWP7T",
+            "FILL4BWP7T",
+            "FILL8BWP7T",
+            "FILL16BWP7T",
+            "FILL32BWP7T",
+            "FILL64BWP7T"
+        ]
+      },
+      {
+        "cell_type": "decap",
+        "name": [
+          "DCAPBWP7T",
+          "DCAP4BWP7T",
+          "DCAP8BWP7T",
+          "DCAP16BWP7T",
+          "DCAP32BWP7T",
+          "DCAP64BWP7T"
+        ],
+        "size": [
+            "1.68",
+            "2.24",
+            "4.48",
+            "8.96",
+            "17.92",
+            "35.84"
+        ]
+      },
+      {
+        "cell_type": "endcap",         
+        "name": ["FILL2BWP7T"]
+      },
+      {
+        "cell_type": "tapcell",        
+        "name": ["TAPCELLBWP7T"]
+      },
+      {
+        "cell_type": "driver",
+        "name": [
+          "BUFFD4BWP7T"
+        ],
+        "input_ports": [
+          "I"
+        ],
+        "output_ports": [
+          "Z"
+        ]
+      },
+      {
+        "cell_type": "ctsbuffer",
+        "name": [
+          "CKBD0BWP7T",
+          "CKBD1BWP7T",
+          "CKBD2BWP7T",
+          "CKBD3BWP7T",
+          "CKBD4BWP7T",
+          "CKBD6BWP7T",
+          "CKBD8BWP7T",
+          "CKBD10BWP7T",
+          "CKBD12BWP7T"
+        ],
+        "input_ports": [
+          "I"
+        ],
+        "output_ports": [
+          "Z"
+        ]
+      }
+    ],
+    "stackups": [
+      {
+        "name": "tsmc_n180rf",
+        "grid_unit": 0.005,
+        "metals": [
+          {
+            "name": "METAL1",
+            "index": 1,
+            "direction": "horizontal",
+            "min_width": 0.230,
+            "max_width": 2147483.647,
+            "pitch": 0.560,
+            "offset": 0.000,
+            "power_strap_widths_and_spacings": [
+              {
+                "width_at_least": 0.0,
+                "min_spacing": 0.230
+              },
+              {
+                "width_at_least": 10.001,
+                "min_spacing": 0.600
+              }
+            ]
+          },
+          {
+            "name": "METAL2",
+            "index": 2,
+            "direction": "vertical",
+            "min_width": 0.280,
+            "max_width": 2147483.647,
+            "pitch": 0.560,
+            "offset": 0.280,
+            "power_strap_widths_and_spacings": [
+              {
+                "width_at_least": 0.0,
+                "min_spacing": 0.280
+              },
+              {
+                "width_at_least": 10.001,
+                "min_spacing": 0.600
+              }
+            ]
+          },
+          {
+            "name": "METAL3",
+            "index": 3,
+            "direction": "horizontal",
+            "min_width": 0.280,
+            "max_width": 2147483.647,
+            "pitch": 0.560,
+            "offset": 0.280,
+            "power_strap_widths_and_spacings": [
+              {
+                "width_at_least": 0.0,
+                "min_spacing": 0.280
+              },
+              {
+                "width_at_least": 10.001,
+                "min_spacing": 0.600
+              }
+            ]
+          },
+          {
+            "name": "METAL4",
+            "index": 4,
+            "direction": "vertical",
+            "min_width": 0.280,
+            "max_width": 2147483.647,
+            "pitch": 0.560,
+            "offset": 0.280,
+            "power_strap_widths_and_spacings": [
+              {
+                "width_at_least": 0.0,
+                "min_spacing": 0.280
+              },
+              {
+                "width_at_least": 10.001,
+                "min_spacing": 0.600
+              }
+            ]
+          },
+          {
+            "name": "METAL5",
+            "index": 5,
+            "direction": "horizontal",
+            "min_width": 0.280,
+            "max_width": 2147483.647,
+            "pitch": 0.560,
+            "offset": 0.280,
+            "power_strap_widths_and_spacings": [
+              {
+                "width_at_least": 0.0,
+                "min_spacing": 0.280
+              },
+              {
+                "width_at_least": 10.001,
+                "min_spacing": 0.600
+              }
+            ]
+          },
+          {
+            "name": "METAL6",
+            "index": 6,
+            "direction": "vertical",
+            "min_width": 2.6,
+            "max_width": 2147483.647,
+            "pitch": 5.100,
+            "offset": 0.280,
+            "power_strap_widths_and_spacings": [
+              {
+                "width_at_least": 0.0,
+                "min_spacing": 2.5
+              },
+              {
+                "width_at_least": 16.001,
+                "min_spacing": 4.000
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "sites": [
+      {
+        "name": "core7T",
+        "x": 0.56,
+        "y": 3.92
+      },
+      {
+        "name": "bcore7T",
+        "x": 0.56,
+        "y": 7.84
+      },
+      {
+        "name": "bcoreExt7T",
+        "x": 0.56,
+        "y": 7.84
+      },
+      {
+        "name": "ccore7T",
+        "x": 0.56,
+        "y": 11.76
+      },
+      {
+        "name": "dcore7T",
+        "x": 0.56,
+        "y": 15.68
+      },
+      {
+        "name": "gacore7T",
+        "x": 2.24,
+        "y": 3.92
+      }
+    ]
+  }

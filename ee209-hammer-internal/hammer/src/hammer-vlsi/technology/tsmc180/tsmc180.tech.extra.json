@@ -1,0 +1,116 @@
+
+{
+    "libraries": [
+        { "ecsm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/ECSM/tcb018gbwp7t_270a/tcb018gbwp7ttc_ecsm.lib" },
+        { "ecsm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/ECSM/tcb018gbwp7t_270a/tcb018gbwp7tbc_ecsm.lib" },
+        { "ecsm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/ECSM/tcb018gbwp7t_270a/tcb018gbwp7tlt_ecsm.lib" },
+        { "ecsm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/ECSM/tcb018gbwp7t_270a/tcb018gbwp7tml_ecsm.lib" },
+        { "ecsm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/ECSM/tcb018gbwp7t_270a/tcb018gbwp7twc_ecsm.lib" },
+        { "ecsm_liberty_file": "$TSMC180RF_DIGITAL/Front_End/timing_power_noise/ECSM/tcb018gbwp7t_270a/tcb018gbwp7twcl_ecsm.lib" }
+    ],
+    "special_cells": [
+      {
+        "cell_type": "ctsinverter",
+        "name": [
+          "CKND0BWP7T",
+          "CKND1BWP7T",
+          "CKND2BWP7T",
+          "CKND3BWP7T",
+          "CKND4BWP7T",
+          "CKND6BWP7T",
+          "CKND8BWP7T",
+          "CKND10BWP7T",
+          "CKND12BWP7T"
+        ],
+        "input_ports": [
+          "I"
+        ],
+        "output_ports": [
+          "ZN"
+        ]
+      },
+      {
+        "cell_type": "ctslogic",
+        "name": [
+          "CKAN2D0BWP7T",
+          "CKAN2D1BWP7T",
+          "CKAN2D2BWP7T",
+          "CKAN2D4BWP7T",
+          "CKAN2D8BWP7T",
+          "CKXOR2D0BWP7T",
+          "CKXOR2D1BWP7T",
+          "CKXOR2D2BWP7T",
+          "CKXOR2D4BWP7T"
+        ],
+        "input_ports": [
+            "A1", "A2"
+        ],
+        "output_ports": [
+            "Z"
+        ]
+      },
+      {
+        "cell_type": "ctslogic",
+        "name": [
+          "CKMUX2D0BWP7T",
+          "CKMUX2D1BWP7T",
+          "CKMUX2D2BWP7T"
+        ],
+        "input_ports": [
+            "I0", "I1", "S"
+        ],
+        "output_ports": [
+            "Z"
+        ]
+      },
+      {
+        "cell_type": "ctslogic",
+        "name": [
+          "CKND2D0BWP7T",
+          "CKND2D1BWP7T",
+          "CKND2D2BWP7T",
+          "CKND2D3BWP7T",
+          "CKND2D4BWP7T",
+          "CKND2D8BWP7T"
+        ],
+        "input_ports": [
+            "A1", "A2"
+        ],
+        "output_ports": [
+            "ZN"
+        ]
+      },
+      {
+        "cell_type": "ctsgate",
+        "name": [
+          "CKLHQD1BWP7T",
+          "CKLHQD2BWP7T",
+          "CKLHQD4BWP7T",
+          "CKLHQD6BWP7T",
+          "CKLHQD8BWP7T"
+        ],
+        "input_ports": [
+            "CPN"
+        ],
+        "output_ports": [
+            "Q"
+        ]
+      },
+      {
+        "cell_type": "ctsgate",
+        "name": [
+          "CKLNQD1BWP7T",
+          "CKLNQD2BWP7T",
+          "CKLNQD4BWP7T",
+          "CKLNQD6BWP7T",
+          "CKLNQD8BWP7T"
+        ],
+        "input_ports": [
+            "CP"
+        ],
+        "output_ports": [
+            "Q"
+        ]
+      }
+    ]
+}
