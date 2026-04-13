@@ -1,0 +1,15 @@
+sim.inputs:
+  input_files:
+    - "../hardware/src/normalize_clamp.sv"
+    - "../hardware/src/sliding_window.sv"
+    - "../hardware/src/window_dot_product.sv"
+  tb_input_files:
+    - "../testbench/normalize_clamp/tb_normalize_clamp.sv" 
+  top_module: "normalize_clamp"
+  tb_name: "tb_normalize_clamp"
+  level: "rtl"
+  options:
+  - "+vcs+vcdpluson"
+  - "+vcs+vcdplusmemon"
+  - "+vcs+vcdplusautoflushon"
+  - "-sverilog" # Allow SystemVerilog
