@@ -74,9 +74,13 @@ module sliding_window #(
             valid_count <= '0;
         end else begin
             if (input_valid) begin
+
+                // Shift existing data
                 for (i = BUFFER_SIZE-1; i > 0; i = i - 1) begin
                     line_buffer[i] <= line_buffer[i-1];
                 end
+                
+                // Add new data to beginning
                 line_buffer[0] <= datain;
 
                 if (valid_count < COUNTER_WIDTH'(BUFFER_SIZE)) begin
