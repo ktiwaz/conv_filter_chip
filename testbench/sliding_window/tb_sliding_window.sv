@@ -67,17 +67,17 @@ always @(posedge clk) begin
     if (output_valid) begin
         $display("window @ t=%0t", $time);
         $display("%0d %0d %0d",
-            dut.line_buffer[2*LINE_WIDTH+2],
-            dut.line_buffer[2*LINE_WIDTH+1],
-            dut.line_buffer[2*LINE_WIDTH+0]);
+            dataout[0][0],
+            dataout[0][1],
+            dataout[0][2]);
         $display("%0d %0d %0d",
-            dut.line_buffer[LINE_WIDTH+2],
-            dut.line_buffer[LINE_WIDTH+1],
-            dut.line_buffer[LINE_WIDTH+0]);
+            dataout[1][0],
+            dataout[1][1],
+            dataout[1][2]);
         $display("%0d %0d %0d",
-            dut.line_buffer[2],
-            dut.line_buffer[1],
-            dut.line_buffer[0]);
+            dataout[2][0],
+            dataout[2][1],
+            dataout[2][2]);
         $display("");
     end
 end
