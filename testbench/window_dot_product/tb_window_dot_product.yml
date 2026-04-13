@@ -1,0 +1,14 @@
+sim.inputs:
+  input_files:
+    - "../hardware/src/window_dot_product.sv"
+    - "../hardware/src/sliding_window.sv"
+  tb_input_files:
+    - "../testbench/window_dot_product/tb_window_dot_product.sv" 
+  top_module: "window_dot_product"
+  tb_name: "tb_window_dot_product"
+  level: "rtl"
+  options:
+  - "+vcs+vcdpluson"
+  - "+vcs+vcdplusmemon"
+  - "+vcs+vcdplusautoflushon"
+  - "-sverilog" # Allow SystemVerilog
