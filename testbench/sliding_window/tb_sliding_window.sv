@@ -1,6 +1,5 @@
 
 // This is just a sanity check (non-exhaustive).
-// This testbench is only intended for waveform viewing and does not perform any automated tests. 
 // I stream values in sequentially (1, 2, 3, etc), checking for the correct pattern on the output. 
 // This module will be testbenched more extensively when integrated into the entire filter core. 
 
@@ -37,24 +36,6 @@ dut (
 // Clock driver
 always #5  clk = ! clk ;
 
-// [REMOVE FOR CADENCE] Dumping logic for iVerilog
-// This is because of the 2D packed array
-initial begin
-    $dumpfile("wave.vcd");
-    $dumpvars(0, tb_sliding_window);
-
-    // Explicitly dump each element
-    $dumpvars(0, tb_sliding_window.dut.dataout[0][0]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[0][1]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[0][2]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[1][0]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[1][1]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[1][2]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[2][0]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[2][1]);
-    $dumpvars(0, tb_sliding_window.dut.dataout[2][2]);
-end
-
 // Test Pattern Generator
 integer i;
 initial begin
@@ -72,11 +53,12 @@ initial begin
     // Inject 3 times the buffer size worth of data. 
     for(i = 0; i < 3*NUMBER_OF_LINES*LINE_WIDTH; i = i + 1) begin
 
-        datain = DATA_DEPTH'(i);
+        datain = i % 256;
         @(posedge clk);
     end
 
-    #1000
+    @(posedge clk) input_valid = 1'b0;
+
     $finish();
 
 end
