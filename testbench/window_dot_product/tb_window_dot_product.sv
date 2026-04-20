@@ -15,7 +15,7 @@ reg clk = 1'b0;
 reg rst_n = 1'b1;
 reg input_valid = 1'b0;
 reg [DATA_DEPTH-1:0] datain = '0;
-wire signed [DATA_DEPTH-1:0] window [0:NUMBER_OF_LINES-1][0:NUMBER_OF_LINES-1];
+wire [DATA_DEPTH-1:0] window [0:NUMBER_OF_LINES-1][0:NUMBER_OF_LINES-1];
 wire window_output_valid;
 wire dot_product_output_valid;
 

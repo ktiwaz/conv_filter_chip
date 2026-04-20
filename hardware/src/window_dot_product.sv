@@ -46,7 +46,7 @@ module window_dot_product #(
         sum = '0;
         for (row = 0; row < NUMBER_OF_LINES; row = row + 1) begin
             for (col = 0; col < NUMBER_OF_LINES; col = col + 1) begin
-                sum = sum + (window[row][col] * kernel[row][col]);
+                sum = sum + $signed({1'b0, window[row][col]}) * $signed(kernel[row][col]);
             end
         end
     end
