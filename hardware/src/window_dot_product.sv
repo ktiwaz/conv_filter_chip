@@ -32,7 +32,7 @@ module window_dot_product #(
     input  logic clk,
     input  logic rst_n,
     input  logic input_valid,
-    input  logic signed [DATA_WIDTH-1:0]   window [0:NUMBER_OF_LINES-1][0:NUMBER_OF_LINES-1],
+    input  logic [DATA_WIDTH-1:0]          window [0:NUMBER_OF_LINES-1][0:NUMBER_OF_LINES-1],
     input  logic signed [KERNEL_WIDTH-1:0] kernel [0:NUMBER_OF_LINES-1][0:NUMBER_OF_LINES-1],
 
     output logic output_valid,
