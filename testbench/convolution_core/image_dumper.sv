@@ -1,37 +1,10 @@
-//==============================================================================
-// Module Name : image_dumper
-// Author      : Kushagra Tiwari
-// Date        : 2026-04-13
-//
-// Description :
-//   Captures a grayscale pixel stream and dumps exactly WIDTH*HEIGHT pixels
-//   to a hex text file, one pixel per line.
-//
-//   Intended for simulation use.
-//
-//   Expected output format:
-//     - One hex pixel value per line
-//     - Zero-padded to the minimum number of hex digits required by DATA_WIDTH
-//
-//   Behavior:
-//     - Captures pixels only when valid is high
-//     - Stores exactly WIDTH*HEIGHT pixels
-//     - Writes output file once full
-//     - Calls $finish() after dumping
-//
-// Parameters :
-//   WIDTH       : Image width in pixels
-//   HEIGHT      : Image height in pixels
-//   DATA_WIDTH  : Bit width of grayscale pixel
-//   INDEX_WIDTH : Width of capture index counter; must be wide enough for WIDTH*HEIGHT
-//   OUT_FILE    : Output hex filename
-//
-//==============================================================================
 module image_dumper #(
-    parameter int WIDTH       = 640,
-    parameter int HEIGHT      = 480,
-    parameter int DATA_WIDTH  = 8,
-    parameter string OUT_FILE = "output_image.hex"
+    parameter int WIDTH        = 640,
+    parameter int HEIGHT       = 480,
+    parameter int DATA_WIDTH   = 8,
+    parameter int KERNEL_SIZE  = 3,
+    parameter int TIMEOUT_CYCLES = 2 * WIDTH * HEIGHT,
+    parameter string OUT_FILE  = "output_image.hex"
 ) (
     input  logic clk,
     input  logic reset_n,
@@ -39,45 +12,64 @@ module image_dumper #(
     input  logic valid
 );
 
-    localparam int MEM_DEPTH = WIDTH * HEIGHT;
-    localparam int INDEX_WIDTH = $clog2(MEM_DEPTH);
-    localparam int HEX_DIGITS = (DATA_WIDTH + 3) / 4;
+    localparam int TOTAL_PIXELS      = WIDTH * HEIGHT;
+    localparam int FIRST_VALID_INDEX = (KERNEL_SIZE - 1) * WIDTH + (KERNEL_SIZE - 1);
+    localparam int VALID_PIXELS      = TOTAL_PIXELS - FIRST_VALID_INDEX;
+    localparam int MEM_DEPTH         = (VALID_PIXELS > 0) ? VALID_PIXELS : 1;
+    localparam int INDEX_WIDTH       = (MEM_DEPTH > 1) ? $clog2(MEM_DEPTH) : 1;
+    localparam int HEX_DIGITS        = (DATA_WIDTH + 3) / 4;
+    localparam int TIMEOUT_WIDTH     = (TIMEOUT_CYCLES > 1) ? $clog2(TIMEOUT_CYCLES + 1) : 1;
 
     reg [DATA_WIDTH-1:0] image_mem [0:MEM_DEPTH-1];
 
     logic dump;
     logic dumped;
     logic [INDEX_WIDTH-1:0] index;
+    logic [TIMEOUT_WIDTH-1:0] timeout_count;
 
     integer j;
     integer out_file;
 
-    // Capture incoming pixels
+    // Capture valid output pixels only, and track timeout
     always_ff @(posedge clk) begin
         if (!reset_n) begin
-            dump   <= 1'b0;
-            index  <= '0;
+            dump          <= 1'b0;
+            index         <= '0;
+            timeout_count <= '0;
         end else begin
-            if (valid && !dump && !dumped) begin
-                image_mem[index] <= pixel;
+            if (!dump && !dumped) begin
+                // Count cycles while waiting for all expected valids
+                if (timeout_count < TIMEOUT_CYCLES)
+                    timeout_count <= timeout_count + 1'b1;
 
-                if (index == MEM_DEPTH - 1) begin
-                    dump <= 1'b1;
-                end else begin
-                    index <= index + 1'b1;
+                if (valid) begin
+                    image_mem[index] <= pixel;
+
+                    if (index == MEM_DEPTH - 1) begin
+                        dump <= 1'b1;
+                    end else begin
+                        index <= index + 1'b1;
+                    end
+                end
+
+                // Timeout check
+                if (timeout_count == TIMEOUT_CYCLES) begin
+                    $display("Error: image_dumper timeout.");
+                    $display("I only got %0d valids when I expected %0d.",
+                             index, VALID_PIXELS);
+                    $display("WIDTH=%0d HEIGHT=%0d KERNEL_SIZE=%0d TIMEOUT_CYCLES=%0d",
+                             WIDTH, HEIGHT, KERNEL_SIZE, TIMEOUT_CYCLES);
+                    $finish;
                 end
             end
         end
     end
 
-    // Dump to file once full
+    // Dump to file once all valid outputs are captured
     always_ff @(posedge clk) begin
-
         if (!reset_n) begin
-            dumped <= 1'b0;
-        end
-
-        if (dump && !dumped) begin
+            dumped        <= 1'b0;
+        end else if (dump && !dumped) begin
             out_file = $fopen(OUT_FILE, "w");
             if (out_file == 0) begin
                 $display("Error: Could not open output file %s", OUT_FILE);
@@ -101,6 +93,8 @@ module image_dumper #(
             $fclose(out_file);
             dumped <= 1'b1;
             $display("Image dumped to %s", OUT_FILE);
+            $display("Dumped %0d valid pixels (WIDTH=%0d HEIGHT=%0d KERNEL_SIZE=%0d)",
+                     VALID_PIXELS, WIDTH, HEIGHT, KERNEL_SIZE);
             $finish;
         end
     end

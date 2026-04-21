@@ -51,6 +51,7 @@ module image_loader #(
     reg [DATA_WIDTH-1:0] image_mem [0:MEM_DEPTH-1];
 
     logic [INDEX_WIDTH-1:0] index;
+    logic loaded;
 
     // Load image at simulation start
     initial begin
@@ -60,17 +61,23 @@ module image_loader #(
 
     always_ff @(posedge clk) begin
         if (!reset_n) begin
-            index <= '0;
-            pixel <= '0;
-            valid <= 1'b0;
+            index  <= '0;
+            pixel  <= '0;
+            valid  <= 1'b0;
+            loaded <= 1'b0;
         end else begin
-            pixel <= image_mem[index];
-            valid <= 1'b1;
+            if (!loaded) begin
+                pixel <= image_mem[index];
+                valid <= 1'b1;
 
-            if (index == MEM_DEPTH - 1)
-                index <= '0;
-            else
-                index <= index + 1'b1;
+                if (index == MEM_DEPTH-1) begin
+                    loaded <= 1'b1;
+                end else begin
+                    index <= index + 1'b1;
+                end
+            end else begin
+                valid <= 1'b0;
+            end
         end
     end
 

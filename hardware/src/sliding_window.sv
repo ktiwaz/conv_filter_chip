@@ -26,6 +26,7 @@
 //   2026-04-06 : Create module (reused from previous project)
 //   2026-04-07 : Add description, improve comments, rename some signals to be more descriptive
 //   2026-04-12 : Optimize buffer size
+//   2026-04-20 : Stall output_valid when input_valid stalls
 //
 ////==============================================================================
 
@@ -115,7 +116,7 @@ module sliding_window #(
         end
     end
 
-    // Output valid
-    assign output_valid = (valid_count == COUNTER_WIDTH'(BUFFER_SIZE));
+    // Output valid -> Stall when input stalls
+    assign output_valid = input_valid && (valid_count == COUNTER_WIDTH'(BUFFER_SIZE));
 
 endmodule

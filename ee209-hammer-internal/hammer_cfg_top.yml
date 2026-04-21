@@ -53,7 +53,7 @@ vlsi.inputs.power_spec_mode: "auto"
 vlsi.inputs.power_spec_type: "cpf"
 
 # Set default load to some reasonable value (pF)
-vlsi.inputs.default_output_load: 0.005
+vlsi.inputs.default_output_load: 5
 
 # Placement Constraints
 vlsi.inputs.placement_constraints:
