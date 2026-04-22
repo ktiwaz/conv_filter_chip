@@ -14,7 +14,7 @@ module image_dumper #(
 
     localparam int TOTAL_PIXELS      = WIDTH * HEIGHT;
     localparam int FIRST_VALID_INDEX = (KERNEL_SIZE - 1) * WIDTH + (KERNEL_SIZE - 1);
-    localparam int VALID_PIXELS      = TOTAL_PIXELS - FIRST_VALID_INDEX;
+    localparam int VALID_PIXELS      = TOTAL_PIXELS - FIRST_VALID_INDEX - 1; // -1 because we don't add input_valid after the last pixel
     localparam int MEM_DEPTH         = (VALID_PIXELS > 0) ? VALID_PIXELS : 1;
     localparam int INDEX_WIDTH       = (MEM_DEPTH > 1) ? $clog2(MEM_DEPTH) : 1;
     localparam int HEX_DIGITS        = (DATA_WIDTH + 3) / 4;
