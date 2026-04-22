@@ -36,7 +36,8 @@ module conv_filter_top #(
 );
 
     localparam KERNEL_ADDR_W = $clog2(KERNEL_SIZE * KERNEL_SIZE);
-    localparam NORM_COUNT_W = $clog2((NORM_WIDTH + DATA_WIDTH - 1) / DATA_WIDTH);
+    localparam NORM_WORDS = $clog2((NORM_WIDTH + DATA_WIDTH - 1) / DATA_WIDTH);
+    localparam int NORM_COUNT_W  = (NORM_WORDS > 1) ? $clog2(NORM_WORDS) : 1;
 
     wire shiftreg_input_valid;
     wire [DATA_WIDTH-1:0] shiftreg_pixel_data;
