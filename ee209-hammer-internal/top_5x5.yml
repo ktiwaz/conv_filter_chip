@@ -10,6 +10,8 @@ synthesis.inputs:
     - "../hardware/src/normalize_clamp.sv"
     - "../hardware/src/sliding_window.sv"
     - "../hardware/src/window_dot_product.sv"
+    - "../hardware/src/window_dot_product_generic.sv"
+    - "../hardware/src/window_dot_product_5x5.sv"
 
 vlsi.inputs.clocks:
   - name: "clk"

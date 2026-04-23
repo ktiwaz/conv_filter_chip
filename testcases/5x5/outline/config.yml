@@ -3,6 +3,8 @@ sim.inputs:
   - ../hardware/src/normalize_clamp.sv
   - ../hardware/src/sliding_window.sv
   - ../hardware/src/window_dot_product.sv
+  - ../hardware/src/window_dot_product_generic.sv
+  - ../hardware/src/window_dot_product_5x5.sv
   - ../hardware/src/convolution_core.sv
   - ../hardware/src/conv_filter_top.sv
   - ../hardware/src/io_control_fsm.sv
