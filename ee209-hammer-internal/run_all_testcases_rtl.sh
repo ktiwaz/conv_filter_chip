@@ -7,7 +7,7 @@ set -u
 
 TESTCASES_DIR="../testcases"
 HAMMER_DIR="../ee209-hammer-internal"
-MAKEFILE="Makefile.flow"
+MAKEFILE="Makefile"
 
 # ============================================================
 # Helpers
