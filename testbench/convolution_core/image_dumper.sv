@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 module image_dumper #(
     parameter int WIDTH        = 640,
     parameter int HEIGHT       = 480,
@@ -33,22 +34,23 @@ module image_dumper #(
     // Capture valid output pixels only, and track timeout
     always_ff @(posedge clk) begin
         if (!reset_n) begin
-            dump          <= 1'b0;
-            index         <= '0;
-            timeout_count <= '0;
+            dump          <= #1ns 1'b0;
+            index         <= #1ns '0;
+            timeout_count <= #1ns '0;
         end else begin
             if (!dump && !dumped) begin
                 // Count cycles while waiting for all expected valids
                 if (timeout_count < TIMEOUT_CYCLES)
-                    timeout_count <= timeout_count + 1'b1;
+                    timeout_count <= #1ns timeout_count + 1'b1;
 
                 if (valid) begin
-                    image_mem[index] <= pixel;
+                    image_mem[index] <= #1ns 
+                    pixel;
 
                     if (index == MEM_DEPTH - 1) begin
-                        dump <= 1'b1;
+                        dump <= #1ns 1'b1;
                     end else begin
-                        index <= index + 1'b1;
+                        index <= #1ns index + 1'b1;
                     end
                 end
 
@@ -68,7 +70,7 @@ module image_dumper #(
     // Dump to file once all valid outputs are captured
     always_ff @(posedge clk) begin
         if (!reset_n) begin
-            dumped        <= 1'b0;
+            dumped        <= #1ns 1'b0;
         end else if (dump && !dumped) begin
             out_file = $fopen(OUT_FILE, "w");
             if (out_file == 0) begin
@@ -91,7 +93,7 @@ module image_dumper #(
             end
 
             $fclose(out_file);
-            dumped <= 1'b1;
+            dumped <= #1ns 1'b1;
             $display("Image dumped to %s", OUT_FILE);
             $display("Dumped %0d valid pixels (WIDTH=%0d HEIGHT=%0d KERNEL_SIZE=%0d)",
                      VALID_PIXELS, WIDTH, HEIGHT, KERNEL_SIZE);

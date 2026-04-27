@@ -31,6 +31,7 @@
 //   - This is intended for simulation/testbench use
 //
 //==============================================================================
+`timescale 1ns/1ps
 module image_loader #(
     parameter int WIDTH       = 640,
     parameter int HEIGHT      = 480,
@@ -61,22 +62,22 @@ module image_loader #(
 
     always_ff @(posedge clk) begin
         if (!reset_n) begin
-            index  <= '0;
-            pixel  <= '0;
-            valid  <= 1'b0;
-            loaded <= 1'b0;
+            index  <= #1ns '0;
+            pixel  <= #1ns '0;
+            valid  <= #1ns 1'b0;
+            loaded <= #1ns 1'b0;
         end else begin
             if (!loaded) begin
-                pixel <= image_mem[index];
-                valid <= 1'b1;
+                pixel <= #1ns image_mem[index];
+                valid <= #1ns 1'b1;
 
                 if (index == MEM_DEPTH-1) begin
-                    loaded <= 1'b1;
+                    loaded <= #1ns 1'b1;
                 end else begin
-                    index <= index + 1'b1;
+                    index <= #1ns index + 1'b1;
                 end
             end else begin
-                valid <= 1'b0;
+                valid <= #1ns 1'b0;
             end
         end
     end
