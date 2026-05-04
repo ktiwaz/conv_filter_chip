@@ -14,4 +14,8 @@ ee209-hammer-internal/.pyyaml_touch
 **_rom.v
 **.txt
 *.log
+*.logv
+*.cmd
+**.abstract/
+**.cadence/
 testcases/**/output_image.hex
