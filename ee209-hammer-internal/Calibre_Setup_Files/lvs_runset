@@ -1,0 +1,284 @@
+//  Runset file generated on Mon Jan 13 17:27:13 2025
+//  by Calibre Interactive v2024.3_16.10    Tue Jul 9 11:27:29 PDT 2024
+//
+//      *** PLEASE DO NOT MODIFY THIS FILE ***
+//
+//
+
+lvs.rulesFile.value = "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/Calibre/lvs/calibre.lvs"
+lvs.runDir.value = "~/ee209bs_WINTER25/LVS"
+lvs.layout.layoutFile.value = "ts_allcelllvs.gds"
+cmn.layout.defFiles.value = [ "lvs_and_drc_check.def" ]
+lvs.layout.topCellLibrary.value = "homeworks"
+cmn.layout.topCellLibraryFDI.value = "homeworks"
+lvs.layout.topCell.value = "ts_allcelllvs"
+lvs.layout.topCellView.value = "layout"
+cmn.layout.topCellViewFDI.value = "layout"
+lvs.layout.layoutNetlist.value = "lvs_and_drc_check.sp"
+lvs.source2.sourceFile.value = "lvs_and_drc_check.sp"
+lvs.source2.topCellLibrary.value = "homeworks"
+lvs.source2.topCellLibraryFDI.value = "homeworks"
+lvs.source2.topCell.value = "ts_allcelllvs"
+lvs.source2.topCellFDI.value = "lvs_and_drc_check"
+lvs.source2.topCellView.value = "schematic"
+lvs.source2.topCellViewFDI.value = "schematic"
+lvs.source.sourceFile.value = "ts_allcelllvs.cdl"
+lvs.source.topCellLibrary.value = "homeworks"
+lvs.source.topCellLibraryFDI.value = "homeworks"
+lvs.source.topCell.value = "ts_allcelllvs"
+lvs.source.topCellFDI.value = "lvs_and_drc_check"
+lvs.source.topCellView.value = "schematic"
+lvs.source.topCellViewFDI.value = "schematic"
+lvs.svdb.si.value = true
+lvs.reports.lvsReport.value = "lvs.rep"
+lvs.supply.lvsAbortOnSupplyError.value = "NO"
+lvs.supply.lvsAbortOnSupplyError.specified = true
+lvs.supply.lvsIgnorePorts.specified = true
+lvs.supply.powerNames.value = [ "AVD33", "AVD33B", "AVD33G", "AVD33R", "AVD33WELL", "AVDD", "AVDDB", "AVDDBG", "AVDDG", "AVDDR", "AVDWELL", "DVDD", "TAVD33", "TAVD33PST", "TAVDD", "TAVDDPST", "VD33", "VD33WELL", "VDD", "VDD5V", "VDDG", "VDDM", "VDDPST", "VDDSA", "VDWELL" ]
+lvs.supply.powerNames.specified = true
+lvs.supply.groundNames.value = [ "AGND", "AVS33", "AVS33B", "AVS33G", "AVS33R", "AVS33SUB", "AVSS", "AVSSB", "AVSSBG", "AVSSG", "AVSSR", "AVSSUB", "DVSS", "GND", "TAVSS", "TAVSSPST", "VS33", "VS33SUB", "VSS", "VSSG", "VSSM", "VSSPST", "VSSUB" ]
+lvs.supply.groundNames.specified = true
+lvs.lvsIsolateShorts.specified = true
+lvs.lvsIsolateShorts.isolate.value = "YES"
+lvs.lvsSISelectConnects.specified = true
+lvs.lvsRecognizeGates.specified = true
+lvs.lvsRecognizeGates.gatesType.value = "NONE"
+lvs.lvsReduceGates.splitGates.value = "NO"
+lvs.lvsReduceGates.splitGates.specified = true
+lvs.lvsReduceGates.reduceParallelMOS.specified = true
+lvs.lvsReduceGates.forceReduceParallelMOSYes.value = true
+lvs.lvsReportOption.specified = true
+lvs.lvsReportOption.optionKeywords.value = [ "S" ]
+lvs.lvsReportMaximum.specified = true
+lvs.lvsReportMaximum.count.value = 1000
+lvs.lvsFilterUnusedOption.specified = true
+lvs.lvsFilterUnusedOption.opt_ag.specified = true
+lvs.lvsFilterUnusedOption.opt_rc.specified = true
+lvs.lvsFilterUnusedOption.opt_re.specified = true
+lvs.lvsFilterUnusedOption.opt_rg.specified = true
+cmn.virtualConnect.colon.value = "YES"
+cmn.virtualConnect.colon.specified = true
+lvs.traceProperty.parameters = [
+    [ true, "\"MN\"(N) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(N) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(N1) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(N1) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(N2) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(N2) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(NA) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(NA) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(NB) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(NB) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(ND) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(ND) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(NL) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(NL) \"W\" \"W\" 0 0"],
+    [ true, "\"MN\"(NN) \"L\" \"L\" 0 0"],
+    [ true, "\"MN\"(NN) \"W\" \"W\" 0 0"],
+    [ true, "\"MP\"(P) \"L\" \"L\" 0 0"],
+    [ true, "\"MP\"(P) \"W\" \"W\" 0 0"],
+    [ true, "\"MP\"(PA) \"L\" \"L\" 0 0"],
+    [ true, "\"MP\"(PA) \"W\" \"W\" 0 0"],
+    [ true, "\"MP\"(PD) \"L\" \"L\" 0 0"],
+    [ true, "\"MP\"(PD) \"W\" \"W\" 0 0"],
+    [ true, "\"D\"(D1) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(D2) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(D3) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(DB) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(DN) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(DP) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(DW) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(ndio_3m) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(ndio_m) \"A\" \"A\" 0 0"],
+    [ true, "\"D\"(pdio_m) \"A\" \"A\" 0 0"],
+    [ true, "\"R\"(LR) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(M1) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(M2) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(M3) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(M4) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(M5) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(ND) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(NI) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(NR) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(NS) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(PD) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(PI) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(PR) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(PS) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(MT) \"R\" \"R\" 0 0"],
+    [ true, "\"Q\"(NV) \"A\" \"A\" 0 0"],
+    [ true, "\"Q\"(NV_mis) \"A\" \"A\" 0 0"],
+    [ true, "\"Q\"(P1) \"A\" \"A\" 0 0"],
+    [ true, "\"Q\"(PV) \"A\" \"A\" 0 0"],
+    [ true, "\"Q\"(PV_mis) \"A\" \"A\" 0 0"],
+    [ true, "\"R\"(WO) \"R\" \"R\" 0 0"],
+    [ true, "\"R\"(WR) \"R\" \"R\" 0 0"],
+    [ true, "\"crtmom\" \"nv\" \"nv\" 0 0"],
+    [ true, "\"crtmom\" \"nh\" \"nh\" 0 0"],
+    [ true, "\"crtmom\" \"s\" \"s\" 0 0"],
+    [ true, "\"crtmom\" \"w\" \"w\" 0 0"],
+    [ true, "\"crtmom\" \"stm\" \"stm\" 0 0"],
+    [ true, "\"crtmom\" \"spm\" \"spm\" 0 0"],
+    [ true, "\"cfmom\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"cfmom\" \"s\" \"s\" 0 0"],
+    [ true, "\"cfmom\" \"w\" \"w\" 0 0"],
+    [ true, "\"cfmom\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"cfmom\" \"stm\" \"stm\" 0 0"],
+    [ true, "\"cfmom\" \"spm\" \"spm\" 0 0"],
+    [ true, "\"cfmom_rf\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"cfmom_rf\" \"s\" \"s\" 0 0"],
+    [ true, "\"cfmom_rf\" \"w\" \"w\" 0 0"],
+    [ true, "\"cfmom_rf\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"cfmom_rf\" \"stm\" \"stm\" 0 0"],
+    [ true, "\"cfmom_rf\" \"spm\" \"spm\" 0 0"],
+    [ true, "\"cfmom_mx\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"cfmom_mx\" \"s\" \"s\" 0 0"],
+    [ true, "\"cfmom_mx\" \"w\" \"w\" 0 0"],
+    [ true, "\"cfmom_mx\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"cfmom_mx\" \"stm\" \"stm\" 0 0"],
+    [ true, "\"cfmom_mx\" \"spm\" \"spm\" 0 0"],
+    [ true, "\"mimcap_2p0_shield\" \"LT\" \"LT\" 0 0"],
+    [ true, "\"mimcap_2p0_shield\" \"WT\" \"WT\" 0 0"],
+    [ true, "\"mimcap_2p0_shield\" \"LAY\" \"LAY\" 0 0"],
+    [ true, "\"mimcap_2p0_sin\" \"LT\" \"LT\" 0 0"],
+    [ true, "\"mimcap_2p0_sin\" \"WT\" \"WT\" 0 0"],
+    [ true, "\"mimcap_2p0_sin_3t\" \"LT\" \"LT\" 0 0"],
+    [ true, "\"mimcap_2p0_sin_3t\" \"WT\" \"WT\" 0 0"],
+    [ true, "\"mimcap_2p0_sin_3t\" \"LAY\" \"LAY\" 0 0"],
+    [ true, "\"mimcap_2p0_wos\" \"LT\" \"LT\" 0 0"],
+    [ true, "\"mimcap_2p0_wos\" \"WT\" \"WT\" 0 0"],
+    [ true, "\"mimcap_2p0_wos\" \"LAY\" \"LAY\" 0 0"],
+    [ true, "\"moscap_rf\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"moscap_rf\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"moscap_rf\" \"br\" \"br\" 0 0"],
+    [ true, "\"moscap_rf\" \"gr\" \"gr\" 0 0"],
+    [ true, "\"moscap_rf33\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"moscap_rf33\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"moscap_rf33\" \"br\" \"br\" 0 0"],
+    [ true, "\"moscap_rf33\" \"gr\" \"gr\" 0 0"],
+    [ true, "\"moscap_rf33_nw\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"moscap_rf33_nw\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"moscap_rf33_nw\" \"br\" \"br\" 0 0"],
+    [ true, "\"moscap_rf33_nw\" \"gr\" \"gr\" 0 0"],
+    [ true, "\"moscap_rf_nw\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"moscap_rf_nw\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"moscap_rf_nw\" \"br\" \"br\" 0 0"],
+    [ true, "\"moscap_rf_nw\" \"gr\" \"gr\" 0 0"],
+    [ true, "\"nmos_rf\" \"LR\" \"LR\" 0 0"],
+    [ true, "\"nmos_rf\" \"WR\" \"WR\" 0 0"],
+    [ true, "\"nmos_rf\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"nmos_rf33\" \"LR\" \"LR\" 0 0"],
+    [ true, "\"nmos_rf33\" \"WR\" \"WR\" 0 0"],
+    [ true, "\"nmos_rf33\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"nmos_rf33_6t\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"nmos_rf33_6t\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"nmos_rf33_6t\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"nmos_rf_6t\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"nmos_rf_6t\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"nmos_rf_6t\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"nmoscap\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"nmoscap\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"nmoscap\" \"mr\" \"mr\" 0 0"],
+    [ true, "\"nmoscap_33\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"nmoscap_33\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"nmoscap_33\" \"mr\" \"mr\" 0 0"],
+    [ true, "\"pmos_rf\" \"LR\" \"LR\" 0 0"],
+    [ true, "\"pmos_rf\" \"WR\" \"WR\" 0 0"],
+    [ true, "\"pmos_rf\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"pmos_rf33\" \"LR\" \"LR\" 0 0"],
+    [ true, "\"pmos_rf33\" \"WR\" \"WR\" 0 0"],
+    [ true, "\"pmos_rf33\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"pmos_rf33_5t\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"pmos_rf33_5t\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"pmos_rf33_5t\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"pmos_rf33_nw\" \"LR\" \"LR\" 0 0"],
+    [ true, "\"pmos_rf33_nw\" \"WR\" \"WR\" 0 0"],
+    [ true, "\"pmos_rf33_nw\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"pmos_rf33_nw_5t\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"pmos_rf33_nw_5t\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"pmos_rf33_nw_5t\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"pmos_rf_5t\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"pmos_rf_5t\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"pmos_rf_5t\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"pmos_rf_nw\" \"LR\" \"LR\" 0 0"],
+    [ true, "\"pmos_rf_nw\" \"WR\" \"WR\" 0 0"],
+    [ true, "\"pmos_rf_nw\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"pmos_rf_nw_5t\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"pmos_rf_nw_5t\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"pmos_rf_nw_5t\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"rnod_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnod_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnodrpo_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnodrpo_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnodw_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnodw_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnpo1_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnpo1_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnpo1rpo_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnpo1rpo_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnpo1w_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnpo1w_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnwod_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnwod_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rnwsti_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rnwsti_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rpod_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rpod_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rpodrpo_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rpodrpo_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rpodw_m\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rpodw_m\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rppo1_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rppo1_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rppo1rpo_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rppo1rpo_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rppo1w_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rppo1w_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rppolyhri_dis\" \"wr\" \"wr\" 0 0"],
+    [ true, "\"rppolyhri_dis\" \"lr\" \"lr\" 0 0"],
+    [ true, "\"rppolyhri_rf\" \"W\" \"W\" 0 0"],
+    [ true, "\"rppolyhri_rf\" \"L\" \"L\" 0 0"],
+    [ true, "\"rppolyl_rf\" \"W\" \"W\" 0 0"],
+    [ true, "\"rppolyl_rf\" \"L\" \"L\" 0 0"],
+    [ true, "\"rppolys_rf\" \"W\" \"W\" 0 0"],
+    [ true, "\"rppolys_rf\" \"L\" \"L\" 0 0"],
+    [ true, "\"rppolywo_rf\" \"W\" \"W\" 0 0"],
+    [ true, "\"rppolywo_rf\" \"L\" \"L\" 0 0"],
+    [ true, "\"sbd_rf\" \"nf\" \"nf\" 0 0"],
+    [ true, "\"sbd_rf\" \"w\" \"w\" 0 0"],
+    [ true, "\"sbd_rf\" \"l\" \"l\" 0 0"],
+    [ true, "\"sbd_rf_nw\" \"nf\" \"nf\" 0 0"],
+    [ true, "\"sbd_rf_nw\" \"w\" \"w\" 0 0"],
+    [ true, "\"sbd_rf_nw\" \"l\" \"l\" 0 0"],
+    [ true, "\"spiral_std_mu_x_20k\" \"lay\" \"lay\" 0 0"],
+    [ true, "\"spiral_std_mu_x_20k\" \"w\" \"w\" 0 0"],
+    [ true, "\"spiral_std_mu_x_20k\" \"spacing\" \"spacing\" 0 0"],
+    [ true, "\"spiral_std_mu_x_20k\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"spiral_std_mu_x_20k\" \"rad\" \"rad\" 0 0"],
+    [ true, "\"spiral_std_mu_x_20k\" \"gdis\" \"gdis\" 0 0"],
+    [ true, "\"spiral_sym_ct_mu_x_20k\" \"lay\" \"lay\" 0 0"],
+    [ true, "\"spiral_sym_ct_mu_x_20k\" \"w\" \"w\" 0 0"],
+    [ true, "\"spiral_sym_ct_mu_x_20k\" \"spacing\" \"spacing\" 0 0"],
+    [ true, "\"spiral_sym_ct_mu_x_20k\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"spiral_sym_ct_mu_x_20k\" \"rad\" \"rad\" 0 0"],
+    [ true, "\"spiral_sym_ct_mu_x_20k\" \"gdis\" \"gdis\" 0 0"],
+    [ true, "\"spiral_sym_mu_x_20k\" \"lay\" \"lay\" 0 0"],
+    [ true, "\"spiral_sym_mu_x_20k\" \"w\" \"w\" 0 0"],
+    [ true, "\"spiral_sym_mu_x_20k\" \"spacing\" \"spacing\" 0 0"],
+    [ true, "\"spiral_sym_mu_x_20k\" \"nr\" \"nr\" 0 0"],
+    [ true, "\"spiral_sym_mu_x_20k\" \"rad\" \"rad\" 0 0"],
+    [ true, "\"spiral_sym_mu_x_20k\" \"gdis\" \"gdis\" 0 0"],
+    [ true, "\"xjvar_nr36\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"xjvar_nr36\" \"W\" \"W\" 0 0"],
+    [ true, "\"xjvar_w40\" \"NR\" \"NR\" 0 0"],
+    [ true, "\"xjvar_w40\" \"W\" \"W\" 0 0"]
+]
+cmn.units.precision.specified = true
+cmn.units.resolution.specified = true
+lvs.ercdb.resultsFile.value = "calibre_erc.db"
+lvs.ercSummaryReport.report.value = "calibre_erc.sum"
+lvs.ercSummaryReport.report.specified = true
+lvs.ercSummaryReport.reportKeywords.value = [ "HIER" ]
+lvs.ercSummaryReport.reportKeywords.specified = true
+
+lvs.rulesPrefs.rulesFileLastLoad.value = 1736818019

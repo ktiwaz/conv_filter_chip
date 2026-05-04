@@ -1,0 +1,35 @@
+# ============================================================
+# Exact pin placement (OpenROAD)
+# ============================================================
+
+puts ">>> OpenROAD exact pin placement running"
+
+# Clock / Reset (LEFT side)
+place_pin -pin_name clk -layer metal2 -location {19.14 350.855} -force_to_die_boundary
+place_pin -pin_name rst -layer metal2 -location {19.14 433.62}  -force_to_die_boundary
+
+# a[3:0] (TOP side)
+place_pin -pin_name {a[3]} -layer metal2 -location {268.09 930.86}  -force_to_die_boundary
+place_pin -pin_name {a[2]} -layer metal2 -location {350.855 930.86} -force_to_die_boundary
+place_pin -pin_name {a[1]} -layer metal2 -location {433.62 930.86}  -force_to_die_boundary
+place_pin -pin_name {a[0]} -layer metal2 -location {516.38 930.86}  -force_to_die_boundary
+
+# b[3:0] (BOTTOM side)
+place_pin -pin_name {b[3]} -layer metal2 -location {185.325 19.14}  -force_to_die_boundary
+place_pin -pin_name {b[2]} -layer metal2 -location {268.09 19.14}   -force_to_die_boundary
+place_pin -pin_name {b[1]} -layer metal2 -location {350.855 19.14}  -force_to_die_boundary
+place_pin -pin_name {b[0]} -layer metal2 -location {433.62 19.14}   -force_to_die_boundary
+
+# out[7:0]
+
+# TOP
+place_pin -pin_name {out[7]} -layer metal2 -location {681.91 930.86}  -force_to_die_boundary
+place_pin -pin_name {out[6]} -layer metal2 -location {764.675 930.86} -force_to_die_boundary
+
+# RIGHT
+place_pin -pin_name {out[5]} -layer metal2 -location {930.86 599.145} -force_to_die_boundary
+place_pin -pin_name {out[4]} -layer metal2 -location {930.86 516.38}  -force_to_die_boundary
+place_pin -pin_name {out[3]} -layer metal2 -location {930.86 433.62}  -force_to_die_boundary
+place_pin -pin_name {out[2]} -layer metal2 -location {930.86 350.855} -force_to_die_boundary
+place_pin -pin_name {out[1]} -layer metal2 -location {930.86 268.09}  -force_to_die_boundary
+place_pin -pin_name {out[0]} -layer metal2 -location {930.86 185.325} -force_to_die_boundary

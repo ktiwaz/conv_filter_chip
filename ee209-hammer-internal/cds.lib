@@ -1,0 +1,20 @@
+# File Created by SEAN CHIA-SHIUAN WANG at Mon Jan 27 19:48:57 2025
+# assisted by CdsLibEditor
+# Cadence libs
+#INCLUDE $ICHOME/share/cdssetup/cds.lib
+#DEFINE connectLib $INCISIVEHOME/tools.lnx86/affirma_ams/etc/connect_lib/connectLib
+
+# PDK_HOME = "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/",  analogLib and basic already defined no need to redefine
+INCLUDE $PDK_HOME/cds.lib
+#DEFINE analogLib $CDSHOME/tools/dfII/etc/cdslib/artist/analogLib
+#DEFINE basic $CDSHOME/tools/dfII/etc/cdslib/basic
+
+DEFINE US_8ths $CDSHOME/tools/dfII/etc/cdslib/sheets/US_8ths
+
+#Removed by ddDeleteObj: DEFINE EE209_Inductor_Library /w/class.1/ee/ee209b/ee209bta/TSMC180SETUP/EE209_Inductor_Library
+#Removed by ddDeleteObj: DEFINE EE209_Inductor_Library_V2 /w/class.1/ee/ee209b/ee209bta/TSMC180SETUP/EE209_Inductor_Library_V2
+DEFINE EE209_Inductor_Library /w/class.1/ee/ee209b/ee209bta/TSMC180SETUP/EE209_Inductor_Library
+#DEFINE ECE215A_PSet_1 /w/home.04/home/devlin11780/Desktop/ece215a/ECE215A_PSet_1
+#DEFINE ECE215A_PSet_4 /w/home.04/home/devlin11780/Desktop/ece215a/ECE215A_PSet_4
+DEFINE UCLA_CEMiD_1x1_PadFrame_PCELL /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/UCLA_CEMiD_1x1_PadFrame_PCELL
+DEFINE Final_Merged_Chip_Lib /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/Final_Merged_Chip_Lib

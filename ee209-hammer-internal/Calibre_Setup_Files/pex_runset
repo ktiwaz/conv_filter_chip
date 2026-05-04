@@ -1,0 +1,33 @@
+//  Runset file generated on Mon Jan 13 17:44:02 2025
+//  by Calibre Interactive v2024.3_16.10    Tue Jul 9 11:27:29 PDT 2024
+//
+//      *** PLEASE DO NOT MODIFY THIS FILE ***
+//
+//
+
+xrc.rulesFile.value = "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/Calibre/rcx/calibre.rcx"
+xrc.runDir.value = "~/ee209bs_WINTER25/PEX"
+xrc.layout.layoutFile.value = "lvs_and_drc_check.calibre.db"
+cmn.layout.defFiles.value = [ "lvs_and_drc_check.def" ]
+xrc.layout.topCellLibrary.value = "homeworks"
+cmn.layout.topCellLibraryFDI.value = "homeworks"
+xrc.layout.topCell.value = "lvs_and_drc_check"
+xrc.layout.topCellView.value = "layout"
+cmn.layout.topCellViewFDI.value = "layout"
+xrc.source.sourceFile.value = "lvs_and_drc_check.src.net"
+xrc.source.topCellLibrary.value = "homeworks"
+xrc.source.topCellLibraryFDI.value = "homeworks"
+xrc.source.topCell.value = "lvs_and_drc_check"
+xrc.source.topCellFDI.value = "lvs_and_drc_check"
+xrc.source.topCellView.value = "schematic"
+xrc.source.topCellViewFDI.value = "schematic"
+xrc.pexNetlist.netlistFile.value = "lvs_and_drc_check.pex.netlist"
+xrc.pexNetlist.netlistFormat.value = "CALIBREVIEW"
+xrc.pexNetlist.ground.value = "VSS"
+xrc.pexNetlist.ground.specified = true
+xrc.reports.lvsReport.value = "lvs_and_drc_check.lvs.report"
+xrc.reports.pexReport.value = "lvs_and_drc_check.pex.report"
+
+xrc.blockExtraction.setADMSNetlistOutputFiles("{cfmom cfmom} {cfmom_mx cfmom_mx} {cfmom_rf cfmom_rf} {crtmom crtmom} {lcesd1_rf lcesd1_rf} {lcesd2_rf lcesd2_rf} {lvs_and_drc_check lvs_and_drc_check.pex.netlist} {mimcap_1p0_sin mimcap_1p0_sin} {mimcap_1p0_sin_3t mimcap_1p0_sin_3t} {mimcap_2p0_shield mimcap_2p0_shield} {mimcap_2p0_sin mimcap_2p0_sin} {mimcap_2p0_sin_3t mimcap_2p0_sin_3t} {mimcap_2p0_wos mimcap_2p0_wos} {mimcap_shield mimcap_shield} {mimcap_wos mimcap_wos} {moscap_rf moscap_rf} {moscap_rf33 moscap_rf33} {moscap_rf33_nw moscap_rf33_nw} {moscap_rf_nw moscap_rf_nw} {nmos_rf nmos_rf} {nmos_rf33 nmos_rf33} {nmos_rf33_6t nmos_rf33_6t} {nmos_rf_6t nmos_rf_6t} {nmoscap nmoscap} {nmoscap_33 nmoscap_33} {pmos_rf pmos_rf} {pmos_rf33 pmos_rf33} {pmos_rf33_5t pmos_rf33_5t} {pmos_rf33_nw pmos_rf33_nw} {pmos_rf33_nw_5t pmos_rf33_nw_5t} {pmos_rf_5t pmos_rf_5t} {pmos_rf_nw pmos_rf_nw} {pmos_rf_nw_5t pmos_rf_nw_5t} {rnod_m rnod_m} {rnodrpo_m rnodrpo_m} {rnodw_m rnodw_m} {rnpo1_dis rnpo1_dis} {rnpo1rpo_dis rnpo1rpo_dis} {rnpo1w_dis rnpo1w_dis} {rnwod_m rnwod_m} {rnwsti_m rnwsti_m} {rpod_m rpod_m} {rpodrpo_m rpodrpo_m} {rpodw_m rpodw_m} {rppo1_dis rppo1_dis} {rppo1rpo_dis rppo1rpo_dis} {rppo1w_dis rppo1w_dis} {rppolyhri_dis rppolyhri_dis} {rppolyhri_rf rppolyhri_rf} {rppolyl_rf rppolyl_rf} {rppolys_rf rppolys_rf} {rppolywo_rf rppolywo_rf} {sbd_rf sbd_rf} {sbd_rf_nw sbd_rf_nw} {spiral_std_mu_x_20k spiral_std_mu_x_20k} {spiral_std_mu_x_40k spiral_std_mu_x_40k} {spiral_sym_ct_mu_x_20k spiral_sym_ct_mu_x_20k} {spiral_sym_ct_mu_x_40k spiral_sym_ct_mu_x_40k} {spiral_sym_mu_x_20k spiral_sym_mu_x_20k} {spiral_sym_mu_x_40k spiral_sym_mu_x_40k} {xjvar_nr36 xjvar_nr36} {xjvar_w40 xjvar_w40} ")
+xrc.blockExtraction.setADMSNetlistOutputVerilogModules("{cfmom cfmom} {cfmom_mx cfmom_mx} {cfmom_rf cfmom_rf} {crtmom crtmom} {lcesd1_rf lcesd1_rf} {lcesd2_rf lcesd2_rf} {lvs_and_drc_check lvs_and_drc_check} {mimcap_1p0_sin mimcap_1p0_sin} {mimcap_1p0_sin_3t mimcap_1p0_sin_3t} {mimcap_2p0_shield mimcap_2p0_shield} {mimcap_2p0_sin mimcap_2p0_sin} {mimcap_2p0_sin_3t mimcap_2p0_sin_3t} {mimcap_2p0_wos mimcap_2p0_wos} {mimcap_shield mimcap_shield} {mimcap_wos mimcap_wos} {moscap_rf moscap_rf} {moscap_rf33 moscap_rf33} {moscap_rf33_nw moscap_rf33_nw} {moscap_rf_nw moscap_rf_nw} {nmos_rf nmos_rf} {nmos_rf33 nmos_rf33} {nmos_rf33_6t nmos_rf33_6t} {nmos_rf_6t nmos_rf_6t} {nmoscap nmoscap} {nmoscap_33 nmoscap_33} {pmos_rf pmos_rf} {pmos_rf33 pmos_rf33} {pmos_rf33_5t pmos_rf33_5t} {pmos_rf33_nw pmos_rf33_nw} {pmos_rf33_nw_5t pmos_rf33_nw_5t} {pmos_rf_5t pmos_rf_5t} {pmos_rf_nw pmos_rf_nw} {pmos_rf_nw_5t pmos_rf_nw_5t} {rnod_m rnod_m} {rnodrpo_m rnodrpo_m} {rnodw_m rnodw_m} {rnpo1_dis rnpo1_dis} {rnpo1rpo_dis rnpo1rpo_dis} {rnpo1w_dis rnpo1w_dis} {rnwod_m rnwod_m} {rnwsti_m rnwsti_m} {rpod_m rpod_m} {rpodrpo_m rpodrpo_m} {rpodw_m rpodw_m} {rppo1_dis rppo1_dis} {rppo1rpo_dis rppo1rpo_dis} {rppo1w_dis rppo1w_dis} {rppolyhri_dis rppolyhri_dis} {rppolyhri_rf rppolyhri_rf} {rppolyl_rf rppolyl_rf} {rppolys_rf rppolys_rf} {rppolywo_rf rppolywo_rf} {sbd_rf sbd_rf} {sbd_rf_nw sbd_rf_nw} {spiral_std_mu_x_20k spiral_std_mu_x_20k} {spiral_std_mu_x_40k spiral_std_mu_x_40k} {spiral_sym_ct_mu_x_20k spiral_sym_ct_mu_x_20k} {spiral_sym_ct_mu_x_40k spiral_sym_ct_mu_x_40k} {spiral_sym_mu_x_20k spiral_sym_mu_x_20k} {spiral_sym_mu_x_40k spiral_sym_mu_x_40k} {xjvar_nr36 xjvar_nr36} {xjvar_w40 xjvar_w40} ")
+

@@ -393,7 +393,7 @@ class OpenROADPlaceAndRoute(OpenROADPlaceAndRouteTool):
         remove_buffers
 
         # IO Placement (random)
-        {self.place_pins_tcl(random=True)}
+        #{self.place_pins_tcl(random=True)}
         """)
         
         return True
@@ -659,11 +659,11 @@ class OpenROADPlaceAndRoute(OpenROADPlaceAndRouteTool):
         return f"place_pins {random_arg} -hor_layers {{{' '.join(hor_layers)}}} -ver_layers {{{' '.join(ver_layers)}}} {side}"
 
     def place_pins(self) -> bool:
-        self.block_append(f"""
+        #self.block_append(f"""
         ################################################################
         # IO Placement
-        {self.place_pins_tcl()}
-        """)
+        #{self.place_pins_tcl()}
+        #""")
         return True
 
     def place_opt_design(self) -> bool:
@@ -1019,6 +1019,10 @@ class OpenROADPlaceAndRoute(OpenROADPlaceAndRouteTool):
                 self.logger.error("Invalid floorplan_mode {mode}. Using blank floorplan.".format(mode=floorplan_mode))
             # Write blank floorplan
             output.append("# Blank floorplan specified from HAMMER")
+
+        output.append('puts ">>> Running custom pin placement"')
+        output.append('source ../../tcl/place_pins_openroad.tcl')
+
         return output
 
     @staticmethod

@@ -1,0 +1,68 @@
+INFO (ABS-19020): Starting @(#)$CDS: Abstract version IC23.1-64b 05/22/2024 07:38 (cpgbld16) $, sub-version  IC23.1-64b.ISR7.27 , on  3.10.0-693.el7.x86_64
+INFO (ABS-19012): Replaying .abstract/replay/.abstract.replay file.
+INFO (ABS-19030): 1 absSkillMode()
+t
+INFO (ABS-19030): 2 absSetLibrary("UCLA_CEMiD_1x1_PadFrame_PCELL")
+INFO (ABS-10500): Library UCLA_CEMiD_1x1_PadFrame_PCELL Opening /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/UCLA_CEMiD_1x1_PadFrame_PCELL
+Initializing from libInit.il for library tsmc18...
+   --  pcell18v1a.cdn
+   --  tsmc18_updateCDFs.ile
+   --  tsmc18.cxt
+Loading Working place Display File '/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/display.drf'
+INFO (ABS-10011): Verifying Technology Data ...
+INFO (ABS-10012): Layer summary: 7 metal layer(s), 6 via layer(s), 3 poly layer(s), and 1 diff layer(s) found
+INFO (ABS-20023): Via summary: 22 valid via(s) found
+INFO (ABS-10503): Loading options for library UCLA_CEMiD_1x1_PadFrame_PCELL from file /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/.abstract/UCLA_CEMiD_1x1_PadFrame_PCELL/.abstract.options.
+INFO (ABS-10501): Library UCLA_CEMiD_1x1_PadFrame_PCELL Loading 98 cells
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 10 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 20 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 30 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 40 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 50 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 60 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 70 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 80 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 90 percent complete...
+INFO (ABS-19022): Loading library UCLA_CEMiD_1x1_PadFrame_PCELL 100 percent complete...
+INFO (ABS-10502): Library UCLA_CEMiD_1x1_PadFrame_PCELL Loaded 98 cells
+INFO (ABS-10507): Library UCLA_CEMiD_1x1_PadFrame_PCELL opened
+t
+INFO (ABS-19030): 3 absDeselectAllBins()
+1
+INFO (ABS-19030): 4 absMoveCellToBin("UCLA_CEMiD_pad_frame_1x1_pcell" "Block")
+0
+INFO (ABS-19030): 5 absSelectBin("Block")
+1
+INFO (ABS-19030): 6 absDeselectCells()
+1
+INFO (ABS-19030): 7 absSelectCellFrom("UCLA_CEMiD_pad_frame_1x1_pcell" "UCLA_CEMiD_pad_frame_1x1_pcell")
+1
+INFO (ABS-19030): 8 absSetOption("ViewLayout" "layout")
+1
+INFO (ABS-19030): 9 absAbstract()
+INFO (ABS-12014): Cell UCLA_CEMiD_pad_frame_1x1_pcell: The PR boundary has been created successfully.
+INFO (ABS-12015): Cell UCLA_CEMiD_pad_frame_1x1_pcell: The PR boundary does not enclose all cellview geometries. This is because not all layers with geometry for calculating PR boundary have been specified in the "Using geometry on layers" field on the "Boundary" tab. Ensure that all the required layers have been specified in this field.
+*WARNING* (ABS-12004): Cell UCLA_CEMiD_pad_frame_1x1_pcell: The abstract generator could not generate pins because the "Map text labels to pins" field did not contain valid values. You can proceed with the Extract step. However, to generate pins in the abstract view, specify valid values in the "Map text labels to pins" field and rerun the Pins step.
+*WARNING* (ABS-15070): The UCLA_CEMiD_pad_frame_1x1_pcell cell has no power terminals.
+*WARNING* (ABS-15071): The UCLA_CEMiD_pad_frame_1x1_pcell cell has no ground terminals.
+*WARNING* (ABS-15072): The UCLA_CEMiD_pad_frame_1x1_pcell cell has no input terminals.
+*WARNING* (ABS-15073): The UCLA_CEMiD_pad_frame_1x1_pcell cell has no output terminals.
+INFO (ABS-13002): Cell UCLA_CEMiD_pad_frame_1x1_pcell: extracting 0 nets
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating detailed blockages for layer MICO
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating cover blockages for layer METAL1
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating cover blockages for layer METAL2
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating cover blockages for layer METAL3
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating cover blockages for layer METAL4
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating cover blockages for layer METAL5
+INFO (ABS-19026): Cell UCLA_CEMiD_pad_frame_1x1_pcell: Generating cover blockages for layer METAL6
+*WARNING* (ABS-11026): Bus annotation cannot be completed for the specified abstract because the logical view for cell UCLA_CEMiD_pad_frame_1x1_pcell is invalid.
+1
+INFO (ABS-19030): 10 absExit()
+INFO (ABS-10508): Library UCLA_CEMiD_1x1_PadFrame_PCELL closing /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/UCLA_CEMiD_1x1_PadFrame_PCELL
+INFO (ABS-10509): Saving existing options file for library UCLA_CEMiD_1x1_PadFrame_PCELL to /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/.abstract/UCLA_CEMiD_1x1_PadFrame_PCELL/.abstract.options.prev
+INFO (ABS-10511): Saving current option settings for library UCLA_CEMiD_1x1_PadFrame_PCELL to the file /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/.abstract/UCLA_CEMiD_1x1_PadFrame_PCELL/.abstract.options.
+INFO (ABS-10515): Library UCLA_CEMiD_1x1_PadFrame_PCELL closed
+INFO (ABS-10529): Abstract Generation finished for Library UCLA_CEMiD_1x1_PadFrame_PCELL 
+t
+INFO (ABS-19013): Finished replaying .abstract/replay/.abstract.replay file.
+INFO (ABS-19021): Finished sub-version  IC23.1-64b.ISR7.27 

@@ -1,0 +1,266 @@
+VERSION 5.8 ;
+BUSBITCHARS "[]" ;
+DIVIDERCHAR "/" ;
+
+MACRO padframe
+  CLASS BLOCK ;
+  ORIGIN 0 0 ;
+  SIZE 914.88 BY 914.88 ;
+  SYMMETRY X Y ;
+
+  SITE core ;
+
+  PIN pin1
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 167.765 1.58 167.765 1.58 ;
+    END
+  END pin1
+
+  PIN pin2
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 250.53 1.58 250.53 1.58 ;
+    END
+  END pin2
+
+  PIN pin3
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 333.295 1.58 333.295 1.58 ;
+    END
+  END pin3
+
+  PIN pin4
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 416.06 1.58 416.06 1.58 ;
+    END
+  END pin4
+
+  PIN pin5
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 498.82 1.58 498.82 1.58 ;
+    END
+  END pin5
+
+  PIN pin6
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 581.585 1.58 581.585 1.58 ;
+    END
+  END pin6
+
+  PIN pin7
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 664.35 1.58 664.35 1.58 ;
+    END
+  END pin7
+
+  PIN pin8
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 167.765 913.30 167.765 ;
+    END
+  END pin8
+
+  PIN pin9
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 250.53 913.30 250.53 ;
+    END
+  END pin9
+
+  PIN pin10
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 333.295 913.30 333.295 ;
+    END
+  END pin10
+
+  PIN pin11
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 416.06 913.30 416.06 ;
+    END
+  END pin11
+
+  PIN pin12
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 498.82 913.30 498.82 ;
+    END
+  END pin12
+
+  PIN pin13
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 581.585 913.30 581.585 ;
+    END
+  END pin13
+
+  PIN pin14
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 747.115 913.30 747.115 913.30 ;
+    END
+  END pin14
+
+  PIN pin15
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 664.35 913.30 664.35 913.30 ;
+    END
+  END pin15
+
+  PIN pin16
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 581.585 913.30 581.585 913.30 ;
+    END
+  END pin16
+
+  PIN pin17
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 498.82 913.30 498.82 913.30 ;
+    END
+  END pin17
+
+  PIN pin18
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 416.06 913.30 416.06 913.30 ;
+    END
+  END pin18
+
+  PIN pin19
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 333.295 913.30 333.295 913.30 ;
+    END
+  END pin19
+
+  PIN pin20
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 250.53 913.30 250.53 913.30 ;
+    END
+  END pin20
+
+  PIN pin21
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 1.58 333.295 1.58 333.295 ;
+    END
+  END pin21
+
+  PIN pin22
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 1.58 416.06 1.58 416.06 ;
+    END
+  END pin22
+
+  PIN pin23
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 1.58 498.82 1.58 498.82 ;
+    END
+  END pin23
+
+  PIN pin24
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 1.58 581.585 1.58 581.585 ;
+    END
+  END pin24
+
+  PIN pin25
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 1.58 664.35 1.58 664.35 ;
+    END
+  END pin25
+
+  PIN pin26
+    DIRECTION INOUT ;
+    USE SIGNAL ;
+    PORT
+      LAYER METAL6 ;
+      RECT 1.58 747.115 1.58 747.115 ;
+    END
+  END pin26
+
+  PIN VDD
+    DIRECTION INOUT ;
+    USE POWER ;
+    PORT
+      LAYER METAL6 ;
+      RECT 913.30 747.115 913.30 747.115 ;
+    END
+  END VDD
+
+  PIN VSS
+    DIRECTION INOUT ;
+    USE GROUND ;
+    PORT
+      LAYER METAL4 ;
+      RECT 913.30 664.35 913.30 664.35 ;
+    END
+  END VSS
+
+END padframe
+END LIBRARY

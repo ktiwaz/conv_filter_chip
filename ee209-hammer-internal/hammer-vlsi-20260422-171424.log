@@ -1,0 +1,7 @@
+[<global>] Level.INFO: Loading hammer-vlsi libraries and reading settings
+[<global>] Level.INFO: Loading technology 'tsmc180'
+[<global>] Level.INFO: Starting synthesis with tool 'genus'
+[synthesis] Level.ERROR: Target step 'floorplan' specified by --from/after/to/until_step does not exist
+[<global>] Level.ERROR: Synthesis tool genus failed! Please check its output.
+[<global>] Level.FATAL: Nothing set for the output collection of mapped (post-synthesis) RTL files yet
+[<global>] Level.ERROR: Synthesis tool did not succeed

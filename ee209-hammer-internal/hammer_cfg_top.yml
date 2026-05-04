@@ -5,7 +5,7 @@ vlsi.core.build_system: make # Generate Make include to aid in flow
 
 # Tools and Technology setup
 vlsi.core:
-  # tsmc180 process
+  # tsmc180 proces
   technology: tsmc180
   node: 180
   # SRAM generator
@@ -66,8 +66,13 @@ vlsi.inputs.placement_constraints:
     margins: {left: 0, right: 0, top: 0, bottom: 0}
 
 # Pin placement constraints
-vlsi.inputs.pin_mode: generated
-vlsi.inputs.pin.generate_mode: semi_auto
-vlsi.inputs.pin.assignments: [
-  {pins: "*", layers: ["METAL2", "METAL4"], side: "bottom"}
-]
+#vlsi.inputs.pin_mode: generated
+#vlsi.inputs.pin.generate_mode: semi_auto
+#vlsi.inputs.pin.assignments: [
+#  {pins: "*", layers: ["METAL2", "METAL4"], side: "bottom"}
+#]
+
+#par:
+#  outputs:
+#    gds_merge:
+#      - /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/UCLA_CEMiD_pad_frame_1x1_pcell.gds

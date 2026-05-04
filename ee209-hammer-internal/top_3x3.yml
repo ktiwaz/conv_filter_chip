@@ -2,18 +2,49 @@ synthesis.inputs:
   top_module: "top_3x3"
   input_files:
     - "top_3x3.sv"
-    - "../hardware/src/conv_filter_top.sv"
-    - "../hardware/src/convolution_core.sv"
-    - "../hardware/src/io_control_fsm.sv"
-    - "../hardware/src/kernel_register_array.sv"
-    - "../hardware/src/normalization_register.sv"
-    - "../hardware/src/normalize_clamp.sv"
-    - "../hardware/src/sliding_window.sv"
-    - "../hardware/src/window_dot_product.sv"
-    - "../hardware/src/window_dot_product_generic.sv"
-    - "../hardware/src/window_dot_product_5x5.sv"
+    - "./hardware/src/conv_filter_top.sv"
+    - "./hardware/src/convolution_core.sv"
+    - "./hardware/src/io_control_fsm.sv"
+    - "./hardware/src/kernel_register_array.sv"
+    - "./hardware/src/normalization_register.sv"
+    - "./hardware/src/normalize_clamp.sv"
+    - "./hardware/src/sliding_window.sv"
+    - "./hardware/src/window_dot_product.sv"
+    - "./hardware/src/window_dot_product_generic.sv"
+    - "./hardware/src/window_dot_product_5x5.sv"
+
+#sim.inputs:
+#  top_module: "tb"
+#  tb_name: "tb"
+#  input_files:
+#    - "top_3x3.sv"
+#    - "./hardware/src/conv_filter_top.sv"
+#    - "./hardware/src/convolution_core.sv"
+#    - "./hardware/src/io_control_fsm.sv"
+#    - "./hardware/src/kernel_register_array.sv"
+#    - "./hardware/src/normalization_register.sv"
+#    - "./hardware/src/normalize_clamp.sv"
+#    - "./hardware/src/sliding_window.sv"
+#    - "./hardware/src/window_dot_product.sv"
+#    - "./hardware/src/window_dot_product_generic.sv"
+#    - "./hardware/src/window_dot_product_5x5.sv"
+#  tb_input_files:
+#    - "tb.v"
 
 vlsi.inputs.clocks:
   - name: "clk"
     period: "10ns"
     path: "clk"
+
+par.power_straps_mode: generate
+par.generate_power_straps_method: by_tracks
+par.generate_power_straps_options:
+  by_tracks:
+    track_width: 2
+    power_utilization: 0.3
+    strap_layers:
+      - METAL2
+      - METAL3
+      - METAL4
+      - METAL5
+      - METAL6

@@ -1,0 +1,39 @@
+//  Runset file generated on Mon Jan 13 17:37:44 2025
+//  by Calibre Interactive v2024.3_16.10    Tue Jul 9 11:27:29 PDT 2024
+//
+//      *** PLEASE DO NOT MODIFY THIS FILE ***
+//
+//
+
+drc.rulesFile.value = "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/Calibre/drc/calibre.drc"
+drc.runDir.value = "~/ee209bs_WINTER25/DRC"
+drc.layout.layoutFile.value = "lvs_and_drc_check.calibre.db"
+cmn.layout.defFiles.value = [ "lvs_and_drc_check.def" ]
+drc.layout.topCellLibrary.value = "homeworks"
+cmn.layout.topCellLibraryFDI.value = "homeworks"
+drc.layout.topCell.value = "lvs_and_drc_check"
+drc.layout.topCellView.value = "layout"
+cmn.layout.topCellViewFDI.value = "layout"
+drc.drcdb.resultsFile.value = "lvs_and_drc_check.drc.results"
+drc.drcdb.resultsCheckText.value = "ALL"
+drc.drcdb.resultsCheckText.specified = true
+drc.drcSideRdbs.parameters = [
+    [ false, "NAR", "M1Hole.density2"],
+    [ false, "NAR", "M2Hole.density2"],
+    [ false, "NAR", "M3Hole.density2"],
+    [ false, "NAR", "M4Hole.density2"],
+    [ false, "NAR", "M5Hole.density2"],
+    [ false, "NAR", "M6Hole.density2"],
+    [ false, "NAR", "MDHole.density2"],
+    [ false, "NAR", "VIA5_DENSITY.log"]
+]
+drc.drcSideRdbs.specified = true
+drc.reports.drcSummaryReport.value = "lvs_and_drc_check.drc.summary"
+drc.rhdb.fileName.value = "lvs_and_drc_check.rhdb"
+drc.drcMaximumResults.upperLimit.value = "MAXIMUMALL"
+cmn.units.precision.specified = true
+cmn.units.resolution.value = [ "5" ]
+cmn.units.resolution.specified = true
+drc.dfmDefaults.resultsFile.value = "lvs_and_drc_check.dfmDefaults.db"
+
+drc.rulesPrefs.rulesFileLastLoad.value = 1736817573

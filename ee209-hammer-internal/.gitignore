@@ -12,3 +12,12 @@ basejump_stl
 **/DVEfiles
 **/output.json
 **_rom.v
+
+# Innovus generated logs/command history
+innovus.log*
+innovus.logv*
+innovus.cmd*
+
+# Cadence generated local/session/cache files
+.abstract/
+.cadence/

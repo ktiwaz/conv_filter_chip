@@ -1,0 +1,933 @@
+[<global>] Level.INFO: Loading hammer-vlsi libraries and reading settings
+[<global>] Level.INFO: Loading technology 'tsmc180'
+[<global>] Level.INFO: Starting place and route with tool 'innovus'
+[par] Level.DEBUG: Running persistent sub-step 'innovus_global_settings' before 'init_design'
+[par] Level.DEBUG: Running sub-step 'init_design'
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_MODIFIED/tsmc018_6lm4X1U_40KAUTM_7T.tlef"} has no supplies annotation! Using anyway.
+[tech] Level.WARNING: Lib {"lef file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef", "gds file": "$TSMC180RF_Standard_IO/../../../tpb018v_190a/TSMCHOME/digital/Back_End/gds/tpb018v_190a/cup/6lm/tpb018v.gds"} has no supplies annotation! Using anyway.
+[par] Level.DEBUG: Running sub-step 'tsmc180_innovus_settings'
+[par] Level.DEBUG: Running sub-step 'floorplan_design'
+[par] Level.INFO: Pausing tool execution after 'floorplan_design' due to pause hook
+[par] Level.DEBUG: Sub-step 'place_bumps' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'tsmc180_add_endcaps' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'place_tap_cells' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'power_straps' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'place_pins' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'place_opt_design' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'innovus_snap_floorplan' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'clock_tree' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'add_fillers' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'route_design' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'opt_design' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'write_regs' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'innovus_overwrite_write_sdf_funct' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'innovus_extra_reports' skipped due to pause hook
+[par] Level.DEBUG: Sub-step 'write_design' skipped due to pause hook
+[par] Level.DEBUG: Running persistent sub-step 'innovus_global_settings' before 'init_design'
+[par] Level.DEBUG: Executing subprocess: /w/apps4/Cadence/INNOVUS211/bin/innovus -nowin -common_ui -files /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/par.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Cadence Innovus(TM) Implementation System.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Copyright 2021 Cadence Design Systems, Inc. All rights reserved worldwide.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Version:	v21.19-s058_1, built Thu Apr 4 09:59:17 PDT 2024
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Options:	-nowin -common_ui -files /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/par.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Date:		Wed Apr 22 16:54:58 2026
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Host:		eeapps01.labidm.seas.ucla.edu (x86_64 w/Linux 4.18.0-553.85.1.el8_10.x86_64) (8cores*32cpus*Intel(R) Xeon(R) CPU E5-2630 v3 @ 2.40GHz 20480KB)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: OS:		Red Hat Enterprise Linux 8.10 (Ootpa)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: License:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 		[16:54:58.336874] Configured Lic search path (21.01-s002): 5281@lm-cadence.seas.ucla.edu:1717@lm-mentor.seas.ucla.edu
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 		invs	Innovus Implementation System	21.1	checkout succeeded
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 		8 CPU jobs allowed with the current license(s). Use set_multi_cpu_usage to set your required CPU count.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Create and set the environment variable TMPDIR to /tmp/innovus_temp_4055455_eeapps01.labidm.seas.ucla.edu_devlin11780_yTiWNR.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Change the soft stacksize limit to 0.2%RAM (127 mbytes). Set global soft_stack_size_limit to change the value.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **INFO:  MMMC transition support version v31-84
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: [INFO] Loading Pegasus 23.23 fill procedures
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: Tk package not loaded. The Pegasus fill DRC monitor is disabled.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #@ Processing -files option
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @innovus 1> source /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/par.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #@ Begin verbose source (pre): source /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/par.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 1: puts "set_db design_process_node 180"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db design_process_node 180
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 2: set_db design_process_node 180
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ##  Process: 180           (User Set)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ##     Node: (not set)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ##  Check design process and node:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ##  Design tech node is not set.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Applying the recommended capacitance filtering threshold values for 180nm process node: total_c_th=5, relative_c_th=0.03 and coupling_c_th=3.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 	These values will be used by all post-route extraction engines, including TQuantus, IQuantus and Quantus QRC extraction.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 	For post_route extract_rc_effort_level low extraction, the coupling_c_th value will be used only when the extract_rc_cap_filter_mode parameter of the set_db command is set to relative_and_coupling or relative_or_coupling. Default value of extract_rc_cap_filter_mode parameter in post_route extraction extract_rc_effort_level low is relative_only.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 	The accuracy mode for post_route extract_rc_effort_level low extraction will be set to 'standard'.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 	Default value for EffortLevel(extract_rc_effort_level option of the set_db) in post_route extraction mode is 'low'.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 3: puts "set_multi_cpu_usage -local_cpu 4"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_multi_cpu_usage -local_cpu 4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 4: set_multi_cpu_usage -local_cpu 4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 5: puts "set_db timing_analysis_cppr both"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db timing_analysis_cppr both
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 6: set_db timing_analysis_cppr both
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 7: puts "set_db timing_analysis_type ocv"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db timing_analysis_type ocv
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 8: set_db timing_analysis_type ocv
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 9: puts "set_library_unit -time 1ns"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_library_unit -time 1ns
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 10: set_library_unit -time 1ns
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 11: puts "set_db init_design_uniquify true"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db init_design_uniquify true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 12: set_db init_design_uniquify true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 13: puts "set_db si_delay_separate_on_data true"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db si_delay_separate_on_data true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 14: set_db si_delay_separate_on_data true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 15: puts "set_db si_delay_enable_report true"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db si_delay_enable_report true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 16: set_db si_delay_enable_report true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 17: puts "read_physical -lef { /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tsmc018_6lm4X1U_40KAUTM_7T.tlef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tpd018nv_6lm_modified.lef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef }"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: read_physical -lef { /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tsmc018_6lm4X1U_40KAUTM_7T.tlef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tpd018nv_6lm_modified.lef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef }
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 18: read_physical -lef { /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tsmc018_6lm4X1U_40KAUTM_7T.tlef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tpd018nv_6lm_modified.lef /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef }
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Loading LEF file /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tsmc018_6lm4X1U_40KAUTM_7T.tlef ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Loading LEF file /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/lef/tcb018gbwp7t_6lm.lef ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'POLY1' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'POLY2' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'CONT' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'METAL1' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'VIA12' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'METAL2' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'VIA23' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'METAL3' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'VIA34' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'METAL4' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'VIA45' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'METAL5' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'VIA56' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'METAL6' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-119):	LAYER 'OVERLAP' has been found in the database. Its content except ANTENNA* data will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Review the LEF files specified in the init_lef_files variable and remove redundant definitions.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-119' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA12_HV' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA12_VH' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA12_HH' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA12_VV' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA2' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA2NORTH' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA2SOUTH' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA3' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA3EAST' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA3WEST' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA4' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA4NORTH' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA4SOUTH' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA5' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA5EAST' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **ERROR: (IMPLF-223):	The LEF via 'VIA5WEST' definition already exists in the database. The current definition will be ignored. Ensure that you have not specified duplicate LEF files or LEF files with duplicate via definition.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-223' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-151):	The viaRule 'VIAGEN12' has been defined, the content will be skipped.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-151):	The viaRule 'VIAGEN23' has been defined, the content will be skipped.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-151):	The viaRule 'VIAGEN34' has been defined, the content will be skipped.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-151):	The viaRule 'VIAGEN45' has been defined, the content will be skipped.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-151):	The viaRule 'VIAGEN56' has been defined, the content will be skipped.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Set DBUPerIGU to M2 pitch 1120.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Loading LEF file /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tpd018nv_6lm_modified.lef ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: WARNING (LEFPARS-2001): No VERSION statement found, using the default value 5.8. See file /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/tpd018nv_6lm_modified.lef at line 7149.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Loading LEF file /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: WARNING (LEFPARS-2001): No VERSION statement found, using the default value 5.8. See file /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/../../../tpb018v_190a/TSMCHOME/digital/Back_End/lef/tpb018v_190a/cup/6lm/lef/tpb018v_6lm.lef at line 329.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'XO' in macro 'PXOE2CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'XI' in macro 'PXOE2CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'XE' in macro 'PXOE2CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'XC' in macro 'PXOE2CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'XO' in macro 'PXOE1CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'XI' in macro 'PXOE1CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'XE' in macro 'PXOE1CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'XC' in macro 'PXOE1CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'AVSS' in macro 'PVSS2ANA' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'AVSS' in macro 'PVSS2ANA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'AVSS' in macro 'PVSS1ANA' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'AVSS' in macro 'PVSS1ANA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'VDDPST' in macro 'PVDD2POC' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'VDDPST' in macro 'PVDD2POC' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'AVDD' in macro 'PVDD2ANA' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'AVDD' in macro 'PVDD2ANA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'AVDD' in macro 'PVDD1ANA' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'AVDD' in macro 'PVDD1ANA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'PE' in macro 'PRUW1216SCDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'PAD' in macro 'PRUW1216SCDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'PAD' in macro 'PRUW1216SCDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'OEN' in macro 'PRUW1216SCDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'IE' in macro 'PRUW1216SCDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'I' in macro 'PRUW1216SCDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'DS' in macro 'PRUW1216SCDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'C' in macro 'PRUW1216SCDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'PE' in macro 'PRUW1216CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'PAD' in macro 'PRUW1216CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'PAD' in macro 'PRUW1216CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'OEN' in macro 'PRUW1216CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'IE' in macro 'PRUW1216CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-200):	Pin 'I' in macro 'PRUW1216CDG' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-200' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (EMS-27):	Message (IMPLF-200) has exceeded the current message display limit of 20.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: To increase the message display limit, refer to the product command reference manual.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'C' in macro 'PRUW1216CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'PAD' in macro 'PRUW0812SCDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'C' in macro 'PRUW0812SCDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'PAD' in macro 'PRUW0812CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'C' in macro 'PRUW0812CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'PAD' in macro 'PRUW0408SCDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'C' in macro 'PRUW0408SCDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPLF-201):	Pin 'PAD' in macro 'PRUW0408CDG' has no ANTENNADIFFAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPLF-201' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (EMS-27):	Message (IMPLF-201) has exceeded the current message display limit of 20.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: To increase the message display limit, refer to the product command reference manual.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ##  Check design process and node:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ##  Design tech node is not set.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 19: puts "read_mmmc /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/mmmc.tcl"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: read_mmmc /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/mmmc.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 20: read_mmmc /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/mmmc.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #@ Begin verbose source /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/mmmc.tcl (pre)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 1: puts "create_constraint_mode -name my_constraint_mode -sdc_files [list /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_constraint_mode -name my_constraint_mode -sdc_files /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 2: create_constraint_mode -name my_constraint_mode -sdc_files [list /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 3: puts "create_library_set -name WCCOM.setup_set -timing [list /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_library_set -name WCCOM.setup_set -timing /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 4: create_library_set -name WCCOM.setup_set -timing [list /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 5: puts "create_timing_condition -name WCCOM.setup_cond -library_sets [list WCCOM.setup_set]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_timing_condition -name WCCOM.setup_cond -library_sets WCCOM.setup_set
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 6: create_timing_condition -name WCCOM.setup_cond -library_sets [list WCCOM.setup_set]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 7: puts "create_rc_corner -name WCCOM.setup_rc -temperature 125.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_rc_corner -name WCCOM.setup_rc -temperature 125.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 8: create_rc_corner -name WCCOM.setup_rc -temperature 125.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 9: puts "create_delay_corner -name WCCOM.setup_delay -timing_condition WCCOM.setup_cond -rc_corner WCCOM.setup_rc"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_delay_corner -name WCCOM.setup_delay -timing_condition WCCOM.setup_cond -rc_corner WCCOM.setup_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 10: create_delay_corner -name WCCOM.setup_delay -timing_condition WCCOM.setup_cond -rc_corner WCCOM.setup_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 11: puts "create_analysis_view -name WCCOM.setup_view -delay_corner WCCOM.setup_delay -constraint_mode my_constraint_mode"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_analysis_view -name WCCOM.setup_view -delay_corner WCCOM.setup_delay -constraint_mode my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 12: create_analysis_view -name WCCOM.setup_view -delay_corner WCCOM.setup_delay -constraint_mode my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 13: puts "create_library_set -name BCCOM.hold_set -timing [list /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tlt_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_library_set -name BCCOM.hold_set -timing /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tlt_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 14: create_library_set -name BCCOM.hold_set -timing [list /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tlt_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 15: puts "create_timing_condition -name BCCOM.hold_cond -library_sets [list BCCOM.hold_set]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_timing_condition -name BCCOM.hold_cond -library_sets BCCOM.hold_set
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 16: create_timing_condition -name BCCOM.hold_cond -library_sets [list BCCOM.hold_set]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 17: puts "create_rc_corner -name BCCOM.hold_rc -temperature -40.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_rc_corner -name BCCOM.hold_rc -temperature -40.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 18: create_rc_corner -name BCCOM.hold_rc -temperature -40.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 19: puts "create_delay_corner -name BCCOM.hold_delay -timing_condition BCCOM.hold_cond -rc_corner BCCOM.hold_rc"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_delay_corner -name BCCOM.hold_delay -timing_condition BCCOM.hold_cond -rc_corner BCCOM.hold_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 20: create_delay_corner -name BCCOM.hold_delay -timing_condition BCCOM.hold_cond -rc_corner BCCOM.hold_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 21: puts "create_analysis_view -name BCCOM.hold_view -delay_corner BCCOM.hold_delay -constraint_mode my_constraint_mode"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_analysis_view -name BCCOM.hold_view -delay_corner BCCOM.hold_delay -constraint_mode my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 22: create_analysis_view -name BCCOM.hold_view -delay_corner BCCOM.hold_delay -constraint_mode my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 23: puts "create_library_set -name NCCOM.extra_set -timing [list /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7ttc_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvtc.lib]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_library_set -name NCCOM.extra_set -timing /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7ttc_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvtc.lib
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 24: create_library_set -name NCCOM.extra_set -timing [list /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7ttc_ccs.lib /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvtc.lib]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 25: puts "create_timing_condition -name NCCOM.extra_cond -library_sets [list NCCOM.extra_set]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_timing_condition -name NCCOM.extra_cond -library_sets NCCOM.extra_set
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 26: create_timing_condition -name NCCOM.extra_cond -library_sets [list NCCOM.extra_set]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 27: puts "create_rc_corner -name NCCOM.extra_rc -temperature 25.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_rc_corner -name NCCOM.extra_rc -temperature 25.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 28: create_rc_corner -name NCCOM.extra_rc -temperature 25.0 -qrc_tech /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile -cap_table /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 29: puts "create_delay_corner -name NCCOM.extra_delay -timing_condition NCCOM.extra_cond -rc_corner NCCOM.extra_rc"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_delay_corner -name NCCOM.extra_delay -timing_condition NCCOM.extra_cond -rc_corner NCCOM.extra_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 30: create_delay_corner -name NCCOM.extra_delay -timing_condition NCCOM.extra_cond -rc_corner NCCOM.extra_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 31: puts "create_analysis_view -name NCCOM.extra_view -delay_corner NCCOM.extra_delay -constraint_mode my_constraint_mode"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: create_analysis_view -name NCCOM.extra_view -delay_corner NCCOM.extra_delay -constraint_mode my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 32: create_analysis_view -name NCCOM.extra_view -delay_corner NCCOM.extra_delay -constraint_mode my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 33: puts "set_analysis_view -setup { WCCOM.setup_view } -hold { BCCOM.hold_view NCCOM.extra_view }"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_analysis_view -setup { WCCOM.setup_view } -hold { BCCOM.hold_view NCCOM.extra_view }
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 34: set_analysis_view -setup { WCCOM.setup_view } -hold { BCCOM.hold_view NCCOM.extra_view }
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #@ End verbose source /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/mmmc.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Starting library reading in 'Multi-threaded flow' (with '4' threads)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Threads Configured:4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading WCCOM.setup_set timing library /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'DCAPBWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'DCAP8BWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'DCAP64BWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'DCAP4BWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'DCAP32BWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'DCAP16BWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'ANTENNABWP7T'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7twc_ccs.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Read 560 cells in library tcb018gbwp7twc_ccs.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading WCCOM.setup_set timing library /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS3CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS2CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS2ANA'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS1CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS1ANA'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVDD2POC'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVDD2CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVDD2ANA'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVDD1CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVDD1ANA'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PRCUT'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvwc.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Read 45 cells in library tpd018nvwc.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Library reading multithread flow ended.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Starting library reading in 'Multi-threaded flow' (with '4' threads)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Threads Configured:4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading BCCOM.hold_set timing library /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7tlt_ccs.lib.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Read 560 cells in library tcb018gbwp7tlt_ccs.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading BCCOM.hold_set timing library /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS3CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TECHLIB-302):	No function defined for cell 'PVSS2CDG'. The cell will only be used for analysis. (File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvlt.lib)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Message <TECHLIB-302> has exceeded the message display limit of '20'. Use 'set_message -no_limit -id list_of_msgIDs' to reset the message limit.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Read 45 cells in library tpd018nvlt.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Library reading multithread flow ended.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 21: puts "read_netlist { /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.v } -top top"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: read_netlist { /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.v } -top top
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 22: read_netlist { /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.v } -top top
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% Begin Load netlist data ... (date=04/22 16:55:30, mem=940.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Begin netlist parsing (mem=1272.5M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR4D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR4D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR4D1BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR4D1BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR4D0BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR4D0BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR3D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR3D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR3D1BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR3D1BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR3D0BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR3D0BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR2D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR2D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR2D1BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR2D1BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XOR2D0BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XOR2D0BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VSS' of cell 'XNR4D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPVL-159):	Pin 'VDD' of cell 'XNR4D2BWP7T' is defined in LEF but not in the timing library.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPVL-159' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (EMS-27):	Message (IMPVL-159) has exceeded the current message display limit of 20.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: To increase the message display limit, refer to the product command reference manual.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Pin 'VSS' of cell 'PVSS3CDG' is declared as power/ground in LEF but as signal in timing library.  Treat it as power/ground.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Pin 'VSSPST' of cell 'PVSS2CDG' is declared as power/ground in LEF but as signal in timing library.  Treat it as power/ground.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Pin 'VSS' of cell 'PVSS1CDG' is declared as power/ground in LEF but as signal in timing library.  Treat it as power/ground.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Pin 'VDDPST' of cell 'PVDD2CDG' is declared as power/ground in LEF but as signal in timing library.  Treat it as power/ground.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Pin 'VDD' of cell 'PVDD1CDG' is declared as power/ground in LEF but as signal in timing library.  Treat it as power/ground.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Created 605 new cells from 4 timing libraries.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading netlist ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Backslashed names will retain backslash and a trailing blank character.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading verilog netlist '/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.v'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Memory Usage v#1 (Current mem = 1272.473M, initial mem = 495.004M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** End netlist parsing (cpu=0:00:00.0, real=0:00:00.0, mem=1272.5M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% End Load netlist data ... (date=04/22 16:55:30, total cpu=0:00:00.0, real=0:00:00.0, peak res=972.4M, current mem=972.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Set top cell to top.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Hooked 1210 DB cells to tlib cells.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Starting recursive module instantiation check.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: No recursion found.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Building hierarchical netlist for Cell top ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Netlist is unique.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ** info: there are 1247 modules.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ** info: there are 60 stdCell insts.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Memory Usage v#1 (Current mem = 1292.887M, initial mem = 495.004M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 23: puts "init_design"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: init_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 24: init_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'corner' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'pad' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'dcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'ccore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcoreExt7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Start create_tracks
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Extraction setup Started
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Initializing multi-corner RC extraction with 3 active RC Corners ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPEXT-6202):	In addition to the technology file, the capacitance table file is specified for all the RC corners. If the technology file  is already specified for all the RC corners, the capacitance table file is not required for pre_route and post_route extraction. In a new session, the capacitance table files can be removed from the create_rc_corner command to enable the technology file to be used for pre_route and post_route (effort level medium/high/signoff) extraction engines.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPEXT-6202' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading Capacitance Table File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading Capacitance Table File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading Capacitance Table File /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Importing multi-corner RC tables ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Summary of Active RC-Corners :
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:  Analysis View: WCCOM.setup_view
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Name        : WCCOM.setup_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Index       : 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Temperature : 125 Celsius
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Cap Table   : '/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Res Factor         : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Cap Factor         : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Technology file: '/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:  Analysis View: BCCOM.hold_view
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Name        : BCCOM.hold_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Index       : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Temperature : -40 Celsius
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Cap Table   : '/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Res Factor         : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Cap Factor         : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Technology file: '/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:  Analysis View: NCCOM.extra_view
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Name        : NCCOM.extra_rc
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Index       : 2
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Temperature : 25 Celsius
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Cap Table   : '/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Back_End/lef/tcb018gbwp7t_270a/techfiles/captable/t018lo_1p6m_typical.captable'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Res Factor         : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Cap Factor         : 1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel low)]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:     RC-Corner Technology file: '/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/EXTRAS/qrcTechFile'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Updating RC grid for preRoute extraction ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Initializing multi-corner capacitance tables ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Initializing multi-corner resistance tables ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *Info: initialize multi-corner CTS.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Starting library reading in 'Multi-threaded flow' (with '4' threads)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Threads Configured:4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading NCCOM.extra_set timing library /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_Cell/core_cell_library/core_cell_library/7-track/tcb018gbwp7t_290a/TSMCHOME/digital/Front_End/timing_power_noise/CCS/tcb018gbwp7t_270a/tcb018gbwp7ttc_ccs.lib.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Read 560 cells in library tcb018gbwp7ttc_ccs.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading NCCOM.extra_set timing library /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/Standard_Cells_and_IO/180_G_Standard_IO/Standard_IO/Standard_IO/tpd018nv_280a/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tpd018nv_280a/tpd018nvtc.lib.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Read 45 cells in library tpd018nvtc.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Library reading multithread flow ended.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reading timing constraints file '/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc' ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Current (total cpu=0:01:08, real=0:00:39.0, peak res=1854.6M, current mem=1316.8M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TCLCMD-1461):	Skipped unsupported command: set_units (File /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc, Line 9).
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (TCLCMD-1461):	Skipped unsupported command: set_units (File /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc, Line 10).
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: top
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: INFO (CTE): Reading of timing constraints file /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/syn-rundir/top.mapped.sdc completed, with 2 WARNING
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Ending "Constraint file reading stats" (total cpu=0:00:00.1, real=0:00:00.0, peak res=1327.9M, current mem=1327.9M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Current (total cpu=0:01:08, real=0:00:39.0, peak res=1854.6M, current mem=1327.9M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of combinational cells: 377
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of sequential cells: 160
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of tristate cells: 7
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of level shifter cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of power gating cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of isolation cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of power switch cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of pulse generator cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of always on buffers: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of retention cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of physical cells: 16
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of usable buffers: BUFFD0BWP7T BUFFD10BWP7T BUFFD12BWP7T BUFFD1BWP7T BUFFD1P5BWP7T BUFFD2BWP7T BUFFD2P5BWP7T CKBD0BWP7T BUFFD3BWP7T BUFFD4BWP7T BUFFD5BWP7T BUFFD6BWP7T BUFFD8BWP7T CKBD10BWP7T CKBD12BWP7T CKBD1BWP7T CKBD2BWP7T CKBD3BWP7T CKBD4BWP7T CKBD6BWP7T CKBD8BWP7T DEL015BWP7T DEL02BWP7T DEL01BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of usable buffers: 24
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of unusable buffers: GBUFFD1BWP7T GBUFFD3BWP7T GBUFFD2BWP7T GBUFFD8BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of unusable buffers: 4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of usable inverters: CKND0BWP7T CKND10BWP7T CKND12BWP7T CKND1BWP7T CKND2BWP7T CKND3BWP7T CKND4BWP7T CKND6BWP7T CKND8BWP7T INVD0BWP7T INVD10BWP7T INVD12BWP7T INVD1BWP7T INVD2BWP7T INVD1P5BWP7T INVD2P5BWP7T INVD3BWP7T INVD4BWP7T INVD5BWP7T INVD6BWP7T INVD8BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of usable inverters: 21
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of unusable inverters: GINVD2BWP7T GINVD1BWP7T GINVD3BWP7T GINVD8BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of unusable inverters: 4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of identified usable delay cells: DEL0BWP7T DEL1BWP7T DEL2BWP7T DEL3BWP7T DEL4BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of identified usable delay cells: 5
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of identified unusable delay cells:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of identified unusable delay cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 25: puts "read_power_intent -cpf /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/power_spec.cpf"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: read_power_intent -cpf /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/power_spec.cpf
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 26: read_power_intent -cpf /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/power_spec.cpf
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Loading CPF file /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/power_spec.cpf ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: INFO: processed 12 CPF commands in 12 lines from file /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/power_spec.cpf, with 0 errors
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Checking CPF file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: INFO: The CPF has only one domain defined.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Domain-based global connection will be applied to top cell. Other domain-related CPF commands will be ignored.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 27: puts "commit_power_intent"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: commit_power_intent
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 28: commit_power_intent
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: freeTimingGraph: cpu=0:00:00.16 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: clean_up_msv: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_pg_nets: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: switchable_pg_nets: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: virtual_ports: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: make_secondary_pgconn: cpu=0:00:00.01 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total 0 new pin(s) connected to net 'VDD'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total 0 new pin(s) connected to net 'VSS'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPCPF-980):	Power domain AO is not bound to any library. Power domain library binding is through 'update_delay_corner -power_domain' in the MMMC file viewDefinition.tcl. Please make sure that 'update_delay_corner -power_domain AO' is specified for each delay corner in the MMMC file.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_power_domain: cpu=0:00:00.01 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: assignSNetVoltages: cpu=0:00:00.02 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: define_low_power_cells: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Current (total cpu=0:01:09, real=0:00:39.0, peak res=1854.6M, current mem=1426.0M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: top
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Ending "Constraint file reading stats" (total cpu=0:00:00.0, real=0:00:00.0, peak res=1428.6M, current mem=1428.6M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Current (total cpu=0:01:09, real=0:00:39.0, peak res=1854.6M, current mem=1428.6M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: buildTimingGraph: cpu=0:00:00.24 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_retention: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: applyDefaultGncRules: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_global_connect: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: replaceWithAlwaysOnBuffer: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_iso: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commitEnbConn: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_shifter: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: CPF_RUNTIME: commit_pso: cpu=0:00:00.00 real=0:00:00.00
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of combinational cells: 377
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of sequential cells: 160
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of tristate cells: 7
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of level shifter cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of power gating cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of isolation cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of power switch cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of pulse generator cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of always on buffers: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of retention cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of physical cells: 16
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of usable buffers: BUFFD0BWP7T BUFFD10BWP7T BUFFD12BWP7T BUFFD1BWP7T BUFFD1P5BWP7T BUFFD2BWP7T BUFFD2P5BWP7T CKBD0BWP7T BUFFD3BWP7T BUFFD4BWP7T BUFFD5BWP7T BUFFD6BWP7T BUFFD8BWP7T CKBD10BWP7T CKBD12BWP7T CKBD1BWP7T CKBD2BWP7T CKBD3BWP7T CKBD4BWP7T CKBD6BWP7T CKBD8BWP7T DEL015BWP7T DEL02BWP7T DEL01BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of usable buffers: 24
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of unusable buffers: GBUFFD1BWP7T GBUFFD3BWP7T GBUFFD2BWP7T GBUFFD8BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of unusable buffers: 4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of usable inverters: CKND0BWP7T CKND10BWP7T CKND12BWP7T CKND1BWP7T CKND2BWP7T CKND3BWP7T CKND4BWP7T CKND6BWP7T CKND8BWP7T INVD0BWP7T INVD10BWP7T INVD12BWP7T INVD1BWP7T INVD2BWP7T INVD1P5BWP7T INVD2P5BWP7T INVD3BWP7T INVD4BWP7T INVD5BWP7T INVD6BWP7T INVD8BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of usable inverters: 21
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of unusable inverters: GINVD2BWP7T GINVD1BWP7T GINVD3BWP7T GINVD8BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of unusable inverters: 4
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of identified usable delay cells: DEL0BWP7T DEL1BWP7T DEL2BWP7T DEL3BWP7T DEL4BWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of identified usable delay cells: 5
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: List of identified unusable delay cells:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Total number of identified unusable delay cells: 0
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: No isolation cell in libraries.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: No level shifter cell in libraries.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'corner' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'pad' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'dcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'ccore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcoreExt7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'corner' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'pad' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'dcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'ccore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcoreExt7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 29: puts "set_db design_flow_effort extreme"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_db design_flow_effort extreme
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 30: set_db design_flow_effort extreme
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **INFO: setDesignMode -flowEffort extreme -> setting 'setOptMode -expExtremeHighEffOpt true'
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 31:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 32: puts "set_dont_use \[get_db lib_cells */G*\]"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: set_dont_use [get_db lib_cells */G*]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 33: if { [get_db lib_cells */G*] ne "" } {
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 34: set_dont_use [get_db lib_cells */G*]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 35: }
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 38:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 39: puts "write_db pre_tsmc180_innovus_settings"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: write_db pre_tsmc180_innovus_settings
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 40: write_db pre_tsmc180_innovus_settings
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% Begin save design ... (date=04/22 16:55:37, mem=1441.9M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save ccopt configuration ... (date=04/22 16:55:37, mem=1441.9M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save ccopt configuration ... (date=04/22 16:55:37, total cpu=0:00:00.0, real=0:00:00.0, peak res=1443.2M, current mem=1443.2M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save netlist data ... (date=04/22 16:55:37, mem=1443.8M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Writing Binary DB to pre_tsmc180_innovus_settings/vbin/top.v.bin in multi-threaded mode...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save netlist data ... (date=04/22 16:55:37, total cpu=0:00:00.0, real=0:00:00.0, peak res=1444.1M, current mem=1444.1M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving symbol-table file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving congestion map file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving congestion map file pre_tsmc180_innovus_settings/top.route.congmap.gz ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save AAE data ... (date=04/22 16:55:37, mem=1445.1M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving AAE Data ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save AAE data ... (date=04/22 16:55:38, total cpu=0:00:00.0, real=0:00:00.0, peak res=1445.1M, current mem=1445.1M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving preference file pre_tsmc180_innovus_settings/gui.pref.tcl ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving mode setting ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving root attributes to be loaded post write_db ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving global file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving root attributes to be loaded previous write_db ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving Drc markers ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ... No Drc file written since there is no markers found.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save routing data ... (date=04/22 16:55:39, mem=1451.0M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving route file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed saveRoute (cpu=0:00:00.0 real=0:00:00.0 mem=1712.5M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save routing data ... (date=04/22 16:55:39, total cpu=0:00:00.0, real=0:00:00.0, peak res=1451.2M, current mem=1451.2M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving special route data file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving PG file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving placement file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving PG file pre_tsmc180_innovus_settings/top.pg.gz, version#2, (Created by Innovus v21.19-s058_1 on Wed Apr 22 16:55:39 2026)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::saveSpecialRoute REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ** Saving stdCellPlacement_binary (version# 2) ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Save Adaptive View Pruning View Names to Binary file
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed savePGFile (cpu=0:00:00.0 real=0:00:00.0 mem=1726.5M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::savePGFile REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::savePlace REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving property file pre_tsmc180_innovus_settings/top.prop
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed saveProperty (cpu=0:00:00.0 real=0:00:00.0 mem=1726.5M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving CPF database ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** End saving CPF database: cpu=0:00:00.00 real=0:00:00.00 ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::db::saveSymbolTable REAL = 1 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::saveCongMap REAL = 1 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save power constraints data ... (date=04/22 16:55:40, mem=1456.3M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save power constraints data ... (date=04/22 16:55:40, total cpu=0:00:00.0, real=0:00:00.0, peak res=1456.3M, current mem=1456.3M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Generated self-contained design pre_tsmc180_innovus_settings
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% End save design ... (date=04/22 16:55:40, total cpu=0:00:01.8, real=0:00:03.0, peak res=1458.9M, current mem=1458.9M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Message Summary: 0 warning(s), 0 error(s)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 41: puts "ln -sfn pre_tsmc180_innovus_settings latest"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ln -sfn pre_tsmc180_innovus_settings latest
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 42: ln -sfn pre_tsmc180_innovus_settings latest
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 43:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 44:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 45: ##########################################################
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 46: # Placement attributes  [get_db -category place]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 47: ##########################################################
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 48: #-------------------------------------------------------------------------------
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 49: set_db opt_honor_fences true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 50: set_db place_detail_dpt_flow true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPSP-510):	There is no SAMEMASK rule defined in the libraries. The option '-place_detail_dpt_flow' is set to false
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 51: set_db place_detail_color_aware_legal true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPSP-510):	There is no SAMEMASK rule defined in the libraries. The option '-place_detail_color_aware_legal' is set to false
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 52: set_db place_global_solver_effort high
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 53: set_db place_detail_check_cut_spacing true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 54: set_db place_global_cong_effort high
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 55:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 56: ##########################################################
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 57: # Optimization attributes  [get_db -category opt]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 58: ##########################################################
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 59: #-------------------------------------------------------------------------------
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 60:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 61: set_db opt_fix_fanout_load true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 62: set_db opt_clock_gate_aware false
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 63: set_db opt_area_recovery true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 64: set_db opt_post_route_area_reclaim setup_aware
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 65: set_db opt_fix_hold_verbose true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 66:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 67: ##########################################################
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 68: # Clock attributes  [get_db -category cts]
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 69: ##########################################################
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 70: #-------------------------------------------------------------------------------
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 71: set_db cts_target_skew 450ps
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 72: set_db cts_max_fanout 10
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 73: set_db cts_target_max_transition_time 400ps
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 74: set_db opt_setup_target_slack 0.1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 75: set_db opt_hold_target_slack 0.1
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 76: create_route_rule -name cts_spec_1w_2s_leaf -width {METAL1 0.23 METAL2 0.28 METAL3 0.28 METAL4 0.28 METAL5 0.28 METAL6 2.6} -spacing {METAL1 0.23 METAL2 0.28 METAL3 0.28 METAL4 0.28 METAL5 0.28 METAL6 2.5}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 77: create_route_type -name RT_LEAF_RULE -route_rule cts_spec_1w_2s_leaf -top_preferred_layer METAL6 -bottom_preferred_layer METAL2 -preferred_routing_layer_effort high
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 78: create_route_rule -name cts_spec_2w_2s_shield -width {METAL1 0.46 METAL2 0.56 METAL3 0.56 METAL4 0.56 METAL5 0.56 METAL6 5.2} -spacing {METAL1 0.46 METAL2 0.56 METAL3 0.56 METAL4 0.56 METAL5 0.56 METAL6 5.0}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 79: create_route_type -name RT_TRUNK_RULE -route_rule cts_spec_2w_2s_shield -shield_net VSS -top_preferred_layer METAL4 -bottom_preferred_layer METAL3 -preferred_routing_layer_effort high
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 80: set_db cts_route_type_top "default"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 81: set_db cts_route_type_trunk "RT_TRUNK_RULE"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 82: set_db cts_route_type_leaf "RT_LEAF_RULE"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 83: commit_clock_tree_route_attributes
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Creating clock tree spec for modes (timing configs): my_constraint_mode
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: cts_spec_config_create_generator_skew_groups=true: create_clock_tree_spec will generate skew groups with a name prefix of "_clock_gen" to balance clock generator connected flops with the clock generator they drive.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reset timing graph...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Ignoring AAE DB Resetting ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reset timing graph done.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Ignoring AAE DB Resetting ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Multithreaded Timing Analysis is initialized with 4 threads
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Analyzing clock structure...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Analyzing clock structure done.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reset timing graph...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Ignoring AAE DB Resetting ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Reset timing graph done.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Extracting original clock gating for clk...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG:   clock_tree clk contains 16 sinks and 0 clock gates.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Extracting original clock gating for clk done.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: The skew group clk/my_constraint_mode was created. It contains 16 sinks and 1 sources.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Checking clock tree convergence...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Checking clock tree convergence done.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: (commit_clock_tree_route_attributes): Committed routing attributes to 1 clock nets from 1 route_types.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 84:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 85: set_db cts_primary_delay_corner WCCOM.setup_delay
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 86: set_db cts_buffer_cells {{CKBD1BWP7T} {CKBD2BWP7T} {CKBD3BWP7T} {CKBD4BWP7T} {CKBD6BWP7T} {CKBD8BWP7T} {CKBD10BWP7T} {CKBD12BWP7T}}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 87: set_db cts_inverter_cells {{CKND0BWP7T} {CKND1BWP7T} {CKND2BWP7T} {CKND3BWP7T} {CKND4BWP7T} {CKND6BWP7T}{CKND8BWP7T} {CKND10BWP7T} {CKND12BWP7T}}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 88: set_db cts_logic_cells {{CKAN2D0BWP7T} {CKAN2D1BWP7T} {CKAN2D2BWP7T} {CKAN2D8BWP7T} {CKXOR2D0BWP7T} {CKXOR2D1BWP7T} {CKXOR2D2BWP7T} {CKXOR2D4BWP7T} {CKMUX2D0BWP7T} {CKMUX2D1BWP7T} {CKMUX2D2BWP7T} {CKND2D0BWP7T} {CKND2D1BWP7T} {CKND2D2BWP7T} {CKND2D3BWP7T} {CKND2D4BWP7T} {CKND2D8BWP7T}}
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 89:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 90: set_db route_design_antenna_diode_insertion true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 91: set_db route_design_antenna_cell_name ANTENNABWP7T
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 92:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 93: set_db extract_rc_engine post_route
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 94: set_db extract_rc_effort_level high
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 95: set_db extract_rc_coupled true
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 96:
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 97: puts "write_db pre_floorplan_design"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: write_db pre_floorplan_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 98: write_db pre_floorplan_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% Begin save design ... (date=04/22 16:55:41, mem=1523.3M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save ccopt configuration ... (date=04/22 16:55:41, mem=1523.3M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save ccopt configuration ... (date=04/22 16:55:41, total cpu=0:00:00.0, real=0:00:00.0, peak res=1523.4M, current mem=1523.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save netlist data ... (date=04/22 16:55:41, mem=1523.5M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Writing Binary DB to pre_floorplan_design/vbin/top.v.bin in multi-threaded mode...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save netlist data ... (date=04/22 16:55:41, total cpu=0:00:00.0, real=0:00:00.0, peak res=1526.1M, current mem=1526.1M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving symbol-table file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving congestion map file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving congestion map file pre_floorplan_design/top.route.congmap.gz ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save AAE data ... (date=04/22 16:55:41, mem=1526.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving AAE Data ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save AAE data ... (date=04/22 16:55:41, total cpu=0:00:00.0, real=0:00:00.0, peak res=1526.4M, current mem=1526.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving preference file pre_floorplan_design/gui.pref.tcl ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving mode setting ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving root attributes to be loaded post write_db ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving global file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving root attributes to be loaded previous write_db ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving Drc markers ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ... No Drc file written since there is no markers found.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save routing data ... (date=04/22 16:55:43, mem=1526.5M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving route file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed saveRoute (cpu=0:00:00.0 real=0:00:00.0 mem=1859.3M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save routing data ... (date=04/22 16:55:43, total cpu=0:00:00.0, real=0:00:00.0, peak res=1526.5M, current mem=1526.5M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving special route data file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving PG file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving placement file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving PG file pre_floorplan_design/top.pg.gz, version#2, (Created by Innovus v21.19-s058_1 on Wed Apr 22 16:55:43 2026)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ** Saving stdCellPlacement_binary (version# 2) ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Save Adaptive View Pruning View Names to Binary file
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::saveSpecialRoute REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed savePGFile (cpu=0:00:00.0 real=0:00:00.0 mem=1873.3M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::savePGFile REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::savePlace REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving property file pre_floorplan_design/top.prop
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed saveProperty (cpu=0:00:00.0 real=0:00:00.0 mem=1873.3M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving CPF database ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** End saving CPF database: cpu=0:00:00.01 real=0:00:00.00 ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::db::saveSymbolTable REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::saveCongMap REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save power constraints data ... (date=04/22 16:55:43, mem=1527.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save power constraints data ... (date=04/22 16:55:43, total cpu=0:00:00.0, real=0:00:00.0, peak res=1527.4M, current mem=1527.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Generated self-contained design pre_floorplan_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% End save design ... (date=04/22 16:55:44, total cpu=0:00:01.7, real=0:00:03.0, peak res=1528.0M, current mem=1528.0M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Message Summary: 0 warning(s), 0 error(s)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 99: puts "ln -sfn pre_floorplan_design latest"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ln -sfn pre_floorplan_design latest
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 100: ln -sfn pre_floorplan_design latest
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 101: puts "source -echo -verbose /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/floorplan.tcl"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: source -echo -verbose /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/floorplan.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 102: source -echo -verbose /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/floorplan.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #@ Begin verbose source /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/floorplan.tcl (pre)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 1: create_floorplan -core_margins_by die -flip f -die_size_by_io_height max -site core7T -die_size { 740 740 0 0 0 0 }
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Adjusting die size togrid(PlacementGrid): width :739.76 height : 739.76
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'corner' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'pad' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'dcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'ccore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcoreExt7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-3961):	The techSite 'bcore7T' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Type 'man IMPFP-3961' for more detail.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Start create_tracks
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: **WARN: (IMPFP-325):	Floorplan of the design is resized. All current create_floorplan objects are automatically derived based on specified new create_floorplan. This may change blocks, fixed standard cells, existing routes and blockages.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #@ End verbose source /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/build/par-rundir/floorplan.tcl
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 103: puts "write_db post_floorplan_design"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: write_db post_floorplan_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @@file 104: write_db post_floorplan_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% Begin save design ... (date=04/22 16:55:44, mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save ccopt configuration ... (date=04/22 16:55:44, mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save ccopt configuration ... (date=04/22 16:55:44, total cpu=0:00:00.0, real=0:00:00.0, peak res=1528.7M, current mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save netlist data ... (date=04/22 16:55:44, mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Writing Binary DB to post_floorplan_design/vbin/top.v.bin in multi-threaded mode...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save netlist data ... (date=04/22 16:55:44, total cpu=0:00:00.0, real=0:00:00.0, peak res=1528.7M, current mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving symbol-table file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving congestion map file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving congestion map file post_floorplan_design/top.route.congmap.gz ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save AAE data ... (date=04/22 16:55:44, mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving AAE Data ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save AAE data ... (date=04/22 16:55:44, total cpu=0:00:00.0, real=0:00:00.0, peak res=1528.7M, current mem=1528.7M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving preference file post_floorplan_design/gui.pref.tcl ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving mode setting ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving root attributes to be loaded post write_db ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving global file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving root attributes to be loaded previous write_db ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving Drc markers ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ... No Drc file written since there is no markers found.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save routing data ... (date=04/22 16:55:46, mem=1528.8M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving route file ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed saveRoute (cpu=0:00:00.0 real=0:00:00.0 mem=1876.9M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save routing data ... (date=04/22 16:55:46, total cpu=0:00:00.0, real=0:00:00.0, peak res=1528.8M, current mem=1528.8M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving special route data file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving PG file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving placement file in separate thread ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving PG file post_floorplan_design/top.pg.gz, version#2, (Created by Innovus v21.19-s058_1 on Wed Apr 22 16:55:46 2026)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ** Saving stdCellPlacement_binary (version# 2) ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Save Adaptive View Pruning View Names to Binary file
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::saveSpecialRoute REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed savePGFile (cpu=0:00:00.0 real=0:00:00.0 mem=1890.9M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::savePGFile REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::savePlace REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving property file post_floorplan_design/top.prop
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Completed saveProperty (cpu=0:00:00.0 real=0:00:00.0 mem=1890.9M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Saving CPF database ...
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** End saving CPF database: cpu=0:00:00.00 real=0:00:00.00 ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::db::saveSymbolTable REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: TAT_INFO: ::saveCongMap REAL = 0 : CPU = 0 : MEM = 0.
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % Begin Save power constraints data ... (date=04/22 16:55:46, mem=1529.3M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: % End Save power constraints data ... (date=04/22 16:55:46, total cpu=0:00:00.0, real=0:00:00.0, peak res=1529.3M, current mem=1529.3M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: Generated self-contained design post_floorplan_design
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: #% End save design ... (date=04/22 16:55:47, total cpu=0:00:01.7, real=0:00:03.0, peak res=1529.4M, current mem=1529.4M)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Message Summary: 0 warning(s), 0 error(s)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 105: puts "ln -sfn post_floorplan_design latest"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: ln -sfn post_floorplan_design latest
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 106: ln -sfn post_floorplan_design latest
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 107: puts "exit"
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: exit
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: @file 108: exit
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Memory Usage v#1 (Current mem = 1875.934M, initial mem = 495.004M) ***
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: *** Message Summary: 1500 warning(s), 16 error(s)
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: --- Ending "Innovus" (totcpu=0:01:15, real=0:00:49.0, mem=1875.9M) ---
+[par] [Exec ...11/bin/innovus -nowin -common_...] Level.DEBUG: 
+[par] Level.INFO: Did not run write_regs
+[par] Level.INFO: Did not run write_design

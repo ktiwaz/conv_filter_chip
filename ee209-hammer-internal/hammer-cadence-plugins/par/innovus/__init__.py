@@ -334,10 +334,94 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
 
         return True
 
+#Devlin: Replaced original floorplan_design() function: creates def with die area info, creates power ring, creates custom keepouts
+
+#    def floorplan_design(self) -> bool:
+#        floorplan_tcl = os.path.join(self.run_dir, "floorplan.tcl")
+#        with open(floorplan_tcl, "w") as f:
+#            f.write("\n".join(self.create_floorplan_tcl()))
+#        self.verbose_append("source -echo -verbose {}".format(floorplan_tcl))
+#        return True
+
     def floorplan_design(self) -> bool:
+        die_def = os.path.join(self.run_dir, "custom_diearea.def")
+        with open(die_def, "w") as f:
+            f.write("""VERSION 5.8 ;
+DIVIDERCHAR "/" ;
+BUSBITCHARS "[]" ;
+DESIGN top ;
+UNITS DISTANCE MICRONS 2000 ;
+
+DIEAREA
+  ( 296200 1690000 )
+  ( 1604800 1690000 )
+  ( 1604800 1605000 )
+  ( 1689800 1605000 )
+  ( 1689800 1524400 )
+  ( 1564800 1524400 )
+  ( 1564800 1360800 )
+  ( 1690000 1360800 )
+  ( 1690000 295000 )
+  ( 1605200 295000 )
+  ( 1605200 210000 )
+  ( 295200 210000 )
+  ( 295200 295200 )
+  ( 209600 295200 )
+  ( 209600 375600 )
+  ( 335200 375600 )
+  ( 335200 539400 )
+  ( 210200 539400 )
+  ( 210200 1604800 )
+  ( 296200 1604800 )
+;
+
+END DESIGN
+""")
+
+        custom_ring = """
+set_db timing_enable_simultaneous_setup_hold_mode false
+
+add_rings -nets {VDD VSS} \
+    -type core_rings \
+    -follow io \
+    -layer {top METAL5 bottom METAL5 left METAL6 right METAL6} \
+    -width {top 10 bottom 10 left 10 right 10} \
+    -spacing {top 4 bottom 4 left 4 right 4} \
+    -offset {top 5 bottom 5 left 5 right 5} \
+    -user_class DEBUG_IO_RING
+"""
+
+        custom_keepouts = """
+# Placement + route keepouts for rectilinear cutout regions
+
+create_place_blockage -type hard -rects {105.1 802.4 148.1 845.0}
+create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {105.1 802.4 148.1 845.0}
+
+create_place_blockage -type hard -rects {802.4 802.5 844.9 845.0}
+create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {802.4 802.5 844.9 845.0}
+
+create_place_blockage -type hard -rects {782.4 680.4 845.0 762.2}
+create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {782.4 680.4 845.0 762.2}
+
+create_place_blockage -type hard -rects {802.6 105.0 845.0 147.5}
+create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {802.6 105.0 845.0 147.5}
+
+create_place_blockage -type hard -rects {104.8 105.0 147.6 147.6}
+create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {104.8 105.0 147.6 147.6}
+
+create_place_blockage -type hard -rects {105.1 187.8 167.6 269.7}
+create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {105.1 187.8 167.6 269.7}
+"""
+
         floorplan_tcl = os.path.join(self.run_dir, "floorplan.tcl")
         with open(floorplan_tcl, "w") as f:
             f.write("\n".join(self.create_floorplan_tcl()))
+            f.write("\n")
+            f.write("read_def {}\n".format(die_def))
+            f.write(custom_ring)
+            f.write(custom_keepouts)
+            f.write("\n")
+
         self.verbose_append("source -echo -verbose {}".format(floorplan_tcl))
         return True
 
@@ -492,7 +576,10 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
         # In case the * wildcard is used after preplaced pins, this will place promoted pins correctly.
         # Innovus errors instead of warns if the name matching does not work (e.g. bad wildcards).
         for ppin in promoted_pins:
-            self.verbose_append("assign_io_pins -move_fixed_pin -pins [get_db [get_db pins -if {{.name == {p} }}] .net.name]".format(p=ppin))
+            self.verbose_append("assign_io_pins -pins [get_db [get_db pins -if {{.name == {p} }}] .net.name]".format(p=ppin))
+	
+	#Devlin: Fix pin placement by loading custom pin placement file
+        self.verbose_append("source ../../tcl/place_pins.tcl")
 
         self.verbose_append("set_db assign_pins_edit_in_batch false")
         return True
@@ -504,6 +591,10 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
             f.write("\n".join(self.create_power_straps_tcl()))
         self.verbose_append("source -echo -verbose {}".format(power_straps_tcl))
         return True
+
+#Replaced power_straps original version with this one below which also adds power rings:
+
+    
 
     def place_opt_design(self) -> bool:
         """Place the design and do pre-routing optimization."""
@@ -709,6 +800,17 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
                 return False
         # "auto", i.e. not "manual", means not specifying anything extra.
 
+
+        # ============================================================
+        # Inject padframe into design BEFORE GDS export
+        # ============================================================
+        
+        #self.verbose_append('puts ">>> Adding padframe instance"')
+
+        #self.verbose_append('read_stream /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/UCLA_CEMiD_pad_frame_1x1_pcell.gds')
+        #self.verbose_append('create_inst -cell UCLA_CEMiD_pad_frame_1x1_pcell -inst padframe_inst -location {0 0} -orient r0 -physical -status fixed')
+
+
         self.verbose_append(
             "write_stream -mode ALL {map_file} {merge_options} {unit} {gds}".format(
             map_file=map_file,
@@ -734,6 +836,8 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
         return True
 
     def write_spefs(self) -> bool:
+        self.verbose_append("set_db timing_enable_simultaneous_setup_hold_mode false") #Devlin: fix spef generation problems
+
         # Output a SPEF file that contains the parasitic extraction results
         self.verbose_append("set_db extract_rc_coupled true")
         # self.verbose_append("set_extract_shrink_factor 0.85") # TODO: Use this setting to artificially improve Signoff STA?
@@ -939,6 +1043,8 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
                 self.logger.error("Invalid floorplan_mode {mode}. Using blank floorplan.".format(mode=floorplan_mode))
             # Write blank floorplan
             output.append("# Blank floorplan specified from HAMMER")
+
+
         return output
 
     @staticmethod
@@ -1078,7 +1184,11 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
                         ))
                 else:
                     assert False, "Should not reach here"
-        return [chip_size_constraint] + output
+	#Devlin: Fix for generating custom rectilinear boundary constraints
+        #return [chip_size_constraint] + output
+        rectilinear_enable = "set_db floorplan_enable_rectilinear_design true"
+
+        return [rectilinear_enable, chip_size_constraint] + output
 
     def specify_std_cell_power_straps(self, blockage_spacing: Decimal, bbox: Optional[List[Decimal]], nets: List[str]) -> List[str]:
         """
@@ -1175,12 +1285,39 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
                 "-start", str(offset + bbox[index])
             ])
 
+        #else:
+        #    # Just put straps in the core area
+        #    options.extend([
+        #        "-area", "[get_db designs .core_bbox]",
+        #        "-start", "[expr [lindex [lindex [get_db designs .core_bbox] 0] {index}] + {offset}]".format(index=index, offset=offset)
+        #    ])
+
+
+#Devlin: Replaced else to limit strap placement away from outer boundary of design. Without this, straps interfere with IO pins.
         else:
-            # Just put straps in the core area
+            # Limit generated power straps slightly inside the outer boundary
+            # so they do not interfere with METAL6 IO pins.
+            active_xmin = Decimal("110")
+            active_ymin = Decimal("110")
+            active_xmax = Decimal("840")
+            active_ymax = Decimal("840")
+
+            if layer.direction == RoutingDirection.Horizontal:
+                start_coord = active_ymin
+            else:
+                start_coord = active_xmin
+
             options.extend([
-                "-area", "[get_db designs .core_bbox]",
-                "-start", "[expr [lindex [lindex [get_db designs .core_bbox] 0] {index}] + {offset}]".format(index=index, offset=offset)
+                "-area", "{{ {} {} {} {} }}".format(
+                    active_xmin,
+                    active_ymin,
+                    active_xmax,
+                    active_ymax
+                ),
+                "-start", str(start_coord + offset)
             ])
+
+
         results.append("add_stripes " + " ".join(options) + "\n")
         return results
 

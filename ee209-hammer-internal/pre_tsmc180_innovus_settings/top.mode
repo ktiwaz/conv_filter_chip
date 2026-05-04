@@ -1,0 +1,19 @@
+catch { setDesignMode -flowEffort extreme }
+catch { setDesignMode -process 180 }
+catch { setAnalysisMode -analysisType onChipVariation }
+catch { setAnalysisMode -cppr both }
+catch { setOptMode -expExtremeHighEffOpt true }
+catch { setOptMode -reclaimArea true }
+catch { setOptMode -reclaimRestructuringEffort high }
+catch { setExtractRCMode  -engine preRoute -total_c_th 5 -relative_c_th 0.03 -coupling_c_th 3 }
+catch { setIlmMode -keepHighFanoutPorts true -keepLoopBack false -keepInstInSdc false -keepFlatten true }
+catch { setDelayCalMode -engine aae }
+catch { setImportMode -discardFloatingVNets false }
+catch { setImportMode -keepEmptyModule true }
+catch { setSIMode -enable_delay_report true }
+catch { setSIMode -separate_delta_delay_on_data true }
+catch { setFPlanMode -cellsForExtraSites {} }
+catch { setFPlanMode -extraSites {} }
+catch { setFPlanMode -maxIoHeight true }
+catch { setFPlanMode -place_check_ignore_fixed_cell_list {} }
+catch { setFPlanMode -powerRailLayer {} }
