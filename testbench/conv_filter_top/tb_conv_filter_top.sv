@@ -109,7 +109,7 @@ module tb_conv_filter_top;
     // ==================================================
     // Clock
     // ==================================================
-    always #5 clk = ~clk;
+    always #5ns clk = ~clk;
 
     // ==================================================
     // Pixel stream routing
@@ -244,7 +244,7 @@ module tb_conv_filter_top;
         join_none
 
         // Timeout protection
-        #4000000;
+        #4000000ns;
         $fatal(1, "[%0t] ERROR: Testbench timeout", $time);
     end
 
