@@ -22,6 +22,8 @@ POWER_VIA56_NAME = "VIA56"
 
 POWER_PURPOSE = "drawing"
 
+ENABLE_SIGNAL_M5_STITCHES = False
+
 # For L1/R6 VSS connections only:
 # reject horizontal METAL5 shapes that are too thick in y.
 # Tune this based on printed bbox widths.
@@ -31,6 +33,12 @@ max_vss_stripe_y_width = 9.0
 power_pad_overlap = 2.6
 power_search_depth = 250.0
 power_stripe_lateral_margin = 80.0
+
+# Avoid AMS wide-metal slot violations by splitting power bridges whose
+# short dimension would otherwise exceed this value. Tune power_slot_gap
+# to the minimum same-net spacing/slot width required by your rule deck.
+power_max_unslotted_width = 35.0
+power_slot_gap = 2.5
 
 # M5-to-M6 via array parameters, in microns.
 # Extracted from existing VIA56 geometry in build/par-rundir/top_3x3.gds:
@@ -402,14 +410,77 @@ def clamp(value, low, high):
 
 
 def add_rect(cell, xmin, ymin, xmax, ymax, layer, datatype):
+    bbox = [
+        min(xmin, xmax),
+        min(ymin, ymax),
+        max(xmin, xmax),
+        max(ymin, ymax),
+    ]
+
     cell.add(
         gdspy.Rectangle(
-            (min(xmin, xmax), min(ymin, ymax)),
-            (max(xmin, xmax), max(ymin, ymax)),
+            (bbox[0], bbox[1]),
+            (bbox[2], bbox[3]),
             layer=layer,
             datatype=datatype
         )
     )
+
+    return bbox
+
+
+def add_possibly_slotted_power_rect(
+    cell,
+    bbox,
+    layer,
+    datatype,
+    max_unslotted_width=power_max_unslotted_width,
+    slot_gap=power_slot_gap
+):
+    """
+    Add a power connector rectangle, splitting it into two same-net rectangles
+    when the short dimension would exceed the wide-metal slot threshold.
+
+    This is intended for pad-to-ring/stripe bridges like L0, L1, R6, and R7.
+    It intentionally does not affect the narrow signal stitches.
+    """
+    xmin, ymin, xmax, ymax = bbox
+    width_x = xmax - xmin
+    width_y = ymax - ymin
+
+    if width_x <= 0.0 or width_y <= 0.0:
+        return []
+
+    short_dim = min(width_x, width_y)
+
+    if short_dim <= max_unslotted_width:
+        return [add_rect(cell, xmin, ymin, xmax, ymax, layer, datatype)]
+
+    if slot_gap <= 0.0 or short_dim <= slot_gap:
+        raise ValueError(
+            f"Cannot split power rectangle bbox={bbox}; "
+            f"slot_gap={slot_gap} is not smaller than short dimension={short_dim}"
+        )
+
+    drawn = []
+
+    if width_x <= width_y:
+        # Shape is narrower in x, so split the x-width into two columns.
+        mid = interval_center(xmin, xmax)
+        gap0 = mid - slot_gap / 2.0
+        gap1 = mid + slot_gap / 2.0
+        drawn.append(add_rect(cell, xmin, ymin, gap0, ymax, layer, datatype))
+        drawn.append(add_rect(cell, gap1, ymin, xmax, ymax, layer, datatype))
+    else:
+        # Shape is narrower in y, so split the y-width into two rows.
+        mid = interval_center(ymin, ymax)
+        gap0 = mid - slot_gap / 2.0
+        gap1 = mid + slot_gap / 2.0
+        drawn.append(add_rect(cell, xmin, ymin, xmax, gap0, layer, datatype))
+        drawn.append(add_rect(cell, xmin, gap1, xmax, ymax, layer, datatype))
+
+    return drawn
+
 
 def overlap_length(a0, a1, b0, b1):
     return max(0.0, min(a1, b1) - max(a0, b0))
@@ -504,7 +575,11 @@ def find_nearest_inward_metal(side, pad_bbox, metal_bboxes):
 
 def add_direct_power_connection(cell, side, pad_bbox, target_bbox, layer, datatype):
     """
-    Directly connect a power pad to the nearest matching outer VDD ring metal.
+    Connect a power pad to the nearest matching ring metal.
+
+    The final connector rectangle is passed through
+    add_possibly_slotted_power_rect(), so wide pad-to-ring plates become
+    two narrower same-net rectangles instead of one AMS.1 wide-metal violation.
     """
     pxmin, pymin, pxmax, pymax = pad_bbox
     bxmin, bymin, bxmax, bymax = target_bbox
@@ -518,19 +593,9 @@ def add_direct_power_connection(cell, side, pad_bbox, target_bbox, layer, dataty
             x0 = xmid - stitch_width / 2.0
             x1 = xmid + stitch_width / 2.0
 
-        add_rect(
-            cell,
-            x0,
-            bymin,
-            x1,
-            pymin + power_pad_overlap,
-            layer,
-            datatype
-        )
+        connector_bbox = [x0, bymin, x1, pymin + power_pad_overlap]
 
-        return [x0, bymin, x1, pymin + power_pad_overlap]
-
-    if side == "bottom":
+    elif side == "bottom":
         x0 = max(pxmin, bxmin)
         x1 = min(pxmax, bxmax)
 
@@ -539,19 +604,9 @@ def add_direct_power_connection(cell, side, pad_bbox, target_bbox, layer, dataty
             x0 = xmid - stitch_width / 2.0
             x1 = xmid + stitch_width / 2.0
 
-        add_rect(
-            cell,
-            x0,
-            pymax - power_pad_overlap,
-            x1,
-            bymax,
-            layer,
-            datatype
-        )
+        connector_bbox = [x0, pymax - power_pad_overlap, x1, bymax]
 
-        return [x0, pymax - power_pad_overlap, x1, bymax]
-
-    if side == "left":
+    elif side == "left":
         y0 = max(pymin, bymin)
         y1 = min(pymax, bymax)
 
@@ -560,19 +615,9 @@ def add_direct_power_connection(cell, side, pad_bbox, target_bbox, layer, dataty
             y0 = ymid - stitch_width / 2.0
             y1 = ymid + stitch_width / 2.0
 
-        add_rect(
-            cell,
-            pxmax - power_pad_overlap,
-            y0,
-            bxmax,
-            y1,
-            layer,
-            datatype
-        )
+        connector_bbox = [pxmax - power_pad_overlap, y0, bxmax, y1]
 
-        return [pxmax - power_pad_overlap, y0, bxmax, y1]
-
-    if side == "right":
+    elif side == "right":
         y0 = max(pymin, bymin)
         y1 = min(pymax, bymax)
 
@@ -581,20 +626,17 @@ def add_direct_power_connection(cell, side, pad_bbox, target_bbox, layer, dataty
             y0 = ymid - stitch_width / 2.0
             y1 = ymid + stitch_width / 2.0
 
-        add_rect(
-            cell,
-            bxmin,
-            y0,
-            pxmin + power_pad_overlap,
-            y1,
-            layer,
-            datatype
-        )
+        connector_bbox = [bxmin, y0, pxmin + power_pad_overlap, y1]
 
-        return [bxmin, y0, pxmin + power_pad_overlap, y1]
+    else:
+        raise ValueError(f"Unknown side: {side}")
 
-    raise ValueError(f"Unknown side: {side}")
-
+    return add_possibly_slotted_power_rect(
+        cell,
+        connector_bbox,
+        layer,
+        datatype
+    )
 
 def find_inward_vss_metal5_stripes(side, pad_bbox, metal5_bboxes, die_center_y=None):
     """
@@ -1009,8 +1051,9 @@ def add_m5_bridge_to_m6_ring_with_vias(
     via_datatype
 ):
     """
-    Draw a METAL5 bridge from a left/right VSS pad to the side METAL6 ring,
-    then add an M5-M6 via array where the METAL5 bridge overlaps the METAL6 ring.
+    Draw one or two METAL5 bridge rectangles from a left/right VSS pad to
+    the side METAL6 ring, then add M5-M6 via arrays where each METAL5
+    bridge piece overlaps the METAL6 ring.
     """
     pxmin, pymin, pxmax, pymax = pad_bbox
     rxmin, rymin, rxmax, rymax = ring_m6_bbox
@@ -1026,62 +1069,43 @@ def add_m5_bridge_to_m6_ring_with_vias(
         y1 = ymid + stitch_width / 2.0
 
     if side == "left":
-        # METAL5 bridge from pad into the ring x-region.
-        bridge_bbox = [
-            pxmax - power_pad_overlap,
-            y0,
-            rxmax,
-            y1
-        ]
-
-        add_rect(
-            cell,
-            bridge_bbox[0],
-            bridge_bbox[1],
-            bridge_bbox[2],
-            bridge_bbox[3],
-            m5_layer,
-            m5_datatype
-        )
-
+        bridge_bbox = [pxmax - power_pad_overlap, y0, rxmax, y1]
     elif side == "right":
-        # METAL5 bridge from ring x-region to pad.
-        bridge_bbox = [
-            rxmin,
-            y0,
-            pxmin + power_pad_overlap,
-            y1
-        ]
-
-        add_rect(
-            cell,
-            bridge_bbox[0],
-            bridge_bbox[1],
-            bridge_bbox[2],
-            bridge_bbox[3],
-            m5_layer,
-            m5_datatype
-        )
-
+        bridge_bbox = [rxmin, y0, pxmin + power_pad_overlap, y1]
     else:
         raise ValueError(f"Unsupported side for M5 bridge to M6 ring: {side}")
 
-    # Via array only in the overlap between the M5 bridge and M6 ring.
-    via_bbox = [
-        max(bridge_bbox[0], rxmin),
-        max(bridge_bbox[1], rymin),
-        min(bridge_bbox[2], rxmax),
-        min(bridge_bbox[3], rymax)
-    ]
-
-    via_count = add_via_array_in_bbox(
+    bridge_pieces = add_possibly_slotted_power_rect(
         cell,
-        via_bbox,
-        via_layer,
-        via_datatype
+        bridge_bbox,
+        m5_layer,
+        m5_datatype
     )
 
-    return bridge_bbox, via_bbox, via_count
+    via_results = []
+    total_vias = 0
+
+    # Add vias separately for each slotted bridge piece so no vias are placed
+    # in the gap between the two same-net METAL5 rectangles.
+    for piece_bbox in bridge_pieces:
+        via_bbox = [
+            max(piece_bbox[0], rxmin),
+            max(piece_bbox[1], rymin),
+            min(piece_bbox[2], rxmax),
+            min(piece_bbox[3], rymax)
+        ]
+
+        via_count = add_via_array_in_bbox(
+            cell,
+            via_bbox,
+            via_layer,
+            via_datatype
+        )
+
+        via_results.append((via_bbox, via_count))
+        total_vias += via_count
+
+    return bridge_pieces, via_results, total_vias
 
 def find_vss_metal6_inner_ring(side, pad_bbox, metal6_bboxes):
     """
@@ -1305,14 +1329,16 @@ for name, side, bl_x, bl_y in pads:
         stitch_datatype
     )
 
-    stitch_bbox_m5 = add_stitch_to_core_metal(
-        top,
-        side,
-        this_pad_bbox,
-        core_metal_bbox,
-        power_m5_layer,
-        power_m5_datatype
-    )
+    stitch_bbox_m5 = None
+    if ENABLE_SIGNAL_M5_STITCHES:
+        stitch_bbox_m5 = add_stitch_to_core_metal(
+            top,
+            side,
+            this_pad_bbox,
+            core_metal_bbox,
+            power_m5_layer,
+            power_m5_datatype
+        )
 
     print(
         f"{name}: side={side} "

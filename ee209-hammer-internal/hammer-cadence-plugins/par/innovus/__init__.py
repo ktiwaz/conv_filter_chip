@@ -215,6 +215,7 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
     def get_tool_hooks(self) -> List[HammerToolHookAction]:
         return [self.make_persistent_hook(innovus_global_settings)]
 
+#Devlin: added self.add_metal_fill in steps = [...] below.
     @property
     def steps(self) -> List[HammerToolStep]:
         steps = [
@@ -228,7 +229,8 @@ class Innovus(HammerPlaceAndRouteTool, CadenceTool):
             self.clock_tree,
             self.add_fillers,
             self.route_design,
-            self.opt_design
+            self.opt_design,
+            self.add_metal_fill
         ]
         write_design_step = [
             self.write_regs,
@@ -353,19 +355,20 @@ DESIGN top ;
 UNITS DISTANCE MICRONS 2000 ;
 
 DIEAREA
-  ( 296200 1690000 )
-  ( 1564800 1690000 )
-  ( 1564800 1360800 )
-  ( 1690000 1360800 )
-  ( 1690000 295000 )
+  ( 296200 1676000 )
+  ( 1562800 1676000 )
+  ( 1562800 1310800 )
+  ( 1685400 1310800 )
+  ( 1685400 295000 )
   ( 1605200 295000 )
-  ( 1605200 210000 )
-  ( 335200 210000 )
-  ( 335200 539400 )
-  ( 210200 539400 )
-  ( 210200 1604800 )
+  ( 1605200 212000 )
+  ( 337200 212000 )
+  ( 337200 587400 )
+  ( 214800 587400 )
+  ( 214800 1604800 )
   ( 296200 1604800 )
 ;
+
 
 END DESIGN
 """)
@@ -373,14 +376,65 @@ END DESIGN
         custom_ring = """
 set_db timing_enable_simultaneous_setup_hold_mode false
 
+# Upper power ring: METAL5/METAL6
 add_rings -nets {VDD VSS} \
     -type core_rings \
     -follow io \
     -layer {top METAL5 bottom METAL5 left METAL6 right METAL6} \
     -width {top 10 bottom 10 left 10 right 10} \
     -spacing {top 4 bottom 4 left 4 right 4} \
-    -offset {top 5 bottom 5 left 5 right 5} \
+    -offset {top 6 bottom 6 left 6 right 6} \
     -user_class DEBUG_IO_RING
+
+# Lower power ring: METAL3/METAL4, directly underneath upper ring
+add_rings -nets {VDD VSS} \
+    -type core_rings \
+    -follow io \
+    -layer {top METAL3 bottom METAL3 left METAL4 right METAL4} \
+    -width {top 10 bottom 10 left 10 right 10} \
+    -spacing {top 4 bottom 4 left 4 right 4} \
+    -offset {top 6 bottom 6 left 6 right 6} \
+    -user_class DEBUG_IO_RING_LOW
+
+# Stitch lower PG ring/stripes up to the upper PG ring/stripes
+#route_special \
+#    -nets {VDD VSS} \
+#    -connect {floating_stripe} \
+#    -floating_stripe_target {ring stripe} \
+#    -allow_layer_change 1 \
+#    -layer_change_range {METAL3 METAL6} \
+#    -target_via_layer_range {VIA34 VIA56} \
+#    -user_class DEBUG_RING_STACK_VIAS
+"""
+
+
+        custom_m5_pg_keepouts = """
+# Block PG stripe generation on METAL5
+create_route_blockage -pg_nets -layers {METAL5} -rects {166 241 200 292}
+create_route_blockage -pg_nets -layers {METAL5} -rects {749 654 784 708}
+
+# Block regular signal/detail routing on METAL5
+create_route_blockage -layers {METAL5} -rects {166 241 200 292}
+create_route_blockage -layers {METAL5} -rects {749 657 784 708}
+"""
+
+
+        custom_outer_30um_place_blockages = """
+# 30 um hard placement blockage band around outer rectilinear die boundary
+# Auto-generated from MATLAB pts_shifted
+
+create_place_blockage -type hard -rects {107.400 323.700 137.400 772.400}
+create_place_blockage -type hard -rects {107.400 772.400 178.100 802.400}
+create_place_blockage -type hard -rects {107.400 293.700 198.600 323.700}
+create_place_blockage -type hard -rects {148.100 802.400 178.100 808.000}
+create_place_blockage -type hard -rects {148.100 808.000 781.400 838.000}
+create_place_blockage -type hard -rects {168.600 136.000 198.600 293.700}
+create_place_blockage -type hard -rects {168.600 106.000 802.600 136.000}
+create_place_blockage -type hard -rects {751.400 655.400 781.400 808.000}
+create_place_blockage -type hard -rects {751.400 625.400 842.700 655.400}
+create_place_blockage -type hard -rects {772.600 136.000 802.600 147.500}
+create_place_blockage -type hard -rects {772.600 147.500 842.700 177.500}
+create_place_blockage -type hard -rects {812.700 177.500 842.700 625.400}
 """
 
         custom_keepouts = """
@@ -411,7 +465,9 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
             f.write("\n")
             f.write("read_def {}\n".format(die_def))
             f.write(custom_ring)
+            f.write(custom_m5_pg_keepouts)
             f.write(custom_keepouts)
+            f.write(custom_outer_30um_place_blockages)
             f.write("\n")
 
         self.verbose_append("source -echo -verbose {}".format(floorplan_tcl))
@@ -576,21 +632,185 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
         self.verbose_append("set_db assign_pins_edit_in_batch false")
         return True
 
+#    def power_straps(self) -> bool:
+#        """Place the power straps for the design."""
+#        power_straps_tcl = os.path.join(self.run_dir, "power_straps.tcl")
+#        with open(power_straps_tcl, "w") as f:
+#            f.write("\n".join(self.create_power_straps_tcl()))
+#        self.verbose_append("source -echo -verbose {}".format(power_straps_tcl))
+#        return True
+
+    #Devlin: Replace hammer power straps functionality with more explicit commands
     def power_straps(self) -> bool:
-        """Place the power straps for the design."""
+        """
+        Manually create two vertical VDD/VSS strap pairs on METAL4 and METAL6.
+
+        This bypasses Hammer's generated power strap flow.
+        """
         power_straps_tcl = os.path.join(self.run_dir, "power_straps.tcl")
+
         with open(power_straps_tcl, "w") as f:
-            f.write("\n".join(self.create_power_straps_tcl()))
+            f.write(self.create_custom_power_straps_tcl())
+
         self.verbose_append("source -echo -verbose {}".format(power_straps_tcl))
         return True
 
-#Replaced power_straps original version with this one below which also adds power rings:
+    def create_custom_power_straps_tcl(self) -> str:
+        """
+        Create two vertical VDD/VSS strap pairs on METAL4 and METAL6 using
+        Innovus add_stripes, then connect the floating straps with route_special.
+
+        Geometry:
+          - core width ≈ 730 um
+          - pair locations ≈ 1/3 and 2/3 across core
+          - approximate starts: 353.3 um and 596.7 um
+          - strap width = 10 um
+          - VDD/VSS spacing = 4 um
+        """
+
+        return r"""
+# ============================================================
+# Devlin custom power straps
+# Two vertical VDD/VSS strap pairs on METAL4 and METAL6
+# ============================================================
+
+set_db timing_enable_simultaneous_setup_hold_mode false
+
+# Avoid inherited/default add_stripes settings.
+reset_db -category add_stripes
+
+# Strap geometry
+set strap_width 10
+set strap_spacing 4
+
+# Vertical extent of straps. Tune if needed to hit the rings cleanly.
+set y_bottom 110
+set y_top    840
+
+# Two pair locations.
+# These are approximately 1/3 and 2/3 across a 730 um core span.
+set x_pair_1 353.3
+set x_pair_2 596.7
+
+# For one VDD/VSS pair:
+#   total width = 10 + 4 + 10 = 24 um
+# add_stripes places a set of stripes starting at -start.
+# For nets {VDD VSS}, width=10, spacing=4:
+#   VDD starts at x_start
+#   VSS starts at x_start + 10 + 4
+#
+# To center the pair around x_pair:
+#   x_start = x_pair - 12
+
+set x_start_1 [expr $x_pair_1 - 12.0]
+set x_start_2 [expr $x_pair_2 - 12.0]
+
+# ============================================================
+# METAL4 vertical strap pairs
+# ============================================================
+
+add_stripes \
+    -nets {VDD VSS} \
+    -layer METAL4 \
+    -direction vertical \
+    -width $strap_width \
+    -spacing $strap_spacing \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $x_start_1 \
+    -area [list $x_start_1 $y_bottom [expr $x_start_1 + 24.0] $y_top] \
+    -block_ring_bottom_layer_limit METAL4 \
+    -block_ring_top_layer_limit METAL4 \
+    -pad_core_ring_bottom_layer_limit METAL4 \
+    -pad_core_ring_top_layer_limit METAL4 \
+    -user_class DEBUG_CUSTOM_M4_PAIR_1
+
+add_stripes \
+    -nets {VDD VSS} \
+    -layer METAL4 \
+    -direction vertical \
+    -width $strap_width \
+    -spacing $strap_spacing \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $x_start_2 \
+    -area [list $x_start_2 $y_bottom [expr $x_start_2 + 24.0] $y_top] \
+    -block_ring_bottom_layer_limit METAL4 \
+    -block_ring_top_layer_limit METAL4 \
+    -pad_core_ring_bottom_layer_limit METAL4 \
+    -pad_core_ring_top_layer_limit METAL4 \
+    -user_class DEBUG_CUSTOM_M4_PAIR_2
+
+# ============================================================
+# METAL6 vertical strap pairs
+# ============================================================
+
+add_stripes \
+    -nets {VDD VSS} \
+    -layer METAL6 \
+    -direction vertical \
+    -width $strap_width \
+    -spacing $strap_spacing \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $x_start_1 \
+    -area [list $x_start_1 $y_bottom [expr $x_start_1 + 24.0] $y_top] \
+    -block_ring_bottom_layer_limit METAL6 \
+    -block_ring_top_layer_limit METAL6 \
+    -pad_core_ring_bottom_layer_limit METAL6 \
+    -pad_core_ring_top_layer_limit METAL6 \
+    -user_class DEBUG_CUSTOM_M6_PAIR_1
+
+add_stripes \
+    -nets {VDD VSS} \
+    -layer METAL6 \
+    -direction vertical \
+    -width $strap_width \
+    -spacing $strap_spacing \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $x_start_2 \
+    -area [list $x_start_2 $y_bottom [expr $x_start_2 + 24.0] $y_top] \
+    -block_ring_bottom_layer_limit METAL6 \
+    -block_ring_top_layer_limit METAL6 \
+    -pad_core_ring_bottom_layer_limit METAL6 \
+    -pad_core_ring_top_layer_limit METAL6 \
+    -user_class DEBUG_CUSTOM_M6_PAIR_2
+
+# ============================================================
+# Connect the generated floating straps to the VDD/VSS ring/strap network.
+# ============================================================
+
+route_special \
+    -nets {VDD VSS} \
+    -connect {floating_stripe} \
+    -floating_stripe_target {ring stripe} \
+    -allow_layer_change 1 \
+    -layer_change_range {METAL4 METAL6} \
+    -target_via_layer_range {VIA34 VIA56} \
+    -user_class DEBUG_CUSTOM_M4_M6_STRAP_STITCH
+"""
+
+#Replaced power_straps original version with this one below which also adds power rings: <-Devlin: Old comment? Doesn't make sense
 
     
 
     def place_opt_design(self) -> bool:
         """Place the design and do pre-routing optimization."""
         self.verbose_append("place_opt_design")
+
+#Devlin: Add lower-level power connections
+        self.verbose_append(r"""
+route_special \
+    -nets {VDD VSS} \
+    -connect {core_pin} \
+    -core_pin_target {stripe ring} \
+    -allow_layer_change 1 \
+    -layer_change_range {METAL1 METAL6} \
+    -target_via_layer_range {VIA12 VIA56} \
+    -user_class DEBUG_CUSTOM_CORE_PIN_PG_CONNECT
+""")
+
         return True
 
     def clock_tree(self) -> bool:
@@ -687,6 +907,69 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
             self.verbose_append("add_fillers")
         return True
 
+#Devlin: New function to add dummy metal fill to avoid DRC errors
+    def add_metal_fill(self) -> bool:
+        """
+        Add dummy metal fill on selected layers after routing and post-route opt.
+
+        This is intentionally limited to METAL2 and METAL5.
+        """
+
+        metal_fill_tcl = os.path.join(self.run_dir, "metal_fill.tcl")
+
+        with open(metal_fill_tcl, "w") as f:
+            f.write(r"""
+# ============================================================
+# Devlin custom dummy metal fill
+# Limited to METAL2 and METAL5
+# ============================================================
+
+# Clear prior metal fill settings if re-running from an intermediate checkpoint.
+delete_metal_fill -layer {METAL2 METAL5}
+
+# Add dummy fill on METAL2.
+set_metal_fill \
+    -layer METAL2 \
+    -active_spacing 0.2 \
+    -gap_spacing 0.2 \
+    -min_width 0.2 \
+    -max_width 2.0 \
+    -min_length 0.2 \
+    -max_length 2.0
+
+add_metal_fill \
+    -layers {METAL2}
+
+# Add dummy fill on METAL5.
+set_metal_fill \
+    -layer METAL5 \
+    -active_spacing 0.2 \
+    -gap_spacing 0.2 \
+    -min_width 0.2 \
+    -max_width 2.0 \
+    -min_length 0.2 \
+    -max_length 2.0
+
+add_metal_fill \
+    -layers {METAL6}
+
+# Add dummy fill on METAL6.
+set_metal_fill \
+    -layer METAL6 \
+    -active_spacing 0.2 \
+    -gap_spacing 0.2 \
+    -min_width 0.2 \
+    -max_width 2.0 \
+    -min_length 0.2 \
+    -max_length 2.0
+
+add_metal_fill \
+    -layers {METAL6}
+""")
+
+        self.verbose_append("source -echo -verbose {}".format(metal_fill_tcl))
+        return True
+
 
     def route_design(self) -> bool:
         """Route the design."""
@@ -714,6 +997,50 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
     def assemble_design(self) -> bool:
         # TODO: implement the assemble_design step.
         return True
+
+#Devlin: Write vss_metal5_stripes.txt so that the later merge.py script can find the VSS stripes for power connection.
+    def write_vss_metal5_stripes_file(self) -> bool:
+        """
+        Write VSS METAL5 special-wire rectangles for merge.py.
+
+        This creates a small Tcl script in build/par-rundir and sources it
+        from Innovus. The output vss_metal5_stripes.txt is also written in
+        build/par-rundir.
+        """
+        dump_stripes_tcl = os.path.join(self.run_dir, "dump_vss_metal5_stripes.tcl")
+
+        with open(dump_stripes_tcl, "w") as f:
+            f.write(r"""
+# ============================================================
+# Dump VSS METAL5 special-wire rectangles for merge.py
+# ============================================================
+
+set out_file "vss_metal5_stripes.txt"
+set fp [open $out_file "w"]
+
+set n [get_db nets -if {.name == VSS}]
+
+if {[llength $n] == 0} {
+    puts "WARNING: Could not find net VSS while writing $out_file"
+} else {
+    foreach sw [get_db $n .special_wires] {
+        set layer_name [get_db [get_db $sw .layer] .name]
+        set rect [get_db $sw .rect]
+
+        if {$layer_name == "METAL5"} {
+            puts $fp $rect
+        }
+    }
+}
+
+close $fp
+
+puts "Wrote $out_file"
+""")
+
+        self.verbose_append("source -echo -verbose {}".format(dump_stripes_tcl))
+        return True
+
 
     def write_netlist(self) -> bool:
         # Don't use virtual connects (using colon, e.g. VSS:) because they mess up LVS
@@ -888,6 +1215,9 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
         self.verbose_append("write_db {lib_name} -def -verilog".format(
             lib_name=self.output_innovus_lib_name
         ))
+
+        #Devlin: Write VSS METAL5 stripe rectangles for merge.py.
+        self.write_vss_metal5_stripes_file()
 
         # Write netlist
         self.write_netlist()
