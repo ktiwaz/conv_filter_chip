@@ -10,6 +10,29 @@ HAMMER_DIR="../ee209-hammer-internal"
 MAKEFILE="Makefile"
 
 # ============================================================
+# Argument: 3x3 or 5x5
+# ============================================================
+
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $0 {3x3|5x5}"
+    exit 1
+fi
+
+KERNEL_SIZE_DIR="$1"
+
+if [[ "$KERNEL_SIZE_DIR" != "3x3" && "$KERNEL_SIZE_DIR" != "5x5" ]]; then
+    echo "Error: argument must be either 3x3 or 5x5"
+    exit 1
+fi
+
+SELECTED_TESTCASES_DIR="${TESTCASES_DIR}/${KERNEL_SIZE_DIR}"
+
+if [[ ! -d "$SELECTED_TESTCASES_DIR" ]]; then
+    echo "Error: testcase directory does not exist: $SELECTED_TESTCASES_DIR"
+    exit 1
+fi
+
+# ============================================================
 # Helpers
 # ============================================================
 
@@ -33,11 +56,6 @@ compare_hex_files_case_insensitive() {
     norm_a="$(mktemp)"
     norm_b="$(mktemp)"
 
-    # Normalize:
-    # - remove CRs
-    # - drop blank lines
-    # - trim leading/trailing whitespace
-    # - uppercase for case-insensitive compare
     sed 's/\r$//' "$file_a" \
         | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' \
         | grep -v '^$' \
@@ -58,14 +76,15 @@ compare_hex_files_case_insensitive() {
 }
 
 # ============================================================
-# Step 1: delete all existing output_image.hex files
+# Step 1: delete existing actual outputs for selected size only
 # ============================================================
 
-echo "Deleting existing output_image.hex files under ${TESTCASES_DIR} ..."
-find "$TESTCASES_DIR" -type f -name "output_image.hex" -delete
+echo "Running only ${KERNEL_SIZE_DIR} post-synthesis testcases"
+echo "Deleting existing output_image.hex files under ${SELECTED_TESTCASES_DIR} ..."
+find "$SELECTED_TESTCASES_DIR" -type f -name "output_image.hex" -delete
 
 # ============================================================
-# Step 2: iterate through all config.yml testcases
+# Step 2: iterate through selected post-synthesis configs
 # ============================================================
 
 while IFS= read -r yml_path; do
@@ -77,12 +96,12 @@ while IFS= read -r yml_path; do
 
     echo
     echo "============================================================"
-    echo "Running testcase: ${testcase_name}"
+    echo "Running post-syn testcase: ${testcase_name}"
     echo "Config: ${yml_path}"
     echo "============================================================"
 
     if [[ ! -f "$expected_file" ]]; then
-        echo "SKIP: missing input file: $expected_file"
+        echo "SKIP: missing expected file: $expected_file"
         skipped_tests+=("$testcase_name (missing expected_output_image.hex)")
         skip_count=$((skip_count + 1))
         continue
@@ -95,17 +114,13 @@ while IFS= read -r yml_path; do
         continue
     fi
 
-    (
-        cd "$HAMMER_DIR" || exit 100
-
-        echo "[1/2] Cleaning build ..."
-        rm -rf $HAMMER_DIR/build/sim-rtl-rundir
-    )
+    echo "[1/2] Cleaning post-syn sim rundir ..."
+    rm -rf "$HAMMER_DIR/build/sim-syn-rundir"
     clean_status=$?
 
     if [[ $clean_status -ne 0 ]]; then
-        echo "FAIL: clean-build failed for ${testcase_name}"
-        failed_tests+=("$testcase_name (clean-build failed)")
+        echo "FAIL: clean failed for ${testcase_name}"
+        failed_tests+=("$testcase_name (clean failed)")
         fail_count=$((fail_count + 1))
         continue
     fi
@@ -113,14 +128,14 @@ while IFS= read -r yml_path; do
     (
         cd "$HAMMER_DIR" || exit 101
 
-        echo "[2/2] Running testcase ..."
-        make -f "$MAKEFILE" sim-rtl TB_CFGS="$yml_path"
+        echo "[2/2] Running post-syn testcase ..."
+        make -f "$MAKEFILE" sim-syn TB_CFGS="$yml_path"
     )
     run_status=$?
 
     if [[ $run_status -ne 0 ]]; then
-        echo "FAIL: simulation/make failed for ${testcase_name}"
-        failed_tests+=("$testcase_name (make run failed)")
+        echo "FAIL: post-syn simulation/make failed for ${testcase_name}"
+        failed_tests+=("$testcase_name (make sim-syn failed)")
         fail_count=$((fail_count + 1))
         continue
     fi
@@ -149,7 +164,7 @@ while IFS= read -r yml_path; do
         fail_count=$((fail_count + 1))
     fi
 
-done < <(find "$TESTCASES_DIR" -type f -name "config.yml" | sort)
+done < <(find "$SELECTED_TESTCASES_DIR" -type f -name "config_post_syn.yml" | sort)
 
 # ============================================================
 # Final report
@@ -157,7 +172,7 @@ done < <(find "$TESTCASES_DIR" -type f -name "config.yml" | sort)
 
 echo
 echo "============================================================"
-echo "FINAL REPORT"
+echo "POST-SYN FINAL REPORT: ${KERNEL_SIZE_DIR}"
 echo "============================================================"
 echo "Passed : $pass_count"
 echo "Failed : $fail_count"

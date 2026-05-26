@@ -230,9 +230,10 @@ module tb_top_3x3;
         // Hold reset for a few cycles
         repeat (4) @(posedge clk);
 
-        @(negedge clk);
+        @(posedge clk);
         reset_n = 1'b1;
         $display("[%0t] DUT reset released", $time);
+        repeat (5) @(posedge clk);
 
         // Program kernel
         program_kernel();
