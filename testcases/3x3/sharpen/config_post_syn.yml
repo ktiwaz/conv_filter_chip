@@ -1,0 +1,24 @@
+sim.inputs:
+  input_files:
+  - ../ee209-hammer-internal/top_3x3.sv
+  tb_input_files:
+  - ../testbench/top_3x3/tb_top_3x3.sv
+  - ../testbench/convolution_core/image_loader.sv
+  - ../testbench/convolution_core/image_dumper.sv
+  tb_defines:
+  - TESTCASE_DIR=\"../../../testcases/3x3/sharpen\"
+  - KERNEL_SIZE=3
+  - NORM_WIDTH=8
+  - DATA_WIDTH=8
+  - LINE_WIDTH=128
+  - IMAGE_HEIGHT=128
+  - NORMALIZATION_VALUE=128
+  top_module: top_3x3
+  tb_name: tb_top_3x3
+  level: gl
+  timing_annotated: true
+  options:
+  - +vcs+vcdpluson
+  - +vcs+vcdplusmemon
+  - +vcs+vcdplusautoflushon
+  - -sverilog

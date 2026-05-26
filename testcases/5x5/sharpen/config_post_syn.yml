@@ -1,0 +1,24 @@
+sim.inputs:
+  input_files:
+  - ../ee209-hammer-internal/top_5x5.sv
+  tb_input_files:
+  - ../testbench/top_5x5/tb_top_5x5.sv
+  - ../testbench/convolution_core/image_loader.sv
+  - ../testbench/convolution_core/image_dumper.sv
+  tb_defines:
+  - TESTCASE_DIR=\"../../../testcases/5x5/sharpen\"
+  - KERNEL_SIZE=5
+  - NORM_WIDTH=16
+  - DATA_WIDTH=8
+  - LINE_WIDTH=128
+  - IMAGE_HEIGHT=128
+  - NORMALIZATION_VALUE=32768
+  top_module: top_5x5
+  tb_name: tb_top_5x5
+  level: gl
+  timing_annotated: true
+  options:
+  - +vcs+vcdpluson
+  - +vcs+vcdplusmemon
+  - +vcs+vcdplusautoflushon
+  - -sverilog
