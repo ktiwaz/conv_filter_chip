@@ -49,7 +49,7 @@ module window_dot_product_5x5 #(
     integer i;
     integer row, col;
 
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             //------------------------------------------------------------------
             // Reset data pipeline

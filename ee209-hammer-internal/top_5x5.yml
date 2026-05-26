@@ -13,7 +13,61 @@ synthesis.inputs:
     - "../hardware/src/window_dot_product_generic.sv"
     - "../hardware/src/window_dot_product_5x5.sv"
 
+supplies:
+    power: [{name: "VDD", pin: "VDD"}]
+    ground: [{name: "VSS", pin: "VSS"}]
+    VDD: "1.8 V"
+    GND: "0 V"
+
 vlsi.inputs.clocks:
-  - name: "clk"
-    period: "10ns"
-    path: "clk"
+  - name: clk
+    period: 10 ns
+    uncertainty: 0.1 ns
+
+vlsi.inputs.delays:
+  # Inputs relative to clk
+  - name: reset_n
+    clock: clk
+    direction: input
+    delay: 1 ns
+
+  - name: kernel_valid
+    clock: clk
+    direction: input
+    delay: 1 ns
+
+  - name: pixel_valid
+    clock: clk
+    direction: input
+    delay: 1 ns
+
+  - name: normalization_valid
+    clock: clk
+    direction: input
+    delay: 1 ns
+
+  - name: test_mode
+    clock: clk
+    direction: input
+    delay: 1 ns
+
+  - name: datain
+    clock: clk
+    direction: input
+    delay: 1 ns
+
+  # Outputs relative to clk
+  - name: output_valid
+    clock: clk
+    direction: output
+    delay: 1 ns
+
+  - name: dataout
+    clock: clk
+    direction: output
+    delay: 1 ns
+
+  - name: status
+    clock: clk
+    direction: output
+    delay: 1 ns

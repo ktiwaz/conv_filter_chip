@@ -1,7 +1,6 @@
 TOP_DIR := $(realpath $(CURDIR))
 OBJ_DIR := $(TOP_DIR)/build
 INPUT_CFGS := $(TOP_DIR)/top_3x3.yml
-TB_CFGS := $(TOP_DIR)/top_3x3.yml
 
 HAMMER_PYTHONPATH := $(TOP_DIR)/hammer/src:$(TOP_DIR)/hammer/src/hammer-vlsi:$(TOP_DIR)/hammer/src/hammer-tech:$(TOP_DIR)/hammer/src/python-jsonschema-objects:$(TOP_DIR)/hammer/src/jsonschema
 

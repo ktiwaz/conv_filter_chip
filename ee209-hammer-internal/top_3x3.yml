@@ -71,3 +71,6 @@ vlsi.inputs.delays:
     clock: clk
     direction: output
     delay: 1 ns
+
+vlsi.inputs.custom_sdc_constraints:
+  - "set_false_path -from [get_ports {reset_n}] -to [get_pins {conv_filter_top_inst/rst_sync_reg[0]/CDN conv_filter_top_inst/rst_sync_reg[1]/CDN conv_filter_top_inst/rst_sync_reg[2]/CDN}]"

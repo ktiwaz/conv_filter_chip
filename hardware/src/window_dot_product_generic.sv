@@ -51,7 +51,7 @@ module window_dot_product_generic #(
         end
     end
 
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             dot_product <= '0;
             output_valid <= 0;

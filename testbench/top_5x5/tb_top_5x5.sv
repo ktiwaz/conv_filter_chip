@@ -1,8 +1,8 @@
 //==================================================
 // Defaults (can be overridden by +define+...)
 //==================================================
-
-module tb_conv_filter_top;
+`timescale 1ns/1ps
+module tb_top_5x5;
 
     localparam string TESTCASE_DIR = `TESTCASE_DIR;
     localparam int KERNEL_SIZE     = `KERNEL_SIZE;
@@ -54,9 +54,14 @@ module tb_conv_filter_top;
     integer col;
 
     // ==================================================
+    // Clock
+    // ==================================================
+    always #5ns clk = ~clk;
+
+    // ==================================================
     // DUT
     // ==================================================
-    conv_filter_top #(
+    top_5x5 #(
         .DATA_WIDTH (DATA_WIDTH),
         .KERNEL_SIZE(KERNEL_SIZE),
         .LINE_WIDTH (LINE_WIDTH),
@@ -107,11 +112,6 @@ module tb_conv_filter_top;
     );
 
     // ==================================================
-    // Clock
-    // ==================================================
-    always #5ns clk = ~clk;
-
-    // ==================================================
     // Pixel stream routing
     // TB only drives pixel_valid/datain from loader
     // after programming is complete.
@@ -123,8 +123,8 @@ module tb_conv_filter_top;
 
             forever begin
                 @(posedge clk);
-                pixel_valid <= loader_valid;
-                datain      <= loader_pixel;
+                pixel_valid <= #1ns loader_valid;
+                datain      <= #1ns loader_pixel;
             end
         end
     endtask
@@ -138,23 +138,23 @@ module tb_conv_filter_top;
 
             for (i = 0; i < KERNEL_WORDS; i = i + 1) begin
                 @(posedge clk);
-                kernel_valid        <= 1'b1;
-                normalization_valid <= 1'b0;
-                pixel_valid         <= 1'b0;
-                datain              <= kernel_mem[i];
+                kernel_valid        <= #1ns 1'b1;
+                normalization_valid <= #1ns 1'b0;
+                pixel_valid         <= #1ns 1'b0;
+                datain              <= #1ns kernel_mem[i];
 
                 row = i / KERNEL_SIZE;
                 col = i % KERNEL_SIZE;
 
-                $display("[%0t] kernel[%0d][%0d] <= 0x%02h (%0d)",
+                $display("[%0t] kernel[%0d][%0d] <= #0.2 0x%02h (%0d)",
                          $time, row, col, kernel_mem[i], $signed(kernel_mem[i]));
             end
 
             @(posedge clk);
-            kernel_valid        <= 1'b0;
-            normalization_valid <= 1'b0;
-            pixel_valid         <= 1'b0;
-            datain              <= '0;
+            kernel_valid        <= #1ns 1'b0;
+            normalization_valid <= #1ns 1'b0;
+            pixel_valid         <= #1ns 1'b0;
+            datain              <= #1ns '0;
         end
     endtask
 
@@ -174,20 +174,20 @@ module tb_conv_filter_top;
                 norm_byte = norm_tmp[NORM_WIDTH-1 - i*DATA_WIDTH -: DATA_WIDTH];
 
                 @(posedge clk);
-                kernel_valid        <= 1'b0;
-                normalization_valid <= 1'b1;
-                pixel_valid         <= 1'b0;
-                datain              <= norm_byte;
+                kernel_valid        <= #1ns 1'b0;
+                normalization_valid <= #1ns 1'b1;
+                pixel_valid         <= #1ns 1'b0;
+                datain              <= #1ns norm_byte;
 
-                $display("[%0t] normalization byte %0d <= 0x%02h",
+                $display("[%0t] normalization byte %0d <= #0.2 0x%02h",
                          $time, i, norm_byte);
             end
 
             @(posedge clk);
-            kernel_valid        <= 1'b0;
-            normalization_valid <= 1'b0;
-            pixel_valid         <= 1'b0;
-            datain              <= '0;
+            kernel_valid        <= #1ns 1'b0;
+            normalization_valid <= #1ns 1'b0;
+            pixel_valid         <= #1ns 1'b0;
+            datain              <= #1ns '0;
 
             $display("[%0t] Final normalization programmed = 0x%0h",
                      $time, NORMALIZATION_VALUE);
@@ -207,6 +207,11 @@ module tb_conv_filter_top;
                 default: ;
             endcase
         end
+    end
+
+    initial begin
+        $fsdbDumpfile("waveform.fsdb");
+        $fsdbDumpvars(0, tb_top_5x5);
     end
 
     // ==================================================
@@ -229,9 +234,10 @@ module tb_conv_filter_top;
 
         // Hold reset for a few cycles
         repeat (4) @(posedge clk);
+
+        @(negedge clk);
         reset_n = 1'b1;
         $display("[%0t] DUT reset released", $time);
-        repeat (4) @(posedge clk);
 
         // Program kernel
         program_kernel();

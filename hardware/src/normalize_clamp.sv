@@ -74,7 +74,7 @@ module normalize_clamp #(
         end
     end
 
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             dataout       <= '0;
             output_valid  <= 1'b0;

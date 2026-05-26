@@ -35,6 +35,7 @@ module conv_filter_top #(
     output logic [1:0]               status
 );
 
+
     localparam KERNEL_ADDR_W = $clog2(KERNEL_SIZE * KERNEL_SIZE);
     localparam NORM_WORDS = $clog2((NORM_WIDTH + DATA_WIDTH - 1) / DATA_WIDTH);
     localparam int NORM_COUNT_W  = (NORM_WORDS > 1) ? $clog2(NORM_WORDS) : 1;
@@ -50,13 +51,28 @@ module conv_filter_top #(
     wire [DATA_WIDTH-1:0] norm_wdata;
     wire [NORM_COUNT_W-1:0] norm_byte_index;
 
+
+    logic [2:0] rst_sync;
+    logic areset_n;
+
+    // Reset Synchronizer: ensures all modules see reset deasserted in the same cycle
+    always_ff @(posedge clk or negedge reset_n) begin
+        if (!reset_n) begin
+            rst_sync <= 3'b000;
+        end else begin
+            rst_sync <= {rst_sync[1:0], 1'b1};
+        end
+    end
+
+    assign areset_n = rst_sync[2];
+
     io_control_fsm # (
         .DATA_WIDTH(DATA_WIDTH),
         .KERNEL_SIZE(KERNEL_SIZE),
         .NORM_WIDTH(NORM_WIDTH)
     ) io_control_fsm_inst (
         .clk(clk),
-        .reset_n(reset_n),
+        .reset_n(areset_n),
         .kernel_valid(kernel_valid),
         .normalization_valid(normalization_valid),
         .pixel_valid(pixel_valid),
@@ -80,7 +96,7 @@ module conv_filter_top #(
         .KERNEL_SIZE(KERNEL_SIZE)
     ) kernel_register_array_inst (
         .clk(clk),
-        .reset_n(reset_n),
+        .reset_n(areset_n),
         .we(kernel_we),
         .waddr(kernel_waddr),
         .wdata(kernel_wdata),
@@ -95,7 +111,7 @@ module conv_filter_top #(
     )
     normalization_register_inst (
         .clk(clk),
-        .reset_n(reset_n),
+        .reset_n(areset_n),
         .we(norm_we),
         .byte_index(norm_byte_index),
         .wdata(norm_wdata),
@@ -110,7 +126,7 @@ module conv_filter_top #(
     )
     convolution_core_inst (
         .clk(clk),
-        .rst_n(reset_n),
+        .rst_n(areset_n),
         .input_valid(shiftreg_input_valid),
         .datain(shiftreg_pixel_data),
         .kernel(kernel),

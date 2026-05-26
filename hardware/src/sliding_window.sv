@@ -70,7 +70,7 @@ module sliding_window #(
     integer i;
 
     // Shift register
-    always_ff @(posedge clk) begin
+    always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             valid_count <= '0;
         end else begin
