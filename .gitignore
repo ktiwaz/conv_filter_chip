@@ -19,3 +19,20 @@ ee209-hammer-internal/.pyyaml_touch
 **.abstract/
 **.cadence/
 testcases/**/output_image.hex
+
+# Calibre / verification generated files
+*.rdb
+*.rep
+*.db
+*.report
+*.sp
+*.drc_
+*.lvs_
+*.ext
+*.sum
+*.results
+*.LOG
+*.SUM
+*.density
+*.wrn
+*.density2

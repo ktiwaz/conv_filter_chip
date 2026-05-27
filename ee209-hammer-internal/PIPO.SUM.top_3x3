@@ -1,0 +1,355 @@
+********************************************************************************
+Product   : Virtuoso(R) XStream Out
+Program   : @(#)$CDS: strmout version IC23.1-64b 05/22/2024 07:39 (cpgbld16) $
+          : sub-version  IC23.1-64b.ISR7.27 
+Started at: 21-May-2026  20:46:03
+User Name : devlin11780
+Host Name : eeapps02.labidm.seas.ucla.edu
+Directory : /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
+CADENCE Design Systems, Inc.
+********************************************************************************
+Info: Cellview Rev Num:99,  Tech Rev Num:59
+
+
+                       Individual Cell Statistics - Basic Objects
+---------------------------------------------------------------------------------------------------------------------------------------
+Library/Cell/View               Instance Array   Polygon  Rect   Path   PathSeg   Text   TextDisplay   Line   Dot   Arc   Donut   Ellipse 
+---------------------------------------------------------------------------------------------------------------------------------------
+Final_Merged_Chip_Lib/AN2D1BWP7T/layout                         0        0       8        19     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AN2D2BWP7T/layout                         0        0       7        25     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AN3D1BWP7T/layout                         0        0       10       21     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AN4D1BWP7T/layout                         0        0       12       26     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AN4D2BWP7T/layout                         0        0       10       34     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/ANTENNABWP7T/layout                       0        0       0        10     0      0         18     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AO21D0BWP7T/layout                        0        0       9        19     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AO22D0BWP7T/layout                        0        0       12       25     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AO31D1BWP7T/layout                        0        0       10       29     0      0         24     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AOI211XD0BWP7T/layout                     0        0       8        21     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AOI21D0BWP7T/layout                       0        0       8        18     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AOI221D0BWP7T/layout                      0        0       14       21     0      0         23     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AOI22D0BWP7T/layout                       0        0       10       19     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/AOI31D0BWP7T/layout                       0        0       8        19     0      0         24     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/BUFFD1BWP7T/layout                        0        0       8        15     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/BUFFD2BWP7T/layout                        0        0       6        27     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/BUFFD3BWP7T/layout                        0        0       6        29     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKAN2D1BWP7T/layout                       0        0       8        17     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKBD10BWP7T/layout                        0        0       15       59     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKBD1BWP7T/layout                         0        0       7        16     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKBD2BWP7T/layout                         0        0       10       19     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKBD3BWP7T/layout                         0        0       8        30     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKBD4BWP7T/layout                         0        0       9        33     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKBD6BWP7T/layout                         0        0       11       47     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKLNQD1BWP7T/layout                       0        0       27       39     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKLNQD2BWP7T/layout                       0        0       27       44     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKND12BWP7T/layout                        0        0       13       46     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKND2D0BWP7T/layout                       0        0       6        14     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKXOR2D1BWP7T/layout                      0        0       13       24     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/CKXOR2D2BWP7T/layout                      0        0       16       26     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DEL015BWP7T/layout                        0        0       8        15     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DEL01BWP7T/layout                         0        0       6        16     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DEL0BWP7T/layout                          0        0       14       22     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DEL1BWP7T/layout                          0        0       12       26     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DFCNQD1BWP7T/layout                       0        0       31       55     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DFCNQD2BWP7T/layout                       0        0       32       56     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DFKCNQD1BWP7T/layout                      0        0       30       47     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/DFQD1BWP7T/layout                         0        0       27       50     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FA1D0BWP7T/layout                         0        0       27       50     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FA1D1BWP7T/layout                         0        0       30       65     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FILL16BWP7T/layout                        0        0       1        22     0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FILL1BWP7T/layout                         0        0       0        7      0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FILL2BWP7T/layout                         0        0       0        8      0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FILL32BWP7T/layout                        0        0       1        38     0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FILL4BWP7T/layout                         0        0       1        10     0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/FILL8BWP7T/layout                         0        0       1        14     0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/HA1D0BWP7T/layout                         0        0       20       35     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IAO22D0BWP7T/layout                       0        0       12       21     0      0         24     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IIND4D0BWP7T/layout                       0        0       13       25     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IINR4D0BWP7T/layout                       0        0       17       23     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IND2D1BWP7T/layout                        0        0       9        18     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IND3D1BWP7T/layout                        0        0       11       19     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IND4D0BWP7T/layout                        0        0       11       24     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INR2D1BWP7T/layout                        0        0       9        18     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INR2XD0BWP7T/layout                       0        0       9        15     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INR3D0BWP7T/layout                        0        0       11       19     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INR4D0BWP7T/layout                        0        0       12       21     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INVD0BWP7T/layout                         0        0       4        12     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INVD1BWP7T/layout                         0        0       5        14     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/INVD2BWP7T/layout                         0        0       5        19     0      0         19     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IOA21D1BWP7T/layout                       0        0       11       20     0      0         23     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/IOA21D2BWP7T/layout                       0        0       9        31     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/MAOI222D1BWP7T/layout                     0        0       12       21     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/MOAI22D0BWP7T/layout                      0        0       14       17     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/MOAI22D1BWP7T/layout                      0        0       12       26     0      0         24     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/MUX2D1BWP7T/layout                        0        0       14       24     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/MUX2ND0BWP7T/layout                       0        0       12       19     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/ND2D0BWP7T/layout                         0        0       5        15     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/ND2D1BWP7T/layout                         0        0       5        18     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/ND2D2BWP7T/layout                         0        0       8        19     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/ND3D0BWP7T/layout                         0        0       7        17     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/NR2D1BWP7T/layout                         0        0       5        19     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/NR2XD0BWP7T/layout                        0        0       5        17     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/NR3D0BWP7T/layout                         0        0       7        16     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/NR4D0BWP7T/layout                         0        0       9        20     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OA21D0BWP7T/layout                        0        0       10       18     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OA221D0BWP7T/layout                       0        0       14       26     0      0         23     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OA22D0BWP7T/layout                        0        0       13       25     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OA31D1BWP7T/layout                        0        0       11       28     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI211D1BWP7T/layout                      0        0       7        25     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI21D0BWP7T/layout                       0        0       8        18     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI21D1BWP7T/layout                       0        0       8        21     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI221D0BWP7T/layout                      0        0       14       21     0      0         23     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI222D0BWP7T/layout                      0        0       14       25     0      0         24     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI22D0BWP7T/layout                       0        0       11       18     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI31D0BWP7T/layout                       0        0       8        19     0      0         24     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI31D1BWP7T/layout                       0        0       8        26     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OAI32D1BWP7T/layout                       0        0       9        30     0      0         25     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OR2D0BWP7T/layout                         0        0       8        16     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OR2D1BWP7T/layout                         0        0       8        19     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OR3XD1BWP7T/layout                        0        0       9        23     0      0         21     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/OR4XD1BWP7T/layout                        0        0       11       25     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/SDFCNQD1BWP7T/layout                      0        0       38       69     0      0         23     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/SDFQD0BWP7T/layout                        0        0       35       54     0      0         22     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/TAPCELLBWP7T/layout                       0        0       4        10     0      0         17     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/TIELBWP7T/layout                          0        0       4        16     0      0         18     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/XNR2D1BWP7T/layout                        0        0       14       24     0      0         20     0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3/layout                            22487    0       1        129568 44354  0         22511  0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA19/layout                      0        0       0        363    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA20/layout                      0        0       0        363    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA22/layout                      0        0       0        382    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA23/layout                      0        0       0        382    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA30/layout                      0        0       0        401    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA31/layout                      0        0       0        401    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA32/layout                      0        0       0        21     0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA34/layout                      0        0       0        382    0      0         0      0             0      0     0     0       0       
+Final_Merged_Chip_Lib/top_3x3_VIA35/layout                      0        0       0        382    0      0         0      0             0      0     0     0       0       
+tsmc18/M2_M1/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M2_M1/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M2_M1/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M2_M1/layout             0        0       0        21     0      0         0      0             0      0     0     0       0       
+tsmc18/M2_M1/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M3_M2/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M3_M2/layout             0        0       0        21     0      0         0      0             0      0     0     0       0       
+tsmc18/M4_M3/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M4_M3/layout             0        0       0        21     0      0         0      0             0      0     0     0       0       
+tsmc18/M4_M3/layout             0        0       0        363    0      0         0      0             0      0     0     0       0       
+tsmc18/M5_M4/layout             0        0       0        591    0      0         0      0             0      0     0     0       0       
+tsmc18/M5_M4/layout             0        0       0        382    0      0         0      0             0      0     0     0       0       
+tsmc18/M5_M4/layout             0        0       0        21     0      0         0      0             0      0     0     0       0       
+tsmc18/M5_M4/layout             0        0       0        211    0      0         0      0             0      0     0     0       0       
+tsmc18/M5_M4/layout             0        0       0        363    0      0         0      0             0      0     0     0       0       
+tsmc18/M5_M4/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        158    0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        170    0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        158    0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        146    0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        158    0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        242    0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        14     0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        74     0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        3      0      0         0      0             0      0     0     0       0       
+tsmc18/M6_M5/layout             0        0       0        146    0      0         0      0             0      0     0     0       0       
+tsmc18/VIAGEN12/layout          0        0       0        3      0      0         0      0             0      0     0     0       0       
+---------------------------------------------------------------------------------------------------------------------------------------
+
+                       Individual Cell Statistics - Advanced Objects
+--------------------------------------------------------------------------------------------------------------------------------------------
+Library/Cell/View               PRBdy    OtherBdy   AreaBlkg   LayerBlkg  AreaHalo   Row   Marker   Stitch   CustVia   StdVia    CdsGenVia
+--------------------------------------------------------------------------------------------------------------------------------------------
+Final_Merged_Chip_Lib/AN2D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AN2D2BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AN3D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AN4D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AN4D2BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/ANTENNABWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AO21D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AO22D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AO31D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AOI211XD0BWP7T/layout                     0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AOI21D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AOI221D0BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AOI22D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/AOI31D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/BUFFD1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/BUFFD2BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/BUFFD3BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKAN2D1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKBD10BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKBD1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKBD2BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKBD3BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKBD4BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKBD6BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKLNQD1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKLNQD2BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKND12BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKND2D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKXOR2D1BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/CKXOR2D2BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DEL015BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DEL01BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DEL0BWP7T/layout                          0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DEL1BWP7T/layout                          0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DFCNQD1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DFCNQD2BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DFKCNQD1BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/DFQD1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FA1D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FA1D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FILL16BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FILL1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FILL2BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FILL32BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FILL4BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/FILL8BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/HA1D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IAO22D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IIND4D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IINR4D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IND2D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IND3D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IND4D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INR2D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INR2XD0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INR3D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INR4D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INVD0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INVD1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/INVD2BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IOA21D1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/IOA21D2BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/MAOI222D1BWP7T/layout                     0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/MOAI22D0BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/MOAI22D1BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/MUX2D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/MUX2ND0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/ND2D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/ND2D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/ND2D2BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/ND3D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/NR2D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/NR2XD0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/NR3D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/NR4D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OA21D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OA221D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OA22D0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OA31D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI211D1BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI21D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI21D1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI221D0BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI222D0BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI22D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI31D0BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI31D1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OAI32D1BWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OR2D0BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OR2D1BWP7T/layout                         0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OR3XD1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/OR4XD1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/SDFCNQD1BWP7T/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/SDFQD0BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/TAPCELLBWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/TIELBWP7T/layout                          0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/XNR2D1BWP7T/layout                        0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3/layout                            0        0          0          0          0          0     0        0        0         32618     0        
+Final_Merged_Chip_Lib/top_3x3_VIA19/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA20/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA22/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA23/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA30/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA31/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA32/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA34/layout                      0        0          0          0          0          0     0        0        0         0         0        
+Final_Merged_Chip_Lib/top_3x3_VIA35/layout                      0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M2_M1/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M2_M1/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M2_M1/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M2_M1/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M2_M1/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M3_M2/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M3_M2/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M4_M3/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M4_M3/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M4_M3/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M5_M4/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M5_M4/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M5_M4/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M5_M4/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M5_M4/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M5_M4/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/M6_M5/layout             0        0          0          0          0          0     0        0        0         0         0        
+tsmc18/VIAGEN12/layout          0        0          0          0          0          0     0        0        0         0         0        
+---------------------------------------------------------------------------------------------------------------------------------------
+
+                       Statistics of Layers 
+---------------------------------------------------------------------------------------------------------------------------------------
+Cadence         Cadence         Stream  Stream   
+Layer           Purpose         Layer   Datatype  Polygon  Rect     Path     Text     TextDisplay   Line Dot Arc Donut Ellipse Pathseg
+---------------------------------------------------------------------------------------------------------------------------------------
+NWELL           drawing         2       0         11       86       0        0        0             0    0   0   0     0      0      
+DIFF            drawing         3       0         158      148      0        0        0             0    0   0   0     0      0      
+PDIFF           drawing         11      0         0        0        0        679      0             0    0   0   0     0      0      
+POLY1           drawing         13      0         415      5        0        0        0             0    0   0   0     0      0      
+PIMP            drawing         7       0         12       86       0        0        0             0    0   0   0     0      0      
+NIMP            drawing         8       0         12       86       0        0        0             0    0   0   0     0      0      
+CONT            drawing         15      0         0        1680     0        0        0             0    0   0   0     0      0      
+METAL1          drawing         16      0         464      751      8643     0        0             0    0   0   0     0      0      
+VIA12           drawing         17      0         0        24       0        0        0             0    0   0   0     0      0      
+METAL2          drawing         18      0         0        63773    21929    0        0             0    0   0   0     0      0      
+VIA23           drawing         27      0         0        39       0        0        0             0    0   0   0     0      0      
+METAL3          drawing         28      0         0        1179     10441    0        0             0    0   0   0     0      0      
+VIA34           drawing         29      0         0        1901     0        0        0             0    0   0   0     0      0      
+METAL4          drawing         31      0         0        673      2623     0        0             0    0   0   0     0      0      
+VIA45           drawing         32      0         0        3079     0        0        0             0    0   0   0     0      0      
+METAL5          drawing         33      0         0        40963    690      0        0             0    0   0   0     0      0      
+VIA56           drawing         39      0         0        1249     0        0        0             0    0   0   0     0      0      
+METAL6          drawing         38      0         0        59       28       0        0             0    0   0   0     0      0      
+METAL1          pin             40      0         0        0        0        548      0             0    0   0   0     0      0      
+METAL4          pin             43      0         0        0        0        4        0             0    0   0   0     0      0      
+METAL6          pin             45      0         0        0        0        29       0             0    0   0   0     0      0      
+DIODUMMY        drawing         56      0         0        6        0        0        0             0    0   0   0     0      0      
+TEXT            drawing         59      0         0        22478    0        22575    0             0    0   0   0     0      0      
+prBoundary      drawing         62      0         1        97       0        0        0             0    0   0   0     0      0      
+METAL1          boundary        151     0         14       0        0        0        0             0    0   0   0     0      0      
+IP              drawing         63      63        0        0        0        679      0             0    0   0   0     0      0      
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Summary of Objects Translated:
+	Scalar Instances:		22487
+	Array Instances:		0
+	Polygons:			1087
+	Paths:				44354
+	Rectangles:			138362
+	Lines:				0
+	Arcs:				0
+	Donuts:				0
+	Dots:				0
+	Ellipses:			0
+	Boundaries:			0
+	Area Blockages:			0
+	Layer Blockages:		0
+	Area Halos:			0
+	Markers:			0
+	Rows:				0
+	Stitches:			0
+	Standard Vias:			32618
+	Custom Vias:			0
+	CdsGen Vias:			0
+	Pathsegs:			0
+	Text:				24514
+	TextDisplay:		0
+	Cells:				134
+Design Libraries: 
+
+DEFINE Final_Merged_Chip_Lib	/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/Final_Merged_Chip_Lib
+DEFINE tsmc18	/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18

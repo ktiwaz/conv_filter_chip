@@ -2,9 +2,9 @@
 Product   : Virtuoso(R) XStream Out
 Program   : @(#)$CDS: virtuoso version IC23.1-64b 05/22/2024 07:43 (cpgbld16) $
           : sub-version  IC23.1-64b.ISR7.27 
-Started at: 22-Apr-2026  21:13:31
+Started at: 26-May-2026  18:24:35
 User Name : devlin11780
-Host Name : eeapps01.labidm.seas.ucla.edu
+Host Name : eeapps02.labidm.seas.ucla.edu
 Directory : /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
 CADENCE Design Systems, Inc.
 ********************************************************************************
@@ -14,9 +14,9 @@ INFO (XSTRM-217): Reading the layer map file, /w/class.1/ee/ee209b/ee209bta/TSMC
 INFO (XSTRM-162): You have not used the '-viaMap' option. If the OpenAccess design has native oaVia instances, use the '-viaMap' option for preserving oaVia instances in a XStream Out - XStream In round trip. Using the '-viaMap' option improves performance and VM usage of applications using the Streamed-In design.
 
 Summary of Options :
-library                                 UCLA_CEMiD_1x1_PadFrame_PCELL
-strmFile                                UCLA_CEMiD_pad_frame_1x1_pcell.gds
-topCell                                 UCLA_CEMiD_pad_frame_1x1_pcell
+library                                 Final_Merged_Chip_Lib
+strmFile                                UCLA_pad_frame_seal.gds
+topCell                                 UCLA_pad_frame_seal
 view                                    layout
 logFile                                 strmOut.log
 layerMap                                /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18/tsmc18.layermap
@@ -47,8 +47,8 @@ INFO (XSTRM-223): 19. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/PFILLER
 INFO (XSTRM-223): 20. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/PFILLER22p76A/layout as STRUCTURE PFILLER22p76A.
 INFO (XSTRM-223): 21. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/PFILLER22p765A/layout as STRUCTURE PFILLER22p765A.
 INFO (XSTRM-223): 22. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_BOT_NECK_TMY849_C2/layout as STRUCTURE SAB258_BOT_NECK_TMY849_C2.
-INFO (XSTRM-223): 23. Translating stdVia tsmc18/M1_POLY1/layout as STRUCTURE M1_POLY1_CDNS_776917611190.
-INFO (XSTRM-223): 24. Translating stdVia tsmc18/M1_POLY1/layout as STRUCTURE M1_POLY1_CDNS_776917611191.
+INFO (XSTRM-223): 23. Translating stdVia tsmc18/M1_POLY1/layout as STRUCTURE M1_POLY1_CDNS_779845075280.
+INFO (XSTRM-223): 24. Translating stdVia tsmc18/M1_POLY1/layout as STRUCTURE M1_POLY1_CDNS_779845075281.
 INFO (XSTRM-223): 25. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_OC_P_1/layout as STRUCTURE SAB258_OC_P_1.
 INFO (XSTRM-223): 26. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_LINK_LINE1_AC/layout as STRUCTURE SAB258_LINK_LINE1_AC.
 INFO (XSTRM-223): 27. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_NEDGE_VD3AC_1/layout as STRUCTURE SAB258_NEDGE_VD3AC_1.
@@ -75,8 +75,8 @@ INFO (XSTRM-223): 47. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/HBX372_
 INFO (XSTRM-223): 48. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/HBX372_HBJ712_CONNECT_CUP_U_L_U/layout as STRUCTURE HBX372_HBJ712_CONNECT_CUP_U_L_U.
 INFO (XSTRM-223): 49. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/PAD50LAU_TRL/layout as STRUCTURE PAD50LAU_TRL.
 INFO (XSTRM-223): 50. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/M_PVDD3AC_w_bond_and_schematic/layout as STRUCTURE M_PVDD3AC_w_bond_and_schematic.
-INFO (XSTRM-223): 51. Translating stdVia tsmc18/M3_M2/layout as STRUCTURE M3_M2_CDNS_776917611192.
-INFO (XSTRM-223): 52. Translating stdVia tsmc18/M3_M2/layout as STRUCTURE M3_M2_CDNS_776917611193.
+INFO (XSTRM-223): 51. Translating stdVia tsmc18/M3_M2/layout as STRUCTURE M3_M2_CDNS_779845075282.
+INFO (XSTRM-223): 52. Translating stdVia tsmc18/M3_M2/layout as STRUCTURE M3_M2_CDNS_779845075283.
 INFO (XSTRM-223): 53. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_NEDGE_VD3AC/layout as STRUCTURE SAB258_NEDGE_VD3AC.
 INFO (XSTRM-223): 54. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_NMOS19D4X0D18_CLA/layout as STRUCTURE SAB258_NMOS19D4X0D18_CLA.
 INFO (XSTRM-223): 55. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_NDIOVSS2CDG_AC/layout as STRUCTURE SAB258_NDIOVSS2CDG_AC.
@@ -107,14 +107,19 @@ INFO (XSTRM-223): 79. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_
 INFO (XSTRM-223): 80. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SAB258_DB3A_BODY/layout as STRUCTURE SAB258_DB3A_BODY.
 INFO (XSTRM-223): 81. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/PDB3AC/layout as STRUCTURE PDB3AC.
 INFO (XSTRM-223): 82. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/M_PDB3AC_w_bond_and_schematic/layout as STRUCTURE M_PDB3AC_w_bond_and_schematic.
-INFO (XSTRM-223): 83. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/UCLA_CEMiD_pad_frame_1x1_pcell/layout as STRUCTURE UCLA_CEMiD_pad_frame_1x1_pcell.
+INFO (XSTRM-223): 83. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/tsmc_c018_seal_ring_edge_1p6m/layout as STRUCTURE tsmc_c018_seal_ring_edge_1p6m.
+INFO (XSTRM-223): 84. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/tsmc_c018_sealring_corner_1p6m/layout as STRUCTURE tsmc_c018_sealring_corner_1p6m.
+INFO (XSTRM-223): 85. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/SCW_seal_ring_pcell/layout as STRUCTURE SCW_seal_ring_pcell_CDNS_779845075281.
+INFO (XSTRM-223): 86. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/arrow/layout as STRUCTURE arrow.
+INFO (XSTRM-223): 87. Translating cellview UCLA_CEMiD_1x1_PadFrame_PCELL/UCLA_CEMiD_pad_frame_1x1_pcell/layout as STRUCTURE UCLA_CEMiD_pad_frame_1x1_pcell_CDNS_779845075280.
+INFO (XSTRM-223): 88. Translating cellview Final_Merged_Chip_Lib/UCLA_pad_frame_seal/layout as STRUCTURE UCLA_pad_frame_seal.
 
 Summary of Objects Translated:
-	Scalar Instances:                       280
+	Scalar Instances:                       4007
 	Array Instances:                        446
-	Polygons:                               75
+	Polygons:                               93
 	Paths:                                  0
-	Rectangles:                             1271
+	Rectangles:                             1307
 	Lines:                                  0
 	Arcs:                                   0
 	Donuts:                                 0
@@ -133,7 +138,7 @@ Summary of Objects Translated:
 	Pathsegs:                               0
 	Text:                                   227
 	TextDisplay:                            0
-	Cells:                                  83
+	Cells:                                  88
 
-Elapsed Time: 0.1s   User Time: 0.0s   CPU Time: 0.0s   Peak VM: 1316KB
+Elapsed Time: 0.2s   User Time: 0.0s   CPU Time: 0.0s   Peak VM: 1088KB
 INFO (XSTRM-234): Translation completed. '0' error(s) and '1' warning(s) found.

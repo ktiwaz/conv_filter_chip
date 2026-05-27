@@ -18,3 +18,4 @@ DEFINE EE209_Inductor_Library /w/class.1/ee/ee209b/ee209bta/TSMC180SETUP/EE209_I
 #DEFINE ECE215A_PSet_4 /w/home.04/home/devlin11780/Desktop/ece215a/ECE215A_PSet_4
 DEFINE UCLA_CEMiD_1x1_PadFrame_PCELL /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/UCLA_CEMiD_1x1_PadFrame_PCELL
 DEFINE Final_Merged_Chip_Lib /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/Final_Merged_Chip_Lib
+DEFINE CEMID_180nm_Labels /w/class.1/ee/ee209u/ee209uta/CEMID_180nm_Labels

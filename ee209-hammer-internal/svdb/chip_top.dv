@@ -1,0 +1,46 @@
+# CALIBRE-LVS DISCREPANCY VIEWER TCL FILE 
+# FILE: svdb/chip_top.dv
+dv_start unmatched                                
+dv_cell {chip_top} {chip_top} unmatched
+dv_obj_count -transformed_nets {27381 27381} -transformed_inst {42096 42096} -transformed_port {0 0}
+dv_discrep 1 {Property Errors}
+dv_discrep_line {} -ldev {X42/X0/X78/D0} {} -lloc {(293.970,764.160)} {  D(DN)                     } -sdev {XI4/XI23/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.204 sq u} {                                           }  {a} {: }  {220 sq u} {           }  {      45.4%} {}
+dv_discrep_line {}
+dv_discrep 2 {Property Errors}
+dv_discrep_line {} -ldev {X42/X0/X79/D0} {} -lloc {(479.330,772.000)} {  D(DN)                     } -sdev {XI4/XI19/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.204 sq u} {                                           }  {a} {: }  {220 sq u} {           }  {      45.4%} {}
+dv_discrep_line {}
+dv_discrep 3 {Property Errors}
+dv_discrep_line {} -ldev {X42/X0/X80/D0} {} -lloc {(481.570,770.960)} {  D(DN)                     } -sdev {XI4/XI17/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.204 sq u} {                                           }  {a} {: }  {220 sq u} {           }  {      45.4%} {}
+dv_discrep_line {}
+dv_discrep 4 {Property Errors}
+dv_discrep_line {} -ldev {X42/X0/X81/D0} {} -lloc {(484.930,772.000)} {  D(DN)                     } -sdev {XI4/XI20/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.204 sq u} {                                           }  {a} {: }  {220 sq u} {           }  {      45.4%} {}
+dv_discrep_line {}
+dv_discrep 5 {Property Errors}
+dv_discrep_line {} -ldev {X42/X0/X82/D0} {} -lloc {(509.570,755.280)} {  D(DN)                     } -sdev {XI4/XI18/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.204 sq u} {                                           }  {a} {: }  {220 sq u} {           }  {      45.4%} {}
+dv_discrep_line {}
+dv_discrep 6 {Property Errors}
+dv_discrep_line {} -ldev {X42/X5/X1164/D8} {} -lloc {(506.210,443.055)} {  D(DN)                   } -sdev {XI0/XXconv_filter_top_inst_CTS_ccl_a_buf_00032/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {1.8333 sq u} {                                            }  {a} {: }  {900 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 7 {Property Errors}
+dv_discrep_line {} -ldev {X42/X7/X281/D0} {} -lloc {(265.970,285.920)} {  D(DN)                    } -sdev {XI4/XI4/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.204 sq u} {                                           }  {a} {: }  {220 sq u} {           }  {      45.4%} {}
+dv_discrep_line {}
+dv_discrep 8 {Property Errors}
+dv_discrep_line {} -ldev {X42/X7/X1274/D16} {} -lloc {(199.890,331.625)} {  D(DN)                  } -sdev {XI4/XI29/DD0} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {120.611 sq u} {                                           }  {a} {: }  {420 sq u} {           }  {      71.3%} {}
+dv_discrep_line {}
+dv_discrep 9 {Property Errors}
+dv_discrep_line {} -ldev {X42/X8/X1058/D8} {} -lloc {(320.290,247.055)} {  D(DN)                   } -sdev {XI0/XXconv_filter_top_inst_CTS_ccl_a_buf_00016/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {1.6296 sq u} {                                            }  {a} {: }  {800 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 10 {Property Errors}
+dv_discrep_line {} -ldev {X42/X8/X1062/D8} {} -lloc {(631.090,254.895)} {  D(DN)                   } -sdev {XI0/XXconv_filter_top_inst_convolution_core_inst_sliding_window_inst_CTS_ccl_a_buf_00023/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {2.037 sq u} {                                             }  {a} {: }  {1000 sq u} {          }  {      99.8%} {}
+dv_discrep_line {}
+dv_end

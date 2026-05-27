@@ -1,0 +1,59 @@
+********************************************************************************
+Product   : Virtuoso(R) XStream Out
+Program   : @(#)$CDS: strmout version IC23.1-64b 05/22/2024 07:39 (cpgbld16) $
+          : sub-version  IC23.1-64b.ISR7.27 
+Started at: 21-May-2026  21:16:03
+User Name : devlin11780
+Host Name : eeapps02.labidm.seas.ucla.edu
+Directory : /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
+CADENCE Design Systems, Inc.
+********************************************************************************
+Info: Cellview Rev Num:99,  Tech Rev Num:59
+
+INFO (XSTRM-217): Reading the layer map file, /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18/tsmc18.layermap
+INFO (XSTRM-427): Based on current hardware configuration, running XStream Out translation in multi-threaded mode with 4 threads.
+INFO (XSTRM-162): You have not used the '-viaMap' option. If the OpenAccess design has native oaVia instances, use the '-viaMap' option for preserving oaVia instances in a XStream Out - XStream In round trip. Using the '-viaMap' option improves performance and VM usage of applications using the Streamed-In design.
+
+Summary of Options :
+library                                 Final_Merged_Chip_Lib
+strmFile                                /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/ANTENNABWP7T.calibre.db
+topCell                                 ANTENNABWP7T
+view                                    layout
+runDir                                  /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/
+logFile                                 PIPO.LOG.ANTENNABWP7T
+summaryFile                             PIPO.SUM.ANTENNABWP7T
+layerMap                                /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18/tsmc18.layermap
+case                                    Preserve
+convertDot                              node
+convertPcellPin                         geometry
+
+INFO (XSTRM-223): 1. Translating cellview Final_Merged_Chip_Lib/ANTENNABWP7T/layout as STRUCTURE ANTENNABWP7T.
+
+Summary of Objects Translated:
+	Scalar Instances:                       0
+	Array Instances:                        0
+	Polygons:                               0
+	Paths:                                  0
+	Rectangles:                             10
+	Lines:                                  0
+	Arcs:                                   0
+	Donuts:                                 0
+	Dots:                                   0
+	Ellipses:                               0
+	Boundaries:                             0
+	Area Blockages:                         0
+	Layer Blockages:                        0
+	Area Halos:                             0
+	Markers:                                0
+	Rows:                                   0
+	Stitch:                                 0
+	Standard Vias                           0
+	Custom Vias:                            0
+	CdsGen Vias:                            0
+	Pathsegs:                               0
+	Text:                                   18
+	TextDisplay:                            0
+	Cells:                                  1
+
+Elapsed Time: 0.4s   User Time: 0.1s   CPU Time: 0.1s   Peak VM: 52996KB
+INFO (XSTRM-234): Translation completed. '0' error(s) and '0' warning(s) found.

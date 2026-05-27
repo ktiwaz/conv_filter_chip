@@ -1,0 +1,28 @@
+************************************************************************
+* auCdl Netlist:
+* 
+* Library Name:  Final_Merged_Chip_Lib
+* Top Cell Name: ANTENNABWP7T
+* View Name:     schematic
+* Netlisted on:  May 21 21:16:07 2026
+************************************************************************
+
+.INCLUDE  /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18/../Calibre/lvs/source.added
+*.EQUATION
+*.SCALE METER
+*.MEGA
+.PARAM
+
+
+
+************************************************************************
+* Library Name: Final_Merged_Chip_Lib
+* Cell Name:    ANTENNABWP7T
+* View Name:    schematic
+************************************************************************
+
+.SUBCKT ANTENNABWP7T I VDD VSS
+*.PININFO I:B VDD:B VSS:B
+DDI3 VSS I DN area=1e-10 m=1
+.ENDS
+

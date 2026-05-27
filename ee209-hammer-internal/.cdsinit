@@ -1,0 +1,84 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;  TSMC 180nm .cdsinit
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+println("########## Loading Calibre ###################################")
+if( isFile( strcat( getShellEnvVar("MGC_HOME") "/shared/pkgs/icv/tools/queryskl/calibre.OA.skl" )) then
+    println( strcat("Loading " strcat( getShellEnvVar("MGC_HOME") "/shared/pkgs/icv/tools/queryskl/calibre.OA.skl" )))
+      load( strcat( getShellEnvVar("MGC_HOME") "/shared/pkgs/icv/tools/queryskl/calibre.OA.skl" ))
+)
+
+envSetVal("spectre.envOpts" "controlMode" 'string "batch")
+envSetVal("layout" "xSnapSpacing" 'float 0.005)
+envSetVal("layout" "ySnapSpacing" 'float 0.005)
+setShellEnvVar("CDS_Netlisting_Mode=Analog")
+setShellEnvVar("CDS_AUTO_64BIT=ALL")
+
+;; Turn on infix (DELETE this line if you do not like infix)
+hiGetCIWindow()->infix = t
+
+;; Set Load State default from cellview
+envSetVal("asimenv" "saveAsCellview" 'boolean t)
+
+;; Auto update configs
+envSetVal("hed.general" "autoUpdate" 'boolean t)
+
+;; Show tree view on config startup
+envSetVal("hed.display" "showTable" 'boolean nil)
+
+;; Turn off large stack trace for failed skill
+sstatus(stacktraceDump nil)
+
+;; Print in C syntax (not LISP)
+;; Fixes messed up calculator expressions in ADE XL
+sstatus(printinfix t)
+
+;; Set spectre in batch mode (releases licenses after sims complete and forces renetlist)
+envSetVal("spectre.envOpts" "controlMode" 'string "batch")
+
+; Un-set libFlag to allow ADE XL to come up (patch to work around code in libInit.il file in S8 PDK)
+envSetVal("adexl.icrpStartup" "binaryName" 'string "unset libFlag; virtuoso")
+
+;; Forces PDK libInit.il to load and load the menus & tools
+hiEnqueueCmd("ddGetObj(\"tsmc18\")")
+
+;; Open Library Manager
+;; Delay allows for Library Manager custom menus to load properly (Cadence bug)
+;hiRegTimer("ddsOpenLibManager()" 50)
+;; Using the enqueue cmd makes open once all else is loaded, better than using a delay
+hiEnqueueCmd("ddsOpenLibManager()")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; OPTIONAL CUSTOMIZATIONS ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  Uncomment the below lines (delete the semicolon) to try some optional custom settings if you want 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Layout Editor Customizations;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; gravity on in layout
+;envSetVal("layout" "gravityOn" 'boolean t)
+
+; DRD notify on in layout
+;envSetVal("layout" "drdEditMode" 'cyclic "notify")
+
+; Show all possible vias because for full-custom layouts
+;envSetVal("layout" "viaUseAllVias" 'boolean t)
+
+; Load in custom bindkeys (assumes in the same place as your ".cdsinit" file 
+;load("./custom_bindkeys_180nm.il")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Plotting Customizations ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; solid thick traces rather than skinny dotted ones
+;envSetVal("viva.trace" "lineThickness" 'string "thick")
+;envSetVal("viva.trace" "lineStyle" 'string "solid")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; END OF OPTIONAL CUSTOMIZATIONS ;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;; EMX
+load("/w/class.1/ee/ee209u/ee209uta/EMX_SETUP/EMX/emxconfig_SCW.il")

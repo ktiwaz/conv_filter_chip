@@ -1,0 +1,34 @@
+# CALIBRE-LVS DISCREPANCY VIEWER TCL FILE 
+# FILE: svdb/top_3x3.dv
+dv_start unmatched                                
+dv_cell {top_3x3} {top_3x3} unmatched
+dv_obj_count -transformed_nets {27364 27364} -transformed_inst {42018 42018} -transformed_port {27 27}
+dv_discrep 1 {Property Errors}
+dv_discrep_line {} -ldev {X0/X78/D0} {} -lloc {(294.020,761.160)} {  D(DN)                         } -sdev {XXDIODE_2/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 2 {Property Errors}
+dv_discrep_line {} -ldev {X0/X79/D0} {} -lloc {(479.380,769.000)} {  D(DN)                         } -sdev {XXDIODE_3/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 3 {Property Errors}
+dv_discrep_line {} -ldev {X0/X80/D0} {} -lloc {(481.620,767.960)} {  D(DN)                         } -sdev {XXDIODE_6/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 4 {Property Errors}
+dv_discrep_line {} -ldev {X0/X81/D0} {} -lloc {(484.980,769.000)} {  D(DN)                         } -sdev {XXDIODE_1/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 5 {Property Errors}
+dv_discrep_line {} -ldev {X0/X82/D0} {} -lloc {(509.620,752.280)} {  D(DN)                         } -sdev {XXDIODE_4/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 6 {Property Errors}
+dv_discrep_line {} -ldev {X7/X281/D0} {} -lloc {(266.020,282.920)} {  D(DN)                        } -sdev {XXDIODE_5/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 7 {Property Errors}
+dv_discrep_line {} -ldev {X7/X1274/D16} {} -lloc {(199.940,328.625)} {  D(DN)                      } -sdev {XXconv_filter_top_inst_CTS_ccl_a_buf_00034/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.6111 sq u} {                                            }  {a} {: }  {100.407 sq u} {       }  {      99.4%} {}
+dv_discrep_line {}
+dv_end

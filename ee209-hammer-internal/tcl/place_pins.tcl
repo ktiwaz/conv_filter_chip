@@ -27,7 +27,9 @@ set pin_shift [expr {$pad_width / 2.0}]
 
 array set pad_db {
     # Bottom row: left to right
-    B0 {bottom 185.325 19.14}
+    #B0 {bottom 185.325 19.14} #This is the original, technically correct location
+    #I shifted this by 50 um to avoid the rectangular notch
+    B0 {bottom 235.325 19.14}
     B1 {bottom 268.09  19.14}
     B2 {bottom 350.855 19.14}
     B3 {bottom 433.62  19.14}
@@ -54,7 +56,9 @@ array set pad_db {
     T4 {top 516.38  930.86}
     T5 {top 599.145 930.86}
     T6 {top 681.91  930.86}
-    T7 {top 764.675 930.86}
+    #T7 {top 764.675 930.86} #This is the original, technically correct location
+    #I shifted this by 50 um to avoid the rectangular notch
+    T7 {top 714.675 930.86}
 
     # Left side: bottom to top
     L0 {left 19.14 185.325}
@@ -82,33 +86,33 @@ set pin_assignments {
     {kernel_valid L4}
     {normalization_valid L5}
     {pixel_valid L6}
-    {test_mode L7}
+    {datain[7] L7}
 
-    {datain[7] T1}
-    {datain[6] T2}
-    {datain[5] T3}
-    {datain[4] T4}
-    {datain[3] T5}
-    {datain[2] T6}
-    {datain[1] T7}
+    {datain[6] T1}
+    {datain[5] T2}
+    {datain[4] T3}
+    {datain[3] T4}
+    {datain[2] T5}
+    {datain[1] T6}
+    {datain[0] T7}
 
-    {datain[0] B0}
-    {dataout[7] B1}
-    {dataout[6] B2}
-    {dataout[5] B3}
-    {dataout[4] B4}
-    {dataout[3] B5}
-    {dataout[2] B6}
+    {dataout[7] B0}
+    {dataout[6] B1}
+    {dataout[5] B2}
+    {dataout[4] B3}
+    {dataout[3] B4}
+    {dataout[2] B5}
+    {dataout[1] B6}
 
-    {status[0] R1}
-    {status[1] R2}
-    {output_valid R3}
-    {dataout[0] R4}
-    {dataout[1] R5}
+    {dataout[0] R0}
+    {output_valid R1}
+    {status[0] R3}
+    {status[1] R4}
+    {test_mode R5}
 }
 
     # Unused / spare pads:
-    # B7, R0, R6, R7, T0, L0, L1
+    # B7, R2 (unused), R6, R7, T0, L0, L1
 
 # ------------------------------------------------------------
 # Helper procedure

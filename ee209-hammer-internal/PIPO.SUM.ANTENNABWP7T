@@ -1,0 +1,74 @@
+********************************************************************************
+Product   : Virtuoso(R) XStream Out
+Program   : @(#)$CDS: strmout version IC23.1-64b 05/22/2024 07:39 (cpgbld16) $
+          : sub-version  IC23.1-64b.ISR7.27 
+Started at: 21-May-2026  21:16:03
+User Name : devlin11780
+Host Name : eeapps02.labidm.seas.ucla.edu
+Directory : /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
+CADENCE Design Systems, Inc.
+********************************************************************************
+Info: Cellview Rev Num:99,  Tech Rev Num:59
+
+
+                       Individual Cell Statistics - Basic Objects
+---------------------------------------------------------------------------------------------------------------------------------------
+Library/Cell/View               Instance Array   Polygon  Rect   Path   PathSeg   Text   TextDisplay   Line   Dot   Arc   Donut   Ellipse 
+---------------------------------------------------------------------------------------------------------------------------------------
+Final_Merged_Chip_Lib/ANTENNABWP7T/layout                       0        0       0        10     0      0         18     0             0      0     0     0       0       
+---------------------------------------------------------------------------------------------------------------------------------------
+
+                       Individual Cell Statistics - Advanced Objects
+--------------------------------------------------------------------------------------------------------------------------------------------
+Library/Cell/View               PRBdy    OtherBdy   AreaBlkg   LayerBlkg  AreaHalo   Row   Marker   Stitch   CustVia   StdVia    CdsGenVia
+--------------------------------------------------------------------------------------------------------------------------------------------
+Final_Merged_Chip_Lib/ANTENNABWP7T/layout                       0        0          0          0          0          0     0        0        0         0         0        
+---------------------------------------------------------------------------------------------------------------------------------------
+
+                       Statistics of Layers 
+---------------------------------------------------------------------------------------------------------------------------------------
+Cadence         Cadence         Stream  Stream   
+Layer           Purpose         Layer   Datatype  Polygon  Rect     Path     Text     TextDisplay   Line Dot Arc Donut Ellipse Pathseg
+---------------------------------------------------------------------------------------------------------------------------------------
+NWELL           drawing         2       0         0        1        0        0        0             0    0   0   0     0      0      
+DIFF            drawing         3       0         0        1        0        0        0             0    0   0   0     0      0      
+PDIFF           drawing         11      0         0        0        0        7        0             0    0   0   0     0      0      
+PIMP            drawing         7       0         0        1        0        0        0             0    0   0   0     0      0      
+NIMP            drawing         8       0         0        1        0        0        0             0    0   0   0     0      0      
+CONT            drawing         15      0         0        1        0        0        0             0    0   0   0     0      0      
+METAL1          drawing         16      0         0        3        0        0        0             0    0   0   0     0      0      
+METAL1          pin             40      0         0        0        0        3        0             0    0   0   0     0      0      
+DIODUMMY        drawing         56      0         0        1        0        0        0             0    0   0   0     0      0      
+TEXT            drawing         59      0         0        0        0        1        0             0    0   0   0     0      0      
+prBoundary      drawing         62      0         0        1        0        0        0             0    0   0   0     0      0      
+IP              drawing         63      63        0        0        0        7        0             0    0   0   0     0      0      
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Summary of Objects Translated:
+	Scalar Instances:		0
+	Array Instances:		0
+	Polygons:			0
+	Paths:				0
+	Rectangles:			10
+	Lines:				0
+	Arcs:				0
+	Donuts:				0
+	Dots:				0
+	Ellipses:			0
+	Boundaries:			0
+	Area Blockages:			0
+	Layer Blockages:		0
+	Area Halos:			0
+	Markers:			0
+	Rows:				0
+	Stitches:			0
+	Standard Vias:			0
+	Custom Vias:			0
+	CdsGen Vias:			0
+	Pathsegs:			0
+	Text:				18
+	TextDisplay:		0
+	Cells:				1
+Design Libraries: 
+
+DEFINE Final_Merged_Chip_Lib	/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/Final_Merged_Chip_Lib

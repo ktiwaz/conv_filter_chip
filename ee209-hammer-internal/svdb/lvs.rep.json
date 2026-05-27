@@ -1,0 +1,21 @@
+{
+    "PLEASE DON'T EDIT OR PARSE": "This is automatically generated file for extracting in QS",
+    "CREATION TIME": "Fri May 22 11:05:43 2026",
+    "VERSION": "1",
+    "LVS BOTTOM WARNINGS": [
+        "Unbalanced smashed mosfets were matched",
+        "Ambiguity points were found and resolved arbitrarily"
+    ],
+    "LVS BOTTOM ERRORS": [
+        "Property errors"
+    ],
+    "LVS REPORT OPTION": [
+        "S"
+    ],
+    "LVS INCORRECT CELLS": [
+        [
+            "chip_top",
+            "chip_top"
+        ]
+    ]
+}

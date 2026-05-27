@@ -148,35 +148,35 @@ pin_to_pad = {
     "kernel_valid": "L4",
     "normalization_valid": "L5",
     "pixel_valid": "L6",
-    "test_mode": "L7",
+    "datain[7]": "L7",
 
     # TOP: datain[7:1]
-    "datain[7]": "T1",
-    "datain[6]": "T2",
-    "datain[5]": "T3",
-    "datain[4]": "T4",
-    "datain[3]": "T5",
-    "datain[2]": "T6",
-    "datain[1]": "T7",
+    "datain[6]": "T1",
+    "datain[5]": "T2",
+    "datain[4]": "T3",
+    "datain[3]": "T4",
+    "datain[2]": "T5",
+    "datain[1]": "T6",
+    "datain[0]": "T7",
 
     # BOTTOM: datain[0], dataout[7:2]
-    "datain[0]": "B0",
-    "dataout[7]": "B1",
-    "dataout[6]": "B2",
-    "dataout[5]": "B3",
-    "dataout[4]": "B4",
-    "dataout[3]": "B5",
-    "dataout[2]": "B6",
+    "dataout[7]": "B0",
+    "dataout[6]": "B1",
+    "dataout[4]": "B2",
+    "dataout[3]": "B3",
+    "dataout[2]": "B4",
+    "dataout[1]": "B5",
+    "dataout[0]": "B6",
 
     # RIGHT: dataout[1:0], output_valid, status[1:0]
-    "status[0]": "R1",
-    "status[1]": "R2",
-    "output_valid": "R3",
-    "dataout[0]": "R4",
-    "dataout[1]": "R5",
+    "dataout[0]": "R0",
+    "output_valid": "R1",
+    "status[0]": "R3",
+    "status[1]": "R4",
+    "test_mode": "R5",
 
     # Spare / unused pads:
-    # B7, R0, R6, R7, T0, L0, L1
+    # B7, R2, R6, R7, T0, L0, L1
 }
 
 # ============================================================

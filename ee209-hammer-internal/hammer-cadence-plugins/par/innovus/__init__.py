@@ -355,14 +355,14 @@ DESIGN top ;
 UNITS DISTANCE MICRONS 2000 ;
 
 DIEAREA
-  ( 296200 1676000 )
-  ( 1562800 1676000 )
+  ( 296200 1673600 )
+  ( 1562800 1673600 )
   ( 1562800 1310800 )
   ( 1685400 1310800 )
   ( 1685400 295000 )
   ( 1605200 295000 )
-  ( 1605200 212000 )
-  ( 337200 212000 )
+  ( 1605200 214400 )
+  ( 337200 214400 )
   ( 337200 587400 )
   ( 214800 587400 )
   ( 214800 1604800 )
@@ -426,13 +426,13 @@ create_route_blockage -layers {METAL5} -rects {749 657 784 708}
 create_place_blockage -type hard -rects {107.400 323.700 137.400 772.400}
 create_place_blockage -type hard -rects {107.400 772.400 178.100 802.400}
 create_place_blockage -type hard -rects {107.400 293.700 198.600 323.700}
-create_place_blockage -type hard -rects {148.100 802.400 178.100 808.000}
-create_place_blockage -type hard -rects {148.100 808.000 781.400 838.000}
-create_place_blockage -type hard -rects {168.600 136.000 198.600 293.700}
-create_place_blockage -type hard -rects {168.600 106.000 802.600 136.000}
-create_place_blockage -type hard -rects {751.400 655.400 781.400 808.000}
+create_place_blockage -type hard -rects {148.100 802.400 178.100 806.800}
+create_place_blockage -type hard -rects {148.100 806.800 781.400 836.800}
+create_place_blockage -type hard -rects {168.600 137.200 198.600 293.700}
+create_place_blockage -type hard -rects {168.600 107.200 802.600 137.200}
+create_place_blockage -type hard -rects {751.400 655.400 781.400 806.800}
 create_place_blockage -type hard -rects {751.400 625.400 842.700 655.400}
-create_place_blockage -type hard -rects {772.600 136.000 802.600 147.500}
+create_place_blockage -type hard -rects {772.600 137.200 802.600 147.500}
 create_place_blockage -type hard -rects {772.600 147.500 842.700 177.500}
 create_place_blockage -type hard -rects {812.700 177.500 842.700 625.400}
 """
@@ -459,6 +459,10 @@ create_place_blockage -type hard -rects {105.1 187.8 167.6 269.7}
 create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {105.1 187.8 167.6 269.7}
 """
 
+        label_keepout = """
+create_route_blockage -layers {METAL6} -rects {142.0 738.7 284.0 771.9}
+"""
+
         floorplan_tcl = os.path.join(self.run_dir, "floorplan.tcl")
         with open(floorplan_tcl, "w") as f:
             f.write("\n".join(self.create_floorplan_tcl()))
@@ -468,6 +472,7 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
             f.write(custom_m5_pg_keepouts)
             f.write(custom_keepouts)
             f.write(custom_outer_30um_place_blockages)
+            f.write(label_keepout)
             f.write("\n")
 
         self.verbose_append("source -echo -verbose {}".format(floorplan_tcl))
@@ -684,8 +689,13 @@ set strap_width 10
 set strap_spacing 4
 
 # Vertical extent of straps. Tune if needed to hit the rings cleanly.
-set y_bottom 110
-set y_top    840
+set vdd_y_bottom 113.2
+set vdd_y_top    830.8
+
+set vss_y_bottom 127.2
+set vss_y_top    816.8
+
+
 
 # Two pair locations.
 # These are approximately 1/3 and 2/3 across a 730 um core span.
@@ -705,77 +715,140 @@ set x_pair_2 596.7
 set x_start_1 [expr $x_pair_1 - 12.0]
 set x_start_2 [expr $x_pair_2 - 12.0]
 
+
+set vdd_x_1 $x_start_1
+set vss_x_1 [expr $x_start_1 + $strap_width + $strap_spacing]
+
+set vdd_x_2 $x_start_2
+set vss_x_2 [expr $x_start_2 + $strap_width + $strap_spacing]
+
 # ============================================================
 # METAL4 vertical strap pairs
 # ============================================================
 
 add_stripes \
-    -nets {VDD VSS} \
+    -nets {VDD} \
     -layer METAL4 \
     -direction vertical \
     -width $strap_width \
-    -spacing $strap_spacing \
     -number_of_sets 1 \
     -start_from left \
-    -start $x_start_1 \
-    -area [list $x_start_1 $y_bottom [expr $x_start_1 + 24.0] $y_top] \
+    -start $vdd_x_1 \
+    -area [list $vdd_x_1 $vdd_y_bottom [expr $vdd_x_1 + $strap_width] $vdd_y_top] \
     -block_ring_bottom_layer_limit METAL4 \
     -block_ring_top_layer_limit METAL4 \
     -pad_core_ring_bottom_layer_limit METAL4 \
     -pad_core_ring_top_layer_limit METAL4 \
-    -user_class DEBUG_CUSTOM_M4_PAIR_1
+    -user_class DEBUG_M4_VDD_PAIR_1
 
 add_stripes \
-    -nets {VDD VSS} \
+    -nets {VSS} \
     -layer METAL4 \
     -direction vertical \
     -width $strap_width \
-    -spacing $strap_spacing \
     -number_of_sets 1 \
     -start_from left \
-    -start $x_start_2 \
-    -area [list $x_start_2 $y_bottom [expr $x_start_2 + 24.0] $y_top] \
+    -start $vss_x_1 \
+    -area [list $vss_x_1 $vss_y_bottom [expr $vss_x_1 + $strap_width] $vss_y_top] \
     -block_ring_bottom_layer_limit METAL4 \
     -block_ring_top_layer_limit METAL4 \
     -pad_core_ring_bottom_layer_limit METAL4 \
     -pad_core_ring_top_layer_limit METAL4 \
-    -user_class DEBUG_CUSTOM_M4_PAIR_2
+    -user_class DEBUG_M4_VSS_PAIR_1
+
+add_stripes \
+    -nets {VDD} \
+    -layer METAL4 \
+    -direction vertical \
+    -width $strap_width \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $vdd_x_2 \
+    -area [list $vdd_x_2 $vdd_y_bottom [expr $vdd_x_2 + $strap_width] $vdd_y_top] \
+    -block_ring_bottom_layer_limit METAL4 \
+    -block_ring_top_layer_limit METAL4 \
+    -pad_core_ring_bottom_layer_limit METAL4 \
+    -pad_core_ring_top_layer_limit METAL4 \
+    -user_class DEBUG_M4_VDD_PAIR_2
+
+add_stripes \
+    -nets {VSS} \
+    -layer METAL4 \
+    -direction vertical \
+    -width $strap_width \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $vss_x_2 \
+    -area [list $vss_x_2 $vss_y_bottom [expr $vss_x_2 + $strap_width] $vss_y_top] \
+    -block_ring_bottom_layer_limit METAL4 \
+    -block_ring_top_layer_limit METAL4 \
+    -pad_core_ring_bottom_layer_limit METAL4 \
+    -pad_core_ring_top_layer_limit METAL4 \
+    -user_class DEBUG_M4_VSS_PAIR_2
 
 # ============================================================
 # METAL6 vertical strap pairs
 # ============================================================
 
 add_stripes \
-    -nets {VDD VSS} \
+    -nets {VDD} \
     -layer METAL6 \
     -direction vertical \
     -width $strap_width \
-    -spacing $strap_spacing \
     -number_of_sets 1 \
     -start_from left \
-    -start $x_start_1 \
-    -area [list $x_start_1 $y_bottom [expr $x_start_1 + 24.0] $y_top] \
+    -start $vdd_x_1 \
+    -area [list $vdd_x_1 $vdd_y_bottom [expr $vdd_x_1 + $strap_width] $vdd_y_top] \
     -block_ring_bottom_layer_limit METAL6 \
     -block_ring_top_layer_limit METAL6 \
     -pad_core_ring_bottom_layer_limit METAL6 \
     -pad_core_ring_top_layer_limit METAL6 \
-    -user_class DEBUG_CUSTOM_M6_PAIR_1
+    -user_class DEBUG_M6_VDD_PAIR_1
 
 add_stripes \
-    -nets {VDD VSS} \
+    -nets {VSS} \
     -layer METAL6 \
     -direction vertical \
     -width $strap_width \
-    -spacing $strap_spacing \
     -number_of_sets 1 \
     -start_from left \
-    -start $x_start_2 \
-    -area [list $x_start_2 $y_bottom [expr $x_start_2 + 24.0] $y_top] \
+    -start $vss_x_1 \
+    -area [list $vss_x_1 $vss_y_bottom [expr $vss_x_1 + $strap_width] $vss_y_top] \
     -block_ring_bottom_layer_limit METAL6 \
     -block_ring_top_layer_limit METAL6 \
     -pad_core_ring_bottom_layer_limit METAL6 \
     -pad_core_ring_top_layer_limit METAL6 \
-    -user_class DEBUG_CUSTOM_M6_PAIR_2
+    -user_class DEBUG_M6_VSS_PAIR_1
+
+add_stripes \
+    -nets {VDD} \
+    -layer METAL6 \
+    -direction vertical \
+    -width $strap_width \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $vdd_x_2 \
+    -area [list $vdd_x_2 $vdd_y_bottom [expr $vdd_x_2 + $strap_width] $vdd_y_top] \
+    -block_ring_bottom_layer_limit METAL6 \
+    -block_ring_top_layer_limit METAL6 \
+    -pad_core_ring_bottom_layer_limit METAL6 \
+    -pad_core_ring_top_layer_limit METAL6 \
+    -user_class DEBUG_M6_VDD_PAIR_2
+
+add_stripes \
+    -nets {VSS} \
+    -layer METAL6 \
+    -direction vertical \
+    -width $strap_width \
+    -number_of_sets 1 \
+    -start_from left \
+    -start $vss_x_2 \
+    -area [list $vss_x_2 $vss_y_bottom [expr $vss_x_2 + $strap_width] $vss_y_top] \
+    -block_ring_bottom_layer_limit METAL6 \
+    -block_ring_top_layer_limit METAL6 \
+    -pad_core_ring_bottom_layer_limit METAL6 \
+    -pad_core_ring_top_layer_limit METAL6 \
+    -user_class DEBUG_M6_VSS_PAIR_2
 
 # ============================================================
 # Connect the generated floating straps to the VDD/VSS ring/strap network.
@@ -891,7 +964,7 @@ route_special \
                         assert isinstance(const.height, Decimal)
                         area_str = " ".join(("-area", str(const.x), str(const.y), str(const.x+const.width), str(const.y+const.height)))
                     self.verbose_append("add_fillers -density {DENSITY} {AREA}".format(
-                        DENSITY=str(const.density), AREA=area_str))
+                         DENSITY=str(const.density), AREA=area_str))
                 # Or, fill everywhere if no decap constraints given
                 if len(self.get_decap_constraints()) == 0:
                     # self.verbose_append('set_db add_fillers_with_drc false')
@@ -951,7 +1024,7 @@ set_metal_fill \
     -max_length 2.0
 
 add_metal_fill \
-    -layers {METAL6}
+    -layers {METAL5}
 
 # Add dummy fill on METAL6.
 set_metal_fill \

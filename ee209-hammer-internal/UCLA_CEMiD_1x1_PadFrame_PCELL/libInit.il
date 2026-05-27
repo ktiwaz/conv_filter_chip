@@ -2,11 +2,15 @@
 
 	Description:  "libInit.il" file for the library named "UCLA_CEMiD_1x1_PadFrame_PCELL"
 	Created:      15-APR-2025, Sean Wang
+	Updated:      12-JUN-2025, Sean Wang
 	
 	NOTES:  	
 	1.  This is NOT the best practices way to package pcells but was created prioritizing ease of sharing.
 	Refer to referenced Cadence documentation for best practices on how to package pcells for a commercial PDK.
 	2.  Using matts pad footprint
+	
+	UPDATES:
+	(06/12/2025):  Added arrow made by Jiayi Wang, removed orientation marker. 
 		
 */
 
@@ -64,6 +68,8 @@ SCW_180nm_padframe_64->seal_ring_offset = list(-17.56:-17.56 "R0")
 SCW_180nm_padframe_64->filler45p58 = "PFILLER45p58A"
 SCW_180nm_padframe_64->filler45p585 = "PFILLER45p585A"
 SCW_180nm_padframe_64->filler30p585 = "PFILLER30p585A"
+SCW_180nm_padframe_64->arrow_cellname = "arrow"
+SCW_180nm_padframe_64->arrow_position = list(17.56:1851.855 "R0")
 SCW_180nm_padframe_64->fillerPattern30p585 = list(
 list(0.000000:160.585000 "R270")
 list(0.000000:1834.880000 "R270")
@@ -134,28 +140,7 @@ list(266.170000:1964.880000 "R180")
 list(1698.710000:0.000000 "R0")
 list(1964.880000:1698.710000 "R90")
 											)
-SCW_180nm_padframe_64->orientation_marker_coords = list(
-148.385:1790.495 
-159.155:1790.495 
-174.385:1805.725 
-174.385:1827.265 
-159.155:1842.495 
-137.615:1842.495 
-122.385:1827.265 
-122.385:1805.725 
-137.615:1790.495 
-148.385:1790.495 
-148.385:1796.495 
-140.1:1796.495 
-128.385:1808.21 
-128.385:1824.78 
-140.1:1836.495 
-156.67:1836.495 
-168.385:1824.78 
-168.385:1808.21 
-156.67:1796.495 
-148.385:1796.495
-											)
+
 											
 											
 SCW_180nm_padframe_64->fixed_pad_pattern = list(
@@ -306,6 +291,8 @@ SCW_180nm_padframe->filler_lib = "UCLA_CEMiD_1x1_PadFrame_PCELL"
 SCW_180nm_padframe->filler7p765 = "PFILLER7p765A"
 SCW_180nm_padframe->filler22p765 = "PFILLER22p765A"
 SCW_180nm_padframe->filler22p76 = "PFILLER22p76A"
+SCW_180nm_padframe->arrow_cellname = "arrow"
+SCW_180nm_padframe->arrow_position = list(17.56:824.675, "R0")
 SCW_180nm_padframe->fillerPattern7p765 = list(; a list of coordinates and orientations for the 7p765 fillers
 											list(130:0 "R0")
 											list(777.115:0 "R0")
@@ -346,28 +333,6 @@ SCW_180nm_padframe->fillerPattern22p765 = list(; a list of coordinates and orien
 											list(0:386.06 "R270")
 											list(0:303.295 "R270")
 										)
-SCW_180nm_padframe->orientation_marker_coords = list(
-	148.385:740.495 
-	159.155:740.495
-	174.385:755.725
-	174.385:777.265
-	159.155:792.495
-	137.615:792.495
-	122.385:777.265
-	122.385:755.725
-	137.615:740.495
-	148.385:740.495
-	148.385:746.495
-	140.1:746.495
-	128.385:758.21
-	128.385:774.78
-	140.1:786.495
-	156.67:786.495
-	168.385:774.78
-	168.385:758.21 
-	156.67:746.495 
-	148.385:746.495)
-SCW_180nm_padframe->orientation_marker_lpp = list("METAL6" "drawing")
 
 SCW_180nm_padframe->fixed_pad_pattern = list(; code assumes all fixed pads are only VDD and VSS
 											list("M_PVDD3AC_w_bond_and_schematic" 717.115:0 "R0")
