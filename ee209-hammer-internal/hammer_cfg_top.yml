@@ -53,14 +53,14 @@ vlsi.inputs.power_spec_mode: "auto"
 vlsi.inputs.power_spec_type: "cpf"
 
 # Set default load to some reasonable value (pF)
-vlsi.inputs.default_output_load: 3.5
+vlsi.inputs.default_output_load: 3
 
 # Placement Constraints
 vlsi.inputs.placement_constraints:
   - path: "TOP" # (this value isn't actually checked...)
     type: toplevel
-    width: 500
-    height: 500
+    width: 740
+    height: 740
     x: 0
     y: 0
     margins: {left: 0, right: 0, top: 0, bottom: 0}

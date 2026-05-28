@@ -21,7 +21,7 @@ supplies:
 
 vlsi.inputs.clocks:
   - name: clk
-    period: 10 ns
+    period: 20 ns
     uncertainty: 0.1 ns
 
 vlsi.inputs.delays:
@@ -71,3 +71,11 @@ vlsi.inputs.delays:
     clock: clk
     direction: output
     delay: 1 ns
+
+vlsi.inputs.decaps:
+    - target: capacitance
+      capacitance: 10 pF
+
+vlsi.inputs.custom_sdc_constraints:
+  - "set_max_fanout 32 [get_nets conv_filter_top_inst/rst_sync[2]]"
+  - "set_false_path -through [get_ports reset_n]"
