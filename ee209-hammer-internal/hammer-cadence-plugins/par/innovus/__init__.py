@@ -451,6 +451,7 @@ create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects
 
 create_place_blockage -type hard -rects {802.6 105.0 845.0 147.5}
 create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {802.6 105.0 845.0 147.5}
+create_route_blockage -layers {METAL5} -rects {784.0 105.0 845.0 147.5}
 
 create_place_blockage -type hard -rects {104.8 105.0 147.6 147.6}
 create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {104.8 105.0 147.6 147.6}
@@ -459,9 +460,9 @@ create_place_blockage -type hard -rects {105.1 187.8 167.6 269.7}
 create_route_blockage -layers {METAL1 METAL2 METAL3 METAL4 METAL5 METAL6} -rects {105.1 187.8 167.6 269.7}
 """
 
-        label_keepout = """
-create_route_blockage -layers {METAL6} -rects {142.0 738.7 284.0 771.9}
-"""
+#        label_keepout = """
+#create_route_blockage -layers {METAL6} -rects {142.0 736.7 287.0 771.9}
+#"""
 
         floorplan_tcl = os.path.join(self.run_dir, "floorplan.tcl")
         with open(floorplan_tcl, "w") as f:
@@ -472,7 +473,7 @@ create_route_blockage -layers {METAL6} -rects {142.0 738.7 284.0 771.9}
             f.write(custom_m5_pg_keepouts)
             f.write(custom_keepouts)
             f.write(custom_outer_30um_place_blockages)
-            f.write(label_keepout)
+            #f.write(label_keepout)
             f.write("\n")
 
         self.verbose_append("source -echo -verbose {}".format(floorplan_tcl))
@@ -994,7 +995,7 @@ route_special \
             f.write(r"""
 # ============================================================
 # Devlin custom dummy metal fill
-# Limited to METAL2 and METAL5
+# Limited to METAL2, METAL5, METAL6
 # ============================================================
 
 # Clear prior metal fill settings if re-running from an intermediate checkpoint.
@@ -1027,17 +1028,17 @@ add_metal_fill \
     -layers {METAL5}
 
 # Add dummy fill on METAL6.
-set_metal_fill \
-    -layer METAL6 \
-    -active_spacing 0.2 \
-    -gap_spacing 0.2 \
-    -min_width 0.2 \
-    -max_width 2.0 \
-    -min_length 0.2 \
-    -max_length 2.0
+#set_metal_fill \
+#    -layer METAL6 \
+#    -active_spacing 0.2 \
+#    -gap_spacing 0.2 \
+#    -min_width 0.2 \
+#    -max_width 2.0 \
+#    -min_length 0.2 \
+#    -max_length 2.0
 
-add_metal_fill \
-    -layers {METAL6}
+#add_metal_fill \
+#    -layers {METAL6}
 """)
 
         self.verbose_append("source -echo -verbose {}".format(metal_fill_tcl))

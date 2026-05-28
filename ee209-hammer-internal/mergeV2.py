@@ -78,7 +78,7 @@ search_side_margin = 80.0
 
 # Only search very close to the inner pad edge.
 # This prevents accidentally selecting VDD/VSS straps farther inside the core.
-pin_search_depth = 5.0
+pin_search_depth = 6.0
 
 # Reject very long shapes, which are more likely to be power straps/rings.
 # For top/bottom, this limits candidate x-span.
@@ -162,11 +162,11 @@ pin_to_pad = {
     # BOTTOM: datain[0], dataout[7:2]
     "dataout[7]": "B0",
     "dataout[6]": "B1",
-    "dataout[4]": "B2",
-    "dataout[3]": "B3",
-    "dataout[2]": "B4",
-    "dataout[1]": "B5",
-    "dataout[0]": "B6",
+    "dataout[5]": "B2",
+    "dataout[4]": "B3",
+    "dataout[3]": "B4",
+    "dataout[2]": "B5",
+    "dataout[1]": "B6",
 
     # RIGHT: dataout[1:0], output_valid, status[1:0]
     "dataout[0]": "R0",
