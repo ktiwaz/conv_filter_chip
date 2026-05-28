@@ -37,6 +37,7 @@ module convolution_core #(
     input  logic rst_n,
     input  logic input_valid,
     input  logic [PIXEL_WIDTH-1:0] datain,
+    input logic test_mode,
 
     input  logic signed [PIXEL_WIDTH-1:0] kernel [0:NUMBER_OF_LINES-1][0:NUMBER_OF_LINES-1],
     input  logic [NORMALIZATION_WIDTH-1:0] normalization_factor,
@@ -56,6 +57,17 @@ module convolution_core #(
 
     logic signed [ACC_WIDTH-1:0] dot_product;
     logic dot_product_output_valid;
+
+    logic [PIXEL_WIDTH-1:0] dataout_test;
+    assign dataout_test = window[NUMBER_OF_LINES-1][NUMBER_OF_LINES-1];
+    logic dataout_test_valid;
+    assign dataout_test_valid = window_output_valid;
+
+    logic [PIXEL_WIDTH-1:0] dataout_final;
+    logic dataout_final_valid;
+
+    assign dataout = test_mode ? dataout_test : dataout_final;
+    assign output_valid = test_mode ? dataout_test_valid : dataout_final_valid;
 
     //--------------------------------------------------------------------------
     // Sliding window stage
@@ -107,8 +119,8 @@ module convolution_core #(
         .input_valid(dot_product_output_valid),
         .datain(dot_product),
         .normalization_factor(normalization_factor),
-        .output_valid(output_valid),
-        .dataout(dataout)
+        .output_valid(dataout_final_valid),
+        .dataout(dataout_final)
     );
 
 endmodule

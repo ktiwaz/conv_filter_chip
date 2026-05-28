@@ -13,6 +13,12 @@ module tb_conv_filter_top;
 
     localparam logic [NORM_WIDTH-1:0] NORMALIZATION_VALUE = `NORMALIZATION_VALUE;
 
+    `ifdef TEST_MODE
+    localparam logic TEST_MODE_EN = 1'b1;
+    `else
+    localparam logic TEST_MODE_EN = 1'b0;
+    `endif
+
     localparam int KERNEL_WORDS  = KERNEL_SIZE * KERNEL_SIZE;
     localparam int NORM_WORDS    = (NORM_WIDTH + DATA_WIDTH - 1) / DATA_WIDTH;
     localparam int STATUS_WIDTH  = 2;
@@ -31,6 +37,7 @@ module tb_conv_filter_top;
     logic normalization_valid;
     logic pixel_valid;
     logic test_mode;
+    assign test_mode = TEST_MODE_EN;
     logic [DATA_WIDTH-1:0] datain;
 
     logic [DATA_WIDTH-1:0] dataout;
@@ -217,11 +224,13 @@ module tb_conv_filter_top;
         kernel_valid        = 1'b0;
         normalization_valid = 1'b0;
         pixel_valid         = 1'b0;
-        test_mode           = 1'b0;
         datain              = '0;
 
         reset_n             = 1'b0;
         loader_reset_n      = 1'b0;
+
+        // Print the value of test_mode for verification
+        $display("[%0t] TEST_MODE = %b", $time, test_mode);
 
         // Read kernel coefficients
         $display("[%0t] Loading kernel file %s", $time, KERNEL_FILE);

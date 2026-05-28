@@ -13,7 +13,6 @@ module io_control_fsm #(
     input  logic                  kernel_valid,
     input  logic                  normalization_valid,
     input  logic                  pixel_valid,
-    input  logic                  test_mode, // TODO: Implement
     input  logic [DATA_WIDTH-1:0] datain,
 
     output logic                  shiftreg_input_valid,

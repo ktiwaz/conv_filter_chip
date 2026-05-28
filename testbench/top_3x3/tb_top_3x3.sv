@@ -11,6 +11,12 @@ module tb_top_3x3;
     localparam int LINE_WIDTH      = `LINE_WIDTH;
     localparam int IMAGE_HEIGHT    = `IMAGE_HEIGHT;
 
+    `ifdef TEST_MODE
+    localparam logic TEST_MODE_EN = 1'b1;
+    `else
+    localparam logic TEST_MODE_EN = 1'b0;
+    `endif
+
     localparam logic [NORM_WIDTH-1:0] NORMALIZATION_VALUE = `NORMALIZATION_VALUE;
 
     localparam int KERNEL_WORDS  = KERNEL_SIZE * KERNEL_SIZE;
@@ -31,6 +37,7 @@ module tb_top_3x3;
     logic normalization_valid;
     logic pixel_valid;
     logic test_mode;
+    assign test_mode = TEST_MODE_EN;
     logic [DATA_WIDTH-1:0] datain;
 
     logic [DATA_WIDTH-1:0] dataout;
@@ -217,7 +224,6 @@ module tb_top_3x3;
         kernel_valid        = 1'b0;
         normalization_valid = 1'b0;
         pixel_valid         = 1'b0;
-        test_mode           = 1'b0;
         datain              = '0;
 
         reset_n             = 1'b0;
