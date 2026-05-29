@@ -153,6 +153,7 @@ proc place_pad_pin {pin_name pad_id pad_width} {
         -fixed_pin
 }
 
+
 # ------------------------------------------------------------
 # Place pins
 # ------------------------------------------------------------
@@ -165,5 +166,23 @@ foreach assignment $pin_assignments {
 
     place_pad_pin $pin_name $pad_id $pad_width
 }
+
+# ------------------------------------------------------------
+# Explicit LVS-only VDD/VSS PG pins
+# ------------------------------------------------------------
+# These are intentionally tiny 1um x 1um pin shapes.
+# They must sit entirely on the correct VDD/VSS metal shapes.
+
+create_pg_pin \
+    -name VDD \
+    -net VDD \
+    -geometry METAL6 178 150 179 151 \
+    -dir inout
+
+create_pg_pin \
+    -name VSS \
+    -net VSS \
+    -geometry METAL6 191 230 192 231 \
+    -dir inout
 
 set_db assign_pins_edit_in_batch false
