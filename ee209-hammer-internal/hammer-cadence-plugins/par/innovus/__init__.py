@@ -412,10 +412,15 @@ add_rings -nets {VDD VSS} \
 # Block PG stripe generation on METAL5
 create_route_blockage -pg_nets -layers {METAL5} -rects {166 241 200 292}
 create_route_blockage -pg_nets -layers {METAL5} -rects {749 654 784 708}
+create_route_blockage -pg_nets -layers {METAL5} -rects {812 318 850 380}
+
 
 # Block regular signal/detail routing on METAL5
 create_route_blockage -layers {METAL5} -rects {166 241 200 292}
 create_route_blockage -layers {METAL5} -rects {749 657 784 708}
+create_route_blockage -layers {METAL5} -rects {812 318 850 380}
+
+
 """
 
 
@@ -1014,6 +1019,32 @@ set_metal_fill \
 add_metal_fill \
     -layers {METAL2}
 
+# Add dummy fill on METAL3.
+set_metal_fill \
+    -layer METAL3 \
+    -active_spacing 0.2 \
+    -gap_spacing 0.2 \
+    -min_width 0.2 \
+    -max_width 2.0 \
+    -min_length 0.2 \
+    -max_length 2.0
+
+add_metal_fill \
+    -layers {METAL3}
+
+# Add dummy fill on METAL4.
+set_metal_fill \
+    -layer METAL4 \
+    -active_spacing 0.2 \
+    -gap_spacing 0.2 \
+    -min_width 0.2 \
+    -max_width 2.0 \
+    -min_length 0.2 \
+    -max_length 2.0
+
+add_metal_fill \
+    -layers {METAL4}
+
 # Add dummy fill on METAL5.
 set_metal_fill \
     -layer METAL5 \
@@ -1028,17 +1059,17 @@ add_metal_fill \
     -layers {METAL5}
 
 # Add dummy fill on METAL6.
-#set_metal_fill \
-#    -layer METAL6 \
-#    -active_spacing 0.2 \
-#    -gap_spacing 0.2 \
-#    -min_width 0.2 \
-#    -max_width 2.0 \
-#    -min_length 0.2 \
-#    -max_length 2.0
+set_metal_fill \
+    -layer METAL6 \
+    -active_spacing 0.2 \
+    -gap_spacing 0.2 \
+    -min_width 0.2 \
+    -max_width 2.0 \
+    -min_length 0.2 \
+    -max_length 2.0
 
-#add_metal_fill \
-#    -layers {METAL6}
+add_metal_fill \
+    -layers {METAL6}
 """)
 
         self.verbose_append("source -echo -verbose {}".format(metal_fill_tcl))
