@@ -136,6 +136,11 @@ module tb_top_3x3;
         end
     endtask
 
+    initial begin
+        $fsdbDumpfile("waveform.fsdb");
+        $fsdbDumpvars(0, tb_conv_filter_top);
+    end
+
     // ==================================================
     // Program kernel: row-major, one byte per cycle
     // ==================================================

@@ -118,6 +118,10 @@ module tb_top_5x5;
         .valid  (output_valid)
     );
 
+    initial begin
+        $fsdbDumpfile("waveform.fsdb");
+        $fsdbDumpvars(0, tb_conv_filter_top);
+    end
     // ==================================================
     // Pixel stream routing
     // TB only drives pixel_valid/datain from loader

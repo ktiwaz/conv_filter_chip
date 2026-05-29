@@ -46,6 +46,8 @@ typedef enum logic [1:0] {
 
 state_t state_q, state_d;
 
+assign status = state_q;
+
 always_ff @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
         state_q       <= S_IDLE;

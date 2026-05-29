@@ -216,6 +216,10 @@ module tb_conv_filter_top;
         end
     end
 
+    initial begin
+        $fsdbDumpfile("waveform.fsdb");
+        $fsdbDumpvars(0, tb_conv_filter_top);
+    end
     // ==================================================
     // Main stimulus
     // ==================================================
