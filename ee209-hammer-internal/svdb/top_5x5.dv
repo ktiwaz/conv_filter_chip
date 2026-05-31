@@ -1,0 +1,38 @@
+# CALIBRE-LVS DISCREPANCY VIEWER TCL FILE 
+# FILE: svdb/top_5x5.dv
+dv_start unmatched                                
+dv_cell {top_5x5} {top_5x5} unmatched
+dv_obj_count -transformed_nets {63980 63980} -transformed_inst {96432 96432} -transformed_port {27 27}
+dv_discrep 1 {Property Errors}
+dv_discrep_line {} -ldev {X1/X1948/D8} {} -lloc {(684.340,690.425)} {  D(DN)                       } -sdev {XXconv_filter_top_inst_CTS_ccl_a_buf_00054/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {1.6296 sq u} {                                            }  {a} {: }  {800 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 2 {Property Errors}
+dv_discrep_line {} -ldev {X4/D34} {} -lloc {(587.460,502.115)} {  D(DN)                            } -sdev {XXconv_filter_top_inst_convolution_core_inst_window_dot_product_inst_u_dot_DIODE_1/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.2037 sq u} {                                            }  {a} {: }  {100 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 3 {Property Errors}
+dv_discrep_line {} -ldev {X4/X1778/D8} {} -lloc {(215.340,533.625)} {  D(DN)                       } -sdev {XXconv_filter_top_inst_CTS_ccl_a_buf_00060/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {0.8148 sq u} {                                            }  {a} {: }  {400 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 4 {Property Errors}
+dv_discrep_line {} -ldev {X5/X1890/D8} {} -lloc {(629.460,441.255)} {  D(DN)                       } -sdev {XXconv_filter_top_inst_convolution_core_inst_sliding_window_inst_CTS_ccl_a_buf_00046/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {2.037 sq u} {                                             }  {a} {: }  {1000 sq u} {          }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 5 {Property Errors}
+dv_discrep_line {} -ldev {X6/X2389/D11} {} -lloc {(444.100,315.775)} {  D(DN)                      } -sdev {XXconv_filter_top_inst_CTS_ccl_a_buf_00067/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {1.2222 sq u} {                                            }  {a} {: }  {600 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 6 {Property Errors}
+dv_discrep_line {} -ldev {X7/X1702/D8} {} -lloc {(342.740,190.375)} {  D(DN)                       } -sdev {XXconv_filter_top_inst_CTS_ccl_a_buf_00061/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {1.6296 sq u} {                                            }  {a} {: }  {800 sq u} {           }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 7 {Property Errors}
+dv_discrep_line {} -ldev {X7/X1706/D8} {} -lloc {(581.860,253.095)} {  D(DN)                       } -sdev {XXconv_filter_top_inst_CTS_ccl_a_buf_00008/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {2.037 sq u} {                                             }  {a} {: }  {1000 sq u} {          }  {      99.8%} {}
+dv_discrep_line {}
+dv_discrep 8 {Property Errors}
+dv_discrep_line {} -ldev {X7/X1710/D8} {} -lloc {(688.820,227.865)} {  D(DN)                       } -sdev {XXconv_filter_top_inst_convolution_core_inst_sliding_window_inst_CTS_ccl_a_buf_00037/DDI3} {  D(DN)}
+dv_discrep_line {}  {a} {: }  {2.037 sq u} {                                             }  {a} {: }  {1000 sq u} {          }  {      99.8%} {}
+dv_discrep_line {}
+dv_end

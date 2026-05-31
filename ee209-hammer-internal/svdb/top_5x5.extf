@@ -1,0 +1,12 @@
+# Automagically generated file: Please do not edit!
+lvs_ExtfVersion 3
+lvs_ExtRunTimes 1780089160 1780089170
+lvs_ExtOutFile RUNDIR /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
+lvs_ExtOutFile RULES_FILE _calibre_new_08MAR2026.lvs_
+lvs_ExtInfoExtSummary {0 0 0 0 0 0 0 0 0 0 0}
+lvs_ExtInfoErcSummary {12 0 0 0 0 0 0 0 0 0 0}
+lvs_ExtInfoDfmSummary {0}
+lvs_ExtOutFile LAYOUT_NETLIST top_5x5.sp
+lvs_ExtOutFile EXTRACTION_REPORT top_5x5.lvs.report.ext
+lvs_ExtOutFile ERC_DATABASE top_5x5.erc.results
+lvs_ExtOutFile ERC_SUMMARY calibre_erc.sum

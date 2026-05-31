@@ -6,7 +6,7 @@ import gdspy
 # Input / output files
 # ============================================================
 
-CORE_GDS = "build/par-rundir/top_3x3.gds"
+CORE_GDS = "build/par-rundir/top_5x5.gds"
 PAD_GDS = "UCLA_CEMiD_pad_frame_1x1_pcell.gds"
 OUT_GDS = "final_chip.gds"
 
@@ -193,6 +193,9 @@ power_pad_to_net = {
     "B7": "VDD",
     "R7": "VDD",
     "R6": "VSS",
+    # Ground unused pad R2 by connecting it to the inner VSS METAL6 ring
+    # using the same METAL5 bridge + VIA56 method as L1 and R6.
+    "R2": "VSS",
 }
 
 
@@ -435,14 +438,21 @@ def add_possibly_slotted_power_rect(
     layer,
     datatype,
     max_unslotted_width=power_max_unslotted_width,
-    slot_gap=power_slot_gap
+    slot_gap=power_slot_gap,
+    split_axis=None
 ):
     """
     Add a power connector rectangle, splitting it into two same-net rectangles
     when the short dimension would exceed the wide-metal slot threshold.
 
-    This is intended for pad-to-ring/stripe bridges like L0, L1, R6, and R7.
-    It intentionally does not affect the narrow signal stitches.
+    split_axis:
+      "x" -> vertical slot, two left/right pieces
+      "y" -> horizontal slot, two lower/upper pieces
+
+    For left/right pad bridges, use split_axis="y" so each piece still spans
+    horizontally from pad to ring.
+    For top/bottom pad bridges, use split_axis="x" so each piece still spans
+    vertically from pad to ring.
     """
     xmin, ymin, xmax, ymax = bbox
     width_x = xmax - xmin
@@ -462,22 +472,35 @@ def add_possibly_slotted_power_rect(
             f"slot_gap={slot_gap} is not smaller than short dimension={short_dim}"
         )
 
+    if split_axis is None:
+        # Original fallback behavior.
+        # But for pad bridges, callers should explicitly pass split_axis.
+        split_axis = "x" if width_x <= width_y else "y"
+
     drawn = []
 
-    if width_x <= width_y:
-        # Shape is narrower in x, so split the x-width into two columns.
+    if split_axis == "x":
+        # Vertical slot: split into left/right pieces.
+        # Use this for top/bottom pad bridges so both pieces still span vertically.
         mid = interval_center(xmin, xmax)
         gap0 = mid - slot_gap / 2.0
         gap1 = mid + slot_gap / 2.0
+
         drawn.append(add_rect(cell, xmin, ymin, gap0, ymax, layer, datatype))
         drawn.append(add_rect(cell, gap1, ymin, xmax, ymax, layer, datatype))
-    else:
-        # Shape is narrower in y, so split the y-width into two rows.
+
+    elif split_axis == "y":
+        # Horizontal slot: split into lower/upper pieces.
+        # Use this for left/right pad bridges so both pieces still span horizontally.
         mid = interval_center(ymin, ymax)
         gap0 = mid - slot_gap / 2.0
         gap1 = mid + slot_gap / 2.0
+
         drawn.append(add_rect(cell, xmin, ymin, xmax, gap0, layer, datatype))
         drawn.append(add_rect(cell, xmin, gap1, xmax, ymax, layer, datatype))
+
+    else:
+        raise ValueError(f"Invalid split_axis={split_axis}; expected 'x', 'y', or None")
 
     return drawn
 
@@ -631,11 +654,17 @@ def add_direct_power_connection(cell, side, pad_bbox, target_bbox, layer, dataty
     else:
         raise ValueError(f"Unknown side: {side}")
 
+    if side in ("left", "right"):
+        split_axis = "y"   # horizontal slot, preserves horizontal pad-to-ring connection
+    else:
+        split_axis = "x"   # vertical slot, preserves vertical pad-to-ring connection
+
     return add_possibly_slotted_power_rect(
         cell,
         connector_bbox,
         layer,
-        datatype
+        datatype,
+        split_axis=split_axis
     )
 
 def find_inward_vss_metal5_stripes(side, pad_bbox, metal5_bboxes, die_center_y=None):
@@ -1079,7 +1108,8 @@ def add_m5_bridge_to_m6_ring_with_vias(
         cell,
         bridge_bbox,
         m5_layer,
-        m5_datatype
+        m5_datatype,
+        split_axis="y"
     )
 
     via_results = []

@@ -1,0 +1,167 @@
+chip_top 1000
+SOFTCHK mim_term CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK mim_term_sandwich_3t CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK poly_term CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK DPW CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK DNW CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK RFDMY_HIA_psub CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK rfdmy56 CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK hvnwpsub_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK ldpwhvnwpsub_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK psub_under_dnw CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK psub_under_hvnw CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK psub_under_nbl CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK HVNW CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK NBL CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK hvndfd CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK hvnw_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK hvnwdpwnbl_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK iso_hvnw CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK ldpwhvnwpsub_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nhvpwdnw_4t_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nhvpwnbl_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nldpwhvnw_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nlvpwnbl_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK npwnbl_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nwhvpwnbl_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nxwell CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK phvnwdpw_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK pwhvnwdpw_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK HVPW CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK coll CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK coll_od2 CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK ell_coll CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK hvnwdpwnbl_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK hvpdfd CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK ptsub1 CONTACT.
+1 1 8 May 29 14:17:15 2026                                                      
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+p 1 10
+CN chip_top c 1 0 0 1 0 0 0
+DN 2
+LL ptsub1
+OL n_pplug
+SC  SCONNECT  tpdiff ptsub1 BY n_pplug
+0 0
+950000 0
+950000 950000
+940000 950000
+940000 10000
+10000 10000
+10000 940000
+940000 940000
+940000 950000
+0 950000
+SOFTCHK nhvpwdnw_4t_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nhvpwnbl_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nldpwhvnw_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nlvpwnbl_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK npwnbl_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK nwhvpwnbl_base CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK phvnwdpw_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK psub CONTACT.
+1 1 8 May 29 14:17:15 2026                                                      
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+p 1 10
+CN chip_top c 1 0 0 1 0 0 0
+DN 2
+LL psub
+OL pplug
+SC  SCONNECT  tpdiff psub BY pplug
+0 0
+950000 0
+950000 950000
+940000 950000
+940000 10000
+10000 10000
+10000 940000
+940000 940000
+940000 950000
+0 950000
+SOFTCHK psub_term CONTACT.
+1 1 8 May 29 14:17:15 2026                                                      
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+Net 1 is selected for stamping.
+Rejected nets: 2
+p 1 10
+CN chip_top c 1 0 0 1 0 0 0
+DN 2
+LL psub_term
+OL pplug
+SC  SCONNECT  tpdiff psub_term BY pplug
+0 0
+950000 0
+950000 950000
+940000 950000
+940000 10000
+10000 10000
+10000 940000
+940000 940000
+940000 950000
+0 950000
+SOFTCHK pwhvnwdpw_col CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK rw_inside_dnw CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      
+SOFTCHK ull_coll CONTACT.
+0 0 0 May 29 14:17:15 2026                                                      

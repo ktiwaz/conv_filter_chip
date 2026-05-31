@@ -79,12 +79,12 @@ compare_hex_files_case_insensitive() {
 # Step 1: delete existing actual outputs for selected size only
 # ============================================================
 
-echo "Running only ${KERNEL_SIZE_DIR} post-synthesis testcases"
+echo "Running only ${KERNEL_SIZE_DIR} post-PNR testcases"
 echo "Deleting existing output_image.hex files under ${SELECTED_TESTCASES_DIR} ..."
 find "$SELECTED_TESTCASES_DIR" -type f -name "output_image.hex" -delete
 
 # ============================================================
-# Step 2: iterate through selected post-synthesis configs
+# Step 2: iterate through selected post-PNR configs
 # ============================================================
 
 while IFS= read -r yml_path; do
@@ -96,7 +96,7 @@ while IFS= read -r yml_path; do
 
     echo
     echo "============================================================"
-    echo "Running post-syn testcase: ${testcase_name}"
+    echo "Running post-par testcase: ${testcase_name}"
     echo "Config: ${yml_path}"
     echo "============================================================"
 
@@ -114,8 +114,8 @@ while IFS= read -r yml_path; do
         continue
     fi
 
-    echo "[1/2] Cleaning post-syn sim rundir ..."
-    rm -rf "$HAMMER_DIR/build/sim-syn-rundir"
+    echo "[1/2] Cleaning post-par sim rundir ..."
+    rm -rf "$HAMMER_DIR/build/sim-par-rundir"
     clean_status=$?
 
     if [[ $clean_status -ne 0 ]]; then
@@ -128,14 +128,14 @@ while IFS= read -r yml_path; do
     (
         cd "$HAMMER_DIR" || exit 101
 
-        echo "[2/2] Running post-syn testcase ..."
-        make -f "$MAKEFILE" sim-syn TB_CFGS="$yml_path"
+        echo "[2/2] Running post-par testcase ..."
+        make -f "$MAKEFILE" sim-par TB_CFGS="$yml_path"
     )
     run_status=$?
 
     if [[ $run_status -ne 0 ]]; then
-        echo "FAIL: post-syn simulation/make failed for ${testcase_name}"
-        failed_tests+=("$testcase_name (make sim-syn failed)")
+        echo "FAIL: post-par simulation/make failed for ${testcase_name}"
+        failed_tests+=("$testcase_name (make sim-par failed)")
         fail_count=$((fail_count + 1))
         continue
     fi
@@ -172,7 +172,7 @@ done < <(find "$SELECTED_TESTCASES_DIR" -type f -name "config_post_syn.yml" | so
 
 echo
 echo "============================================================"
-echo "POST-SYN FINAL REPORT: ${KERNEL_SIZE_DIR}"
+echo "POST-PNR FINAL REPORT: ${KERNEL_SIZE_DIR}"
 echo "============================================================"
 echo "Passed : $pass_count"
 echo "Failed : $fail_count"

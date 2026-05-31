@@ -1,0 +1,171 @@
+********************************************************************************
+Product   : Virtuoso(R) XStream Out
+Program   : @(#)$CDS: strmout version IC23.1-64b 05/22/2024 07:39 (cpgbld16) $
+          : sub-version  IC23.1-64b.ISR7.27 
+Started at: 29-May-2026  14:12:26
+User Name : devlin11780
+Host Name : eeapps04.labidm.seas.ucla.edu
+Directory : /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
+CADENCE Design Systems, Inc.
+********************************************************************************
+Info: Cellview Rev Num:99,  Tech Rev Num:59
+
+WARNING (XSTRM-20): Output Stream file '/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/top_5x5.calibre.db' already exists. It will be overwritten.
+INFO (XSTRM-217): Reading the layer map file, /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18/tsmc18.layermap
+INFO (XSTRM-427): Based on current hardware configuration, running XStream Out translation in multi-threaded mode with 4 threads.
+INFO (XSTRM-162): You have not used the '-viaMap' option. If the OpenAccess design has native oaVia instances, use the '-viaMap' option for preserving oaVia instances in a XStream Out - XStream In round trip. Using the '-viaMap' option improves performance and VM usage of applications using the Streamed-In design.
+
+Summary of Options :
+library                                 Final_Merged_Chip_Lib
+strmFile                                /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/top_5x5.calibre.db
+topCell                                 top_5x5
+view                                    layout
+runDir                                  /w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal/
+logFile                                 PIPO.LOG.top_5x5
+summaryFile                             PIPO.SUM.top_5x5
+layerMap                                /w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/tsmc18/tsmc18.layermap
+case                                    Preserve
+convertDot                              node
+convertPcellPin                         geometry
+
+INFO (XSTRM-223): 1. Translating stdVia tsmc18/M3_M2/layout as STRUCTURE M3_M2_CDNS_780089146740.
+INFO (XSTRM-223): 2. Translating stdVia tsmc18/M2_M1/layout as STRUCTURE M2_M1_CDNS_780089146741.
+INFO (XSTRM-223): 3. Translating stdVia tsmc18/M4_M3/layout as STRUCTURE M4_M3_CDNS_780089146742.
+INFO (XSTRM-223): 4. Translating stdVia tsmc18/M2_M1/layout as STRUCTURE M2_M1_CDNS_780089146743.
+INFO (XSTRM-223): 5. Translating stdVia tsmc18/M2_M1/layout as STRUCTURE M2_M1_CDNS_780089146744.
+INFO (XSTRM-223): 6. Translating stdVia tsmc18/M5_M4/layout as STRUCTURE M5_M4_CDNS_780089146745.
+INFO (XSTRM-223): 7. Translating stdVia tsmc18/M6_M5/layout as STRUCTURE M6_M5_CDNS_780089146746.
+INFO (XSTRM-223): 8. Translating stdVia tsmc18/VIAGEN12/layout as STRUCTURE VIAGEN12_CDNS_780089146747.
+INFO (XSTRM-223): 9. Translating stdVia tsmc18/M6_M5/layout as STRUCTURE M6_M5_CDNS_780089146748.
+INFO (XSTRM-223): 10. Translating stdVia tsmc18/M5_M4/layout as STRUCTURE M5_M4_CDNS_780089146749.
+INFO (XSTRM-223): 11. Translating stdVia tsmc18/M4_M3/layout as STRUCTURE M4_M3_CDNS_7800891467410.
+INFO (XSTRM-223): 12. Translating stdVia tsmc18/M6_M5/layout as STRUCTURE M6_M5_CDNS_7800891467411.
+INFO (XSTRM-223): 13. Translating stdVia tsmc18/M5_M4/layout as STRUCTURE M5_M4_CDNS_7800891467412.
+INFO (XSTRM-223): 14. Translating stdVia tsmc18/M4_M3/layout as STRUCTURE M4_M3_CDNS_7800891467413.
+INFO (XSTRM-223): 15. Translating stdVia tsmc18/M3_M2/layout as STRUCTURE M3_M2_CDNS_7800891467414.
+INFO (XSTRM-223): 16. Translating stdVia tsmc18/M2_M1/layout as STRUCTURE M2_M1_CDNS_7800891467415.
+INFO (XSTRM-223): 17. Translating stdVia tsmc18/M2_M1/layout as STRUCTURE M2_M1_CDNS_7800891467416.
+INFO (XSTRM-223): 18. Translating stdVia tsmc18/M6_M5/layout as STRUCTURE M6_M5_CDNS_7800891467417.
+INFO (XSTRM-223): 19. Translating cellview Final_Merged_Chip_Lib/CKND12BWP7T/layout as STRUCTURE CKND12BWP7T.
+INFO (XSTRM-223): 20. Translating cellview Final_Merged_Chip_Lib/INVD0BWP7T/layout as STRUCTURE INVD0BWP7T.
+INFO (XSTRM-223): 21. Translating cellview Final_Merged_Chip_Lib/INVD1BWP7T/layout as STRUCTURE INVD1BWP7T.
+INFO (XSTRM-223): 22. Translating cellview Final_Merged_Chip_Lib/DEL0BWP7T/layout as STRUCTURE DEL0BWP7T.
+INFO (XSTRM-223): 23. Translating cellview Final_Merged_Chip_Lib/CKBD3BWP7T/layout as STRUCTURE CKBD3BWP7T.
+INFO (XSTRM-223): 24. Translating cellview Final_Merged_Chip_Lib/CKBD2BWP7T/layout as STRUCTURE CKBD2BWP7T.
+INFO (XSTRM-223): 25. Translating cellview Final_Merged_Chip_Lib/CKBD4BWP7T/layout as STRUCTURE CKBD4BWP7T.
+INFO (XSTRM-223): 26. Translating cellview Final_Merged_Chip_Lib/BUFFD3BWP7T/layout as STRUCTURE BUFFD3BWP7T.
+INFO (XSTRM-223): 27. Translating cellview Final_Merged_Chip_Lib/INVD2BWP7T/layout as STRUCTURE INVD2BWP7T.
+INFO (XSTRM-223): 28. Translating cellview Final_Merged_Chip_Lib/CKBD1BWP7T/layout as STRUCTURE CKBD1BWP7T.
+INFO (XSTRM-223): 29. Translating cellview Final_Merged_Chip_Lib/BUFFD1BWP7T/layout as STRUCTURE BUFFD1BWP7T.
+INFO (XSTRM-223): 30. Translating cellview Final_Merged_Chip_Lib/DFCNQD1BWP7T/layout as STRUCTURE DFCNQD1BWP7T.
+INFO (XSTRM-223): 31. Translating cellview Final_Merged_Chip_Lib/ND2D1BWP7T/layout as STRUCTURE ND2D1BWP7T.
+INFO (XSTRM-223): 32. Translating cellview Final_Merged_Chip_Lib/IAO21D1BWP7T/layout as STRUCTURE IAO21D1BWP7T.
+INFO (XSTRM-223): 33. Translating cellview Final_Merged_Chip_Lib/ND4D0BWP7T/layout as STRUCTURE ND4D0BWP7T.
+INFO (XSTRM-223): 34. Translating cellview Final_Merged_Chip_Lib/NR4D0BWP7T/layout as STRUCTURE NR4D0BWP7T.
+INFO (XSTRM-223): 35. Translating cellview Final_Merged_Chip_Lib/AOI211XD0BWP7T/layout as STRUCTURE AOI211XD0BWP7T.
+INFO (XSTRM-223): 36. Translating cellview Final_Merged_Chip_Lib/AOI21D0BWP7T/layout as STRUCTURE AOI21D0BWP7T.
+INFO (XSTRM-223): 37. Translating cellview Final_Merged_Chip_Lib/OAI31D0BWP7T/layout as STRUCTURE OAI31D0BWP7T.
+INFO (XSTRM-223): 38. Translating cellview Final_Merged_Chip_Lib/XNR2D1BWP7T/layout as STRUCTURE XNR2D1BWP7T.
+INFO (XSTRM-223): 39. Translating cellview Final_Merged_Chip_Lib/MUX2ND0BWP7T/layout as STRUCTURE MUX2ND0BWP7T.
+INFO (XSTRM-223): 40. Translating cellview Final_Merged_Chip_Lib/MOAI22D0BWP7T/layout as STRUCTURE MOAI22D0BWP7T.
+INFO (XSTRM-223): 41. Translating cellview Final_Merged_Chip_Lib/ND3D0BWP7T/layout as STRUCTURE ND3D0BWP7T.
+INFO (XSTRM-223): 42. Translating cellview Final_Merged_Chip_Lib/CKXOR2D1BWP7T/layout as STRUCTURE CKXOR2D1BWP7T.
+INFO (XSTRM-223): 43. Translating cellview Final_Merged_Chip_Lib/IND2D1BWP7T/layout as STRUCTURE IND2D1BWP7T.
+INFO (XSTRM-223): 44. Translating cellview Final_Merged_Chip_Lib/INR2D1BWP7T/layout as STRUCTURE INR2D1BWP7T.
+INFO (XSTRM-223): 45. Translating cellview Final_Merged_Chip_Lib/FA1D0BWP7T/layout as STRUCTURE FA1D0BWP7T.
+INFO (XSTRM-223): 46. Translating cellview Final_Merged_Chip_Lib/AOI222D0BWP7T/layout as STRUCTURE AOI222D0BWP7T.
+INFO (XSTRM-223): 47. Translating cellview Final_Merged_Chip_Lib/AOI22D0BWP7T/layout as STRUCTURE AOI22D0BWP7T.
+INFO (XSTRM-223): 48. Translating cellview Final_Merged_Chip_Lib/OA221D0BWP7T/layout as STRUCTURE OA221D0BWP7T.
+INFO (XSTRM-223): 49. Translating cellview Final_Merged_Chip_Lib/IOA21D1BWP7T/layout as STRUCTURE IOA21D1BWP7T.
+INFO (XSTRM-223): 50. Translating cellview Final_Merged_Chip_Lib/HA1D0BWP7T/layout as STRUCTURE HA1D0BWP7T.
+INFO (XSTRM-223): 51. Translating cellview Final_Merged_Chip_Lib/OAI21D0BWP7T/layout as STRUCTURE OAI21D0BWP7T.
+INFO (XSTRM-223): 52. Translating cellview Final_Merged_Chip_Lib/OAI211D1BWP7T/layout as STRUCTURE OAI211D1BWP7T.
+INFO (XSTRM-223): 53. Translating cellview Final_Merged_Chip_Lib/IND3D1BWP7T/layout as STRUCTURE IND3D1BWP7T.
+INFO (XSTRM-223): 54. Translating cellview Final_Merged_Chip_Lib/OAI221D0BWP7T/layout as STRUCTURE OAI221D0BWP7T.
+INFO (XSTRM-223): 55. Translating cellview Final_Merged_Chip_Lib/AO21D0BWP7T/layout as STRUCTURE AO21D0BWP7T.
+INFO (XSTRM-223): 56. Translating cellview Final_Merged_Chip_Lib/OA222D0BWP7T/layout as STRUCTURE OA222D0BWP7T.
+INFO (XSTRM-223): 57. Translating cellview Final_Merged_Chip_Lib/NR2XD0BWP7T/layout as STRUCTURE NR2XD0BWP7T.
+INFO (XSTRM-223): 58. Translating cellview Final_Merged_Chip_Lib/OAI22D0BWP7T/layout as STRUCTURE OAI22D0BWP7T.
+INFO (XSTRM-223): 59. Translating cellview Final_Merged_Chip_Lib/AO22D0BWP7T/layout as STRUCTURE AO22D0BWP7T.
+INFO (XSTRM-223): 60. Translating cellview Final_Merged_Chip_Lib/OA22D0BWP7T/layout as STRUCTURE OA22D0BWP7T.
+INFO (XSTRM-223): 61. Translating cellview Final_Merged_Chip_Lib/NR2D1BWP7T/layout as STRUCTURE NR2D1BWP7T.
+INFO (XSTRM-223): 62. Translating cellview Final_Merged_Chip_Lib/OR2D1BWP7T/layout as STRUCTURE OR2D1BWP7T.
+INFO (XSTRM-223): 63. Translating cellview Final_Merged_Chip_Lib/AN2D1BWP7T/layout as STRUCTURE AN2D1BWP7T.
+INFO (XSTRM-223): 64. Translating cellview Final_Merged_Chip_Lib/AO31D1BWP7T/layout as STRUCTURE AO31D1BWP7T.
+INFO (XSTRM-223): 65. Translating cellview Final_Merged_Chip_Lib/CKAN2D1BWP7T/layout as STRUCTURE CKAN2D1BWP7T.
+INFO (XSTRM-223): 66. Translating cellview Final_Merged_Chip_Lib/OA33D0BWP7T/layout as STRUCTURE OA33D0BWP7T.
+INFO (XSTRM-223): 67. Translating cellview Final_Merged_Chip_Lib/AO33D0BWP7T/layout as STRUCTURE AO33D0BWP7T.
+INFO (XSTRM-223): 68. Translating cellview Final_Merged_Chip_Lib/INR2D2BWP7T/layout as STRUCTURE INR2D2BWP7T.
+INFO (XSTRM-223): 69. Translating cellview Final_Merged_Chip_Lib/DEL01BWP7T/layout as STRUCTURE DEL01BWP7T.
+INFO (XSTRM-223): 70. Translating cellview Final_Merged_Chip_Lib/CKBD0BWP7T/layout as STRUCTURE CKBD0BWP7T.
+INFO (XSTRM-223): 71. Translating cellview Final_Merged_Chip_Lib/DEL015BWP7T/layout as STRUCTURE DEL015BWP7T.
+INFO (XSTRM-223): 72. Translating cellview Final_Merged_Chip_Lib/BUFFD0BWP7T/layout as STRUCTURE BUFFD0BWP7T.
+INFO (XSTRM-223): 73. Translating cellview Final_Merged_Chip_Lib/DEL02BWP7T/layout as STRUCTURE DEL02BWP7T.
+INFO (XSTRM-223): 74. Translating cellview Final_Merged_Chip_Lib/CKND2BWP7T/layout as STRUCTURE CKND2BWP7T.
+INFO (XSTRM-223): 75. Translating cellview Final_Merged_Chip_Lib/INVD2P5BWP7T/layout as STRUCTURE INVD2P5BWP7T.
+INFO (XSTRM-223): 76. Translating cellview Final_Merged_Chip_Lib/CKLNQD1BWP7T/layout as STRUCTURE CKLNQD1BWP7T.
+INFO (XSTRM-223): 77. Translating cellview Final_Merged_Chip_Lib/CKLNQD2BWP7T/layout as STRUCTURE CKLNQD2BWP7T.
+INFO (XSTRM-223): 78. Translating cellview Final_Merged_Chip_Lib/CKLNQD4BWP7T/layout as STRUCTURE CKLNQD4BWP7T.
+INFO (XSTRM-223): 79. Translating cellview Final_Merged_Chip_Lib/AN3D1BWP7T/layout as STRUCTURE AN3D1BWP7T.
+INFO (XSTRM-223): 80. Translating cellview Final_Merged_Chip_Lib/OAI32D1BWP7T/layout as STRUCTURE OAI32D1BWP7T.
+INFO (XSTRM-223): 81. Translating cellview Final_Merged_Chip_Lib/INR4D0BWP7T/layout as STRUCTURE INR4D0BWP7T.
+INFO (XSTRM-223): 82. Translating cellview Final_Merged_Chip_Lib/OA21D0BWP7T/layout as STRUCTURE OA21D0BWP7T.
+INFO (XSTRM-223): 83. Translating cellview Final_Merged_Chip_Lib/CKAN2D2BWP7T/layout as STRUCTURE CKAN2D2BWP7T.
+INFO (XSTRM-223): 84. Translating cellview Final_Merged_Chip_Lib/EDFCNQD1BWP7T/layout as STRUCTURE EDFCNQD1BWP7T.
+INFO (XSTRM-223): 85. Translating cellview Final_Merged_Chip_Lib/DFQD1BWP7T/layout as STRUCTURE DFQD1BWP7T.
+INFO (XSTRM-223): 86. Translating cellview Final_Merged_Chip_Lib/DFQD0BWP7T/layout as STRUCTURE DFQD0BWP7T.
+INFO (XSTRM-223): 87. Translating cellview Final_Merged_Chip_Lib/TIELBWP7T/layout as STRUCTURE TIELBWP7T.
+INFO (XSTRM-223): 88. Translating cellview Final_Merged_Chip_Lib/ANTENNABWP7T/layout as STRUCTURE ANTENNABWP7T.
+INFO (XSTRM-223): 89. Translating cellview Final_Merged_Chip_Lib/OAI21D1BWP7T/layout as STRUCTURE OAI21D1BWP7T.
+INFO (XSTRM-223): 90. Translating cellview Final_Merged_Chip_Lib/MOAI22D1BWP7T/layout as STRUCTURE MOAI22D1BWP7T.
+INFO (XSTRM-223): 91. Translating cellview Final_Merged_Chip_Lib/OAI22D1BWP7T/layout as STRUCTURE OAI22D1BWP7T.
+INFO (XSTRM-223): 92. Translating cellview Final_Merged_Chip_Lib/MAOI22D0BWP7T/layout as STRUCTURE MAOI22D0BWP7T.
+INFO (XSTRM-223): 93. Translating cellview Final_Merged_Chip_Lib/OAI31D1BWP7T/layout as STRUCTURE OAI31D1BWP7T.
+INFO (XSTRM-223): 94. Translating cellview Final_Merged_Chip_Lib/AO32D1BWP7T/layout as STRUCTURE AO32D1BWP7T.
+INFO (XSTRM-223): 95. Translating cellview Final_Merged_Chip_Lib/INR2XD0BWP7T/layout as STRUCTURE INR2XD0BWP7T.
+INFO (XSTRM-223): 96. Translating cellview Final_Merged_Chip_Lib/MAOI222D1BWP7T/layout as STRUCTURE MAOI222D1BWP7T.
+INFO (XSTRM-223): 97. Translating cellview Final_Merged_Chip_Lib/ND2D0BWP7T/layout as STRUCTURE ND2D0BWP7T.
+INFO (XSTRM-223): 98. Translating cellview Final_Merged_Chip_Lib/AO211D0BWP7T/layout as STRUCTURE AO211D0BWP7T.
+INFO (XSTRM-223): 99. Translating cellview Final_Merged_Chip_Lib/IIND4D0BWP7T/layout as STRUCTURE IIND4D0BWP7T.
+INFO (XSTRM-223): 100. Translating cellview Final_Merged_Chip_Lib/AO221D0BWP7T/layout as STRUCTURE AO221D0BWP7T.
+INFO (XSTRM-223): 101. Translating cellview Final_Merged_Chip_Lib/CKMUX2D1BWP7T/layout as STRUCTURE CKMUX2D1BWP7T.
+INFO (XSTRM-223): 102. Translating cellview Final_Merged_Chip_Lib/TIEHBWP7T/layout as STRUCTURE TIEHBWP7T.
+INFO (XSTRM-223): 103. Translating cellview Final_Merged_Chip_Lib/TAPCELLBWP7T/layout as STRUCTURE TAPCELLBWP7T.
+INFO (XSTRM-223): 104. Translating cellview Final_Merged_Chip_Lib/DCAPBWP7T/layout as STRUCTURE DCAPBWP7T.
+INFO (XSTRM-223): 105. Translating cellview Final_Merged_Chip_Lib/DCAP4BWP7T/layout as STRUCTURE DCAP4BWP7T.
+INFO (XSTRM-223): 106. Translating cellview Final_Merged_Chip_Lib/FILL2BWP7T/layout as STRUCTURE FILL2BWP7T.
+INFO (XSTRM-223): 107. Translating cellview Final_Merged_Chip_Lib/FILL1BWP7T/layout as STRUCTURE FILL1BWP7T.
+INFO (XSTRM-223): 108. Translating cellview Final_Merged_Chip_Lib/FILL4BWP7T/layout as STRUCTURE FILL4BWP7T.
+INFO (XSTRM-223): 109. Translating cellview Final_Merged_Chip_Lib/FILL8BWP7T/layout as STRUCTURE FILL8BWP7T.
+INFO (XSTRM-223): 110. Translating cellview Final_Merged_Chip_Lib/VIA2NORTH/layout as STRUCTURE VIA2NORTH.
+INFO (XSTRM-223): 111. Translating cellview Final_Merged_Chip_Lib/VIA2SOUTH/layout as STRUCTURE VIA2SOUTH.
+INFO (XSTRM-223): 112. Translating cellview Final_Merged_Chip_Lib/top_5x5/layout as STRUCTURE top_5x5.
+
+Summary of Objects Translated:
+	Scalar Instances:                       26855
+	Array Instances:                        0
+	Polygons:                               984
+	Paths:                                  163416
+	Rectangles:                             247094
+	Lines:                                  0
+	Arcs:                                   0
+	Donuts:                                 0
+	Dots:                                   0
+	Ellipses:                               0
+	Boundaries:                             0
+	Area Blockages:                         0
+	Layer Blockages:                        0
+	Area Halos:                             0
+	Markers:                                0
+	Rows:                                   0
+	Stitch:                                 0
+	Standard Vias                           100748
+	Custom Vias:                            0
+	CdsGen Vias:                            0
+	Pathsegs:                               0
+	Text:                                   28758
+	TextDisplay:                            0
+	Cells:                                  112
+
+Elapsed Time: 1.2s   User Time: 0.4s   CPU Time: 0.1s   Peak VM: 76228KB
+INFO (XSTRM-234): Translation completed. '0' error(s) and '1' warning(s) found.

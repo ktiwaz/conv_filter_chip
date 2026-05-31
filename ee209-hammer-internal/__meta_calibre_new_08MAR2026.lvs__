@@ -1,0 +1,4 @@
+DRC ICSTATION YES
+
+LVS BOX top_5x5 top_5x5
+INCLUDE "/w/class.1/ee/ee209b/ee209bta/TSMC180PDK/PDK/Calibre/lvs/calibre_new_08MAR2026.lvs"

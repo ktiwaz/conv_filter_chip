@@ -1,6 +1,6 @@
 \o Program:		@(#)$CDS: libManager version 23.1 - CAT38 04/15/2024 12:23 (sjfdcl749) $
 \o Sub version:		sub-version  p323 
-\o Arguments:		-unmapped -mpssession virtuoso1189162 -mpshost eeapps04.labidm.seas.ucla.edu -masterPID 1189162 -ADVM 
+\o Arguments:		-unmapped -mpssession virtuoso3037797 -mpshost eeapps04.labidm.seas.ucla.edu -masterPID 3037797 -ADVM 
 \o Working Directory:	eeapps04.labidm.seas.ucla.edu:/w/home.04/home/devlin11780/Desktop/ece209bs/Tapeout/conv_filter_chip/ee209-hammer-internal
 \o 64-bit offsets
 \o Qt version: 		5.15.9
@@ -14,10 +14,93 @@
 \o MPS service: map window
 \a nrSetCurrentWindow(cdsLibManager)
 \o Library Manager customization server connected.
-\a nrResizeWindow(cdsLibManager list(451 177 907 512))
-\o DB was auto refreshed.
-\a nrSetWindowVisibility(cdsLibManager "hide")
-\a _lmgrCloseIconify("cdsLibManager" 1)
+\a nrResizeWindow(cdsLibManager list(270 237 907 512))
+\a nrResizeWindow(cdsLibManager list(627 162 907 512))
+\a nrSetCurrentWindow(cdsLibManager)
+\a nrResizeWindow(cdsLibManager list(239 235 907 512))
+\a nrSetCurrentWindow(cdsLibManager)
+\a nrSetCurrentWindow(cdsLibManager)
+\a nrResizeWindow(cdsLibManager list(239 80 907 512))
+\a cdsLibManager->libListBox->value = "Final_Merged_Chip_Lib"
+\a cdsLibManager->libLineEdit->value = "Final_Merged_Chip_Lib"
+\a cdsLibManager->cellListBox->value = "top_5x5"
+\a cdsLibManager->cellLineEdit->value = "top_5x5"
+\a cdsLibManager->viewListBox->value = "schematic"
+\a cdsLibManager->viewLineEdit->value = "schematic"
+\a lmgrLogShowPopup("mainListPopup2" 61 29 2 "schematic")
+\a cdsLibManager->editDeleteButton->value = t
+\a deleteForm->deleteFilterEdit->value = "*"
+\a deleteForm->notDeleteFilterEdit->value = "*"
+\a nrSetWindowVisibility(deleteForm "show")
+\a nrSetCurrentWindow(deleteForm)
+\a nrResizeWindow(deleteForm list(369 84 627 425))
+\a deleteForm->notDeleteListBox->value = '("symbol" )
+\a deleteForm->moveToDeleteButton->value = t
+\a deleteForm->OK->value = t
+\o QUESTION (CLM-199): The following 2 items are marked for deletion.  Are you sure?
+\a nrSetWindowVisibility(mcMBXDLG "show")
+\a nrSetCurrentWindow(mcMBXDLG)
+\a nrResizeWindow(mcMBXDLG list(523 211 268 91))
+\a mcMBXDLG->pushButton1->value = t
+\o Deleting 2 views from cell "top_5x5" in library "Final_Merged_Chip_Lib".
+\a nrSetWindowVisibility(workingDialogForm "show")
+\o Deleting view "schematic".
+\a nrSetCurrentWindow(deleteForm)
+\a nrSetCurrentWindow(cdsLibManager)
+\a nrSetCurrentWindow(workingDialogForm)
+\a nrResizeWindow(workingDialogForm list(548 230 268 133))
+\o Deleted cellview 'Final_Merged_Chip_Lib/top_5x5/schematic'.
+\o Deleting view "symbol".
+\a cdsLibManager->viewLineEdit->value = "symbol"
+\a cdsLibManager->viewListBox->value = nil
+\a cdsLibManager->viewLineEdit->value = ""
+\o Deleted cellview 'Final_Merged_Chip_Lib/top_5x5/symbol'.
+\o Deletion of 2 views done.
+\a nrSetCurrentWindow(cdsLibManager)
+\a cdsLibManager->libListBox->value = nil
+\a cdsLibManager->libLineEdit->value = ""
+\a cdsLibManager->cellListBox->value = nil
+\a cdsLibManager->cellLineEdit->value = ""
+\a cdsLibManager->libListBox->value = "Final_Merged_Chip_Lib"
+\a cdsLibManager->libLineEdit->value = "Final_Merged_Chip_Lib"
+\a cdsLibManager->cellListBox->value = "top_5x5"
+\a cdsLibManager->cellLineEdit->value = "top_5x5"
+\a cdsLibManager->viewListBox->value = "layout"
+\a cdsLibManager->viewLineEdit->value = "layout"
+\a cdsLibManager->viewLineEdit->value = ""
+\a cdsLibManager->viewListBox->value = nil
+\a cdsLibManager->viewListBox->value = "layout"
+\a cdsLibManager->viewLineEdit->value = "layout"
+\a cdsLibManager->viewLineEdit->value = ""
+\a cdsLibManager->viewListBox->value = nil
+\a nrResizeWindow(workingDialogForm list(704 511 268 133))
+\a nrResizeWindow(cdsLibManager list(390 64 907 512))
+\a nrSetCurrentWindow(cdsLibManager)
+\a cdsLibManager->cellListBox->value = "top_3x3_VIA35"
+\a cdsLibManager->cellLineEdit->value = "top_3x3_VIA35"
+\a cdsLibManager->viewListBox->value = "layout"
+\a cdsLibManager->viewLineEdit->value = "layout"
+\a cdsLibManager->cellListBox->value = "top_5x5"
+\a cdsLibManager->cellLineEdit->value = "top_5x5"
+\a cdsLibManager->viewLineEdit->value = ""
+\a cdsLibManager->viewListBox->value = nil
+\a cdsLibManager->viewListBox->value = "layout"
+\a cdsLibManager->viewLineEdit->value = "layout"
+\a cdsLibManager->cellListBox->value = "chip_top"
+\a cdsLibManager->cellLineEdit->value = "chip_top"
+\a cdsLibManager->viewLineEdit->value = ""
+\a cdsLibManager->viewListBox->value = nil
+\a cdsLibManager->viewListBox->value = "layout"
+\a cdsLibManager->viewLineEdit->value = "layout"
+\a cdsLibManager->viewListBox->value = "schematic"
+\a cdsLibManager->viewLineEdit->value = "schematic"
+\a cdsLibManager->viewListBox->value = nil
+\a cdsLibManager->viewLineEdit->value = ""
+\a cdsLibManager->viewListBox->value = "schematic"
+\a cdsLibManager->viewLineEdit->value = "schematic"
+\o MPS request: edit design
+\a nrListItemAction(cdsLibManager->gdmXTView 1 0)
+\a nrSetCurrentWindow(cdsLibManager)
 \o MPS service: shutdown
 \o libManager is exiting.
 \a exit(0)
