@@ -1,0 +1,7 @@
+# Non-project flow outputs (regenerate with `make ip` / `make bit`)
+build/
+ip/
+.Xil/
+*.jou
+*.log
+*.str
