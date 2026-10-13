@@ -1,0 +1,26 @@
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 12 14:40:01 2026
+# Process ID         : 65841
+# Current directory  : /home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1
+# Command line       : vivado -log testbench.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source testbench.tcl
+# Log file           : /home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/testbench.vds
+# Journal file       : /home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/vivado.jou
+# Running On         : wamefork
+# Platform           : ubuntu
+# Operating System   : Ubuntu"
+VERSION_ID="24.04 24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+# Processor Detail   : AMD Ryzen 5 7640U w/ Radeon 760M Graphics
+# CPU Frequency      : 3044.176 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 49772 MB
+# Swap memory        : 152851 MB
+# Total Virtual      : 202624 MB
+# Available Virtual  : 189704 MB
+#-----------------------------------------------------------
+source testbench.tcl -notrace

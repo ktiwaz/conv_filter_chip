@@ -1,0 +1,287 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 30-sep-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Mon Oct 12 14:40:01 2026
+# Process ID         : 65841
+# Current directory  : /home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1
+# Command line       : vivado -log testbench.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source testbench.tcl
+# Log file           : /home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/testbench.vds
+# Journal file       : /home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/vivado.jou
+# Running On         : wamefork
+# Platform           : ubuntu
+# Operating System   : Ubuntu"
+VERSION_ID="24.04 24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+# Processor Detail   : AMD Ryzen 5 7640U w/ Radeon 760M Graphics
+# CPU Frequency      : 3044.176 MHz
+# CPU Physical cores : 6
+# CPU Logical cores  : 12
+# Host memory        : 49772 MB
+# Swap memory        : 152851 MB
+# Total Virtual      : 202624 MB
+# Available Virtual  : 189704 MB
+#-----------------------------------------------------------
+source testbench.tcl -notrace
+Command: synth_design -top testbench -part xc7z020clg400-1
+Starting synth_design
+Attempting to get a license for feature 'Vivado_Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Vivado_Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Designutils 20-5008] Incremental synthesis strategy default
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 65868
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2429.457 ; gain = 515.312 ; free physical = 24065 ; free virtual = 179530
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'testbench' [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.v:1]
+INFO: [Synth 8-3876] $readmem data file 'input_image.hex' is read successfully [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.v:92]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/.Xil/Vivado-65841-wamefork/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (0#1) [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/.Xil/Vivado-65841-wamefork/realtime/clk_wiz_0_stub.v:6]
+INFO: [Synth 8-226] default block is never used [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.v:56]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.v:100]
+INFO: [Synth 8-6157] synthesizing module 'ila_0' [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/.Xil/Vivado-65841-wamefork/realtime/ila_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'ila_0' (0#1) [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/.Xil/Vivado-65841-wamefork/realtime/ila_0_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'testbench' (0#1) [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.v:1]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'your_instance_name'. This will prevent further optimization [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.v:100]
+WARNING: [Synth 8-7129] Port led[3] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led[2] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[3] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[2] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[1] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[0] in module testbench is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2537.395 ; gain = 623.250 ; free physical = 23958 ; free virtual = 179424
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2543.332 ; gain = 629.188 ; free physical = 23954 ; free virtual = 179421
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2543.332 ; gain = 629.188 ; free physical = 23954 ; free virtual = 179421
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2543.332 ; gain = 0.000 ; free physical = 23954 ; free virtual = 179421
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'instance_name'
+Finished Parsing XDC File [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.gen/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc] for cell 'instance_name'
+Parsing XDC File [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.gen/sources_1/ip/ila_0/ila_0/ila_0_in_context.xdc] for cell 'your_instance_name'
+Finished Parsing XDC File [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.gen/sources_1/ip/ila_0/ila_0/ila_0_in_context.xdc] for cell 'your_instance_name'
+Parsing XDC File [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.xdc]
+Finished Parsing XDC File [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/testbench.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/testbench_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/testbench_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2622.102 ; gain = 0.000 ; free physical = 23940 ; free virtual = 179406
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2622.137 ; gain = 0.000 ; free physical = 23940 ; free virtual = 179406
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2622.137 ; gain = 707.992 ; free physical = 23937 ; free virtual = 179403
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2630.105 ; gain = 715.961 ; free physical = 23937 ; free virtual = 179403
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2630.105 ; gain = 715.961 ; free physical = 23937 ; free virtual = 179403
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 2630.105 ; gain = 715.961 ; free physical = 23935 ; free virtual = 179403
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   26 Bit       Adders := 1     
+	   2 Input   14 Bit       Adders := 1     
++---Registers : 
+	               26 Bit    Registers := 1     
+	               14 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                1 Bit    Registers := 2     
++---Muxes : 
+	   2 Input   14 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 2     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7129] Port led[3] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port led[2] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[3] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[2] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[1] in module testbench is either unconnected or has no load
+WARNING: [Synth 8-7129] Port btn[0] in module testbench is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 2871.809 ; gain = 957.664 ; free physical = 23682 ; free virtual = 179156
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++------------+------------+---------------+----------------+
+|Module Name | RTL Object | Depth x Width | Implemented As | 
++------------+------------+---------------+----------------+
+|testbench   | rom        | 16384x8       | LUT            | 
+|testbench   | p_0_out    | 16384x8       | LUT            | 
++------------+------------+---------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:04 ; elapsed = 00:01:05 . Memory (MB): peak = 2871.809 ; gain = 957.664 ; free physical = 23681 ; free virtual = 179156
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:05 ; elapsed = 00:01:05 . Memory (MB): peak = 2871.809 ; gain = 957.664 ; free physical = 23681 ; free virtual = 179156
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:05 ; elapsed = 00:01:05 . Memory (MB): peak = 2871.809 ; gain = 957.664 ; free physical = 23681 ; free virtual = 179156
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:07 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:07 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++------+--------------+----------+
+|      |BlackBox name |Instances |
++------+--------------+----------+
+|1     |clk_wiz_0     |         1|
+|2     |ila_0         |         1|
++------+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |clk_wiz |     1|
+|2     |ila     |     1|
+|3     |CARRY4  |    11|
+|4     |LUT1    |     2|
+|5     |LUT2    |    29|
+|6     |LUT3    |    16|
+|7     |LUT4    |    41|
+|8     |LUT5    |    62|
+|9     |LUT6    |  1637|
+|10    |MUXF7   |   662|
+|11    |MUXF8   |   297|
+|12    |FDCE    |    42|
+|13    |FDRE    |     8|
+|14    |IBUF    |     2|
+|15    |OBUF    |     2|
+|16    |OBUFT   |     2|
++------+--------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.621 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 6 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:06 ; elapsed = 00:01:07 . Memory (MB): peak = 2952.621 ; gain = 959.672 ; free physical = 23612 ; free virtual = 179087
+Synthesis Optimization Complete : Time (s): cpu = 00:01:08 ; elapsed = 00:01:08 . Memory (MB): peak = 2952.629 ; gain = 1038.477 ; free physical = 23612 ; free virtual = 179087
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2952.629 ; gain = 0.000 ; free physical = 23767 ; free virtual = 179241
+INFO: [Netlist 29-17] Analyzing 970 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+WARNING: [Netlist 29-101] Netlist 'testbench' is not ideal for floorplanning, since the cellview 'testbench' contains a large number of primitives.  Please consider enabling hierarchy in synthesis if you want to do floorplanning.
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3008.648 ; gain = 0.000 ; free physical = 23766 ; free virtual = 179240
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 66eb6a40
+INFO: [Common 17-83] Releasing license: Vivado_Synthesis
+25 Infos, 14 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:13 ; elapsed = 00:01:12 . Memory (MB): peak = 3008.684 ; gain = 1288.383 ; free physical = 23766 ; free virtual = 179240
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2146.627; main = 2038.428; forked = 270.383
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3875.164; main = 3008.652; forked = 1037.352
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3032.660 ; gain = 0.000 ; free physical = 23766 ; free virtual = 179240
+INFO: [Common 17-1381] The checkpoint '/home/ktiwaz/Projects/Tapeout/conv_filter_chip/post-silicon/single-fpga-testbench-validation/simple-fpga-testbench-validation/simple-fpga-testbench-validation.runs/synth_1/testbench.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file testbench_utilization_synth.rpt -pb testbench_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 12 14:41:17 2026...
