@@ -4,7 +4,19 @@ module testbench #(
     input  wire refclk_125,
     input  wire [1:0] sw,
     input  wire [3:0] btn,
-    output wire [3:0] led
+    output wire [3:0] led,
+
+    // Link to the external DUT board (RPi header, see tcl/link_pins.tcl)
+    output wire       chip_clk,
+    output wire       chip_reset_n,
+    output wire       chip_kernel_valid,
+    output wire       chip_normalization_valid,
+    output wire       chip_pixel_valid,
+    output wire       chip_test_mode,
+    output wire [7:0] chip_datain,
+    input  wire [7:0] chip_dataout,
+    input  wire       chip_output_valid,
+    input  wire [1:0] chip_status
 );
 
     wire clk;
@@ -113,11 +125,13 @@ module testbench #(
         .m_axi_rready(axi_rready)
     );
 
-    // Input RAM -> stream -> capture RAM, with AXI access to both RAMs
+    // Input RAM -> DUT sequencer -> conv_filter_top -> capture RAM, with AXI access
     wire        busy, done, start_pulse;
     wire [13:0] stream_addr;
-    wire [7:0]  stream_data;
-    wire        stream_valid;
+    wire        pixel_valid;
+    wire [7:0]  dut_dataout;
+    wire        dut_output_valid;
+    wire [1:0]  dut_status;
 
     assign led[2] = done;
     assign led[3] = busy;
@@ -162,8 +176,20 @@ module testbench #(
         .done(done),
         .start_pulse(start_pulse),
         .stream_addr(stream_addr),
-        .stream_data(stream_data),
-        .stream_valid(stream_valid)
+        .pixel_valid(pixel_valid),
+        .dut_dataout(dut_dataout),
+        .dut_output_valid(dut_output_valid),
+        .dut_status(dut_status),
+        .chip_clk(chip_clk),
+        .chip_reset_n(chip_reset_n),
+        .chip_kernel_valid(chip_kernel_valid),
+        .chip_normalization_valid(chip_normalization_valid),
+        .chip_pixel_valid(chip_pixel_valid),
+        .chip_test_mode(chip_test_mode),
+        .chip_datain(chip_datain),
+        .chip_dataout(chip_dataout),
+        .chip_output_valid(chip_output_valid),
+        .chip_status(chip_status)
     );
 
 
@@ -171,9 +197,9 @@ ila_0 your_instance_name (
 	.clk(clk), // input wire clk
 
 
-	.probe0(stream_data), // input wire [7:0]  probe0
-	.probe1(start_pulse), // input wire [0:0]  probe1
-	.probe2(busy), // input wire [0:0]  probe2
+	.probe0(dut_dataout), // input wire [7:0]  probe0
+	.probe1(dut_output_valid), // input wire [0:0]  probe1
+	.probe2(pixel_valid), // input wire [0:0]  probe2
 	.probe3(stream_addr) // input wire [13:0]  probe3
 );
 

@@ -1,18 +1,20 @@
-# Program the PYNQ-Z2 PL with build/testbench.bit (+ debug probes).
-# Usage: vivado -mode batch -source tcl/program.tcl
+# Program a board's PL.
+# Usage: vivado -mode batch -source tcl/program.tcl -tclargs tester|dut
+#   tester: build/tester/testbench.bit on the board with tester_serial
+#   dut:    build/dut/dut_board.bit    on the board with dut_serial
 
 set root [file normalize [file dirname [info script]]/..]
 source $root/tcl/common.tcl
+source $root/tcl/boards.tcl
 
-open_hw_manager
-connect_hw_server
-open_hw_target
+set role [build_role]
+set top  $role_top($role)
+set serial [expr {$role eq "tester" ? $tester_serial : $dut_serial}]
 
-set dev [lindex [get_hw_devices xc7z020*] 0]
-current_hw_device $dev
-set_property PROGRAM.FILE     $root/build/$top.bit $dev
-set_property PROBES.FILE      $root/build/$top.ltx $dev
-set_property FULL_PROBES.FILE $root/build/$top.ltx $dev
+set dev [open_board $serial]
+set_property PROGRAM.FILE     $root/build/$role/$top.bit $dev
+set_property PROBES.FILE      $root/build/$role/$top.ltx $dev
+set_property FULL_PROBES.FILE $root/build/$role/$top.ltx $dev
 program_hw_devices $dev
 refresh_hw_device $dev
-puts "Programmed $dev; hw_axi cores: [get_hw_axis]"
+puts "Programmed $role ($top) on [current_hw_target]; hw_axi cores: [get_hw_axis -quiet]"

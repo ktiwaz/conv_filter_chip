@@ -5,3 +5,4 @@ ip/
 *.jou
 *.log
 *.str
+boards.local.tcl
