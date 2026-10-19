@@ -17,6 +17,14 @@ module video_out (
     input  wire        out_masked,    // hide the 2-pixel wrap-around border of the output
     input  wire        pattern,       // show the bring-up test pattern instead
 
+    // Overlay text status (fabric clock domain, quasi-static; synchronized here)
+    input  wire        st_live,
+    input  wire        st_bypass,
+    input  wire        st_ext,
+    input  wire        st_custom,     // kernel/norm written over JTAG, not a preset
+    input  wire [103:0] st_name,      // preset name, 13 ASCII chars
+    input  wire [7:0]  st_fps,        // live runs per second, BCD
+
     output wire        tmds_clk_p,
     output wire        tmds_clk_n,
     output wire [2:0]  tmds_data_p,
@@ -40,6 +48,8 @@ module video_out (
         .rd_addr(rd_addr), .rd_in(rd_in), .rd_out(rd_out),
         .has_frame(has_frame), .out_lo(out_lo), .out_hi(out_hi),
         .out_masked(out_masked), .pattern(pattern),
+        .st_live(st_live), .st_bypass(st_bypass), .st_ext(st_ext), .st_custom(st_custom),
+        .st_name(st_name), .st_fps(st_fps),
         .r(r), .g(g), .b(b), .de(de), .hs(hs), .vs(vs)
     );
 
@@ -65,12 +75,13 @@ module video_out (
 endmodule
 
 // 1280x720 picture: the DUT input (left) and output (right), each 128x128
-// scaled 4x to 512x512, with 2-pixel white borders on a dark background.
+// scaled 4x to 512x512, with 2-pixel white borders on a dark background,
+// titles above the panes and a status line below.
 // With pattern=1 it shows the bring-up test pattern instead (colour bars,
 // 1-pixel white edge, bouncing square).
 //
 // Pipeline: timing outputs (c0) -> read address + region flags (c1) ->
-// RAM data (c2) -> RGB and syncs (c3).
+// RAM data (c2) -> RAM data registered, text bits (c3) -> RGB and syncs (c4).
 module video_compositor #(
     parameter PANE_L_X = 85,
     parameter PANE_R_X = 683,
@@ -88,6 +99,12 @@ module video_compositor #(
     input  wire [14:0] out_hi,
     input  wire        out_masked,
     input  wire        pattern,
+    input  wire        st_live,
+    input  wire        st_bypass,
+    input  wire        st_ext,
+    input  wire        st_custom,
+    input  wire [103:0] st_name,
+    input  wire [7:0]  st_fps,
     output reg  [7:0]  r,
     output reg  [7:0]  g,
     output reg  [7:0]  b,
@@ -183,23 +200,71 @@ module video_compositor #(
     end
 
     //==================================================
-    // c2 -> c3: colour
+    // Overlay text
+    //==================================================
+    (* ASYNC_REG = "TRUE" *) reg [117:0] st_s1, st_s2;
+    always @(posedge pclk) begin
+        st_s1 <= {st_live, st_bypass, st_ext, st_custom, st_name, st_fps, 2'b00};
+        st_s2 <= st_s1;
+    end
+    wire         live_p   = st_s2[117];
+    wire         bypass_p = st_s2[116];
+    wire         ext_p    = st_s2[115];
+    wire         custom_p = st_s2[114];
+    wire [103:0] name_p   = st_s2[113:10];
+    wire [7:0]   fps_p    = st_s2[9:2];
+
+    wire [7:0] fps_tens = (fps_p[7:4] == 4'd0) ? 8'h20 : 8'h30 + fps_p[7:4];
+    wire [7:0] fps_ones = 8'h30 + fps_p[3:0];
+
+    wire [20*8-1:0] title_l = live_p ? "INPUT (HDMI IN)     " : "INPUT (JTAG IMAGE)  ";
+    wire [21*8-1:0] title_r = bypass_p ? "BYPASS (NO FILTER)   " :
+                              custom_p ? {"FILTER: ", "CUSTOM (JTAG)"} : {"FILTER: ", name_p};
+    wire [15*8-1:0] mode_s  = live_p ? {"LIVE ", fps_tens, fps_ones, " FPS    "} : "STATIC IMAGE   ";
+    wire [41*8-1:0] status  = {mode_s, "DUT: CHIP RTL ON ", ext_p ? "2ND FPGA " : "THIS FPGA"};
+
+    wire on_l, on_r, on_s;
+    text_line #(.X0(PANE_L_X), .Y0(PANE_Y - 32),        .LEN(20)) txt_l (.pclk(pclk), .x(x), .y(y), .text(title_l), .on(on_l));
+    text_line #(.X0(PANE_R_X), .Y0(PANE_Y - 32),        .LEN(21)) txt_r (.pclk(pclk), .x(x), .y(y), .text(title_r), .on(on_r));
+    text_line #(.X0(PANE_L_X), .Y0(PANE_Y + PANE + 14), .LEN(41)) txt_s (.pclk(pclk), .x(x), .y(y), .text(status),  .on(on_s));
+
+    //==================================================
+    // c2 -> c3: register the RAM data next to the text bits
+    //==================================================
+    reg       c3_l, c3_r, c3_border, c3_mask, c3_de, c3_hs, c3_vs;
+    reg [23:0] c3_pat;
+    reg [7:0]  c3_in, c3_out;
+
+    always @(posedge pclk) begin
+        {c3_l, c3_r, c3_border, c3_mask, c3_de, c3_hs, c3_vs} <=
+            {c2_l, c2_r, c2_border, c2_mask, c2_de, c2_hs, c2_vs};
+        c3_pat <= c2_pat;
+        c3_in  <= rd_in;
+        c3_out <= rd_out;
+    end
+
+    //==================================================
+    // c3 -> c4: colour
     //==================================================
     always @(posedge pclk) begin
-        de <= c2_de;
-        hs <= c2_hs;
-        vs <= c2_vs;
-        if (!c2_de)
+        de <= c3_de;
+        hs <= c3_hs;
+        vs <= c3_vs;
+        if (!c3_de)
             {r, g, b} <= 24'h000000;
         else if (pattern)
-            {r, g, b} <= c2_pat;
-        else if (c2_border)
+            {r, g, b} <= c3_pat;
+        else if (on_l || on_r)
             {r, g, b} <= 24'hFFFFFF;
-        else if (c2_l && has_frame)
-            {r, g, b} <= {3{rd_in}};
-        else if (c2_r && has_frame && !c2_mask)
-            {r, g, b} <= {3{rd_out}};
-        else if (c2_l || c2_r)
+        else if (on_s)
+            {r, g, b} <= 24'hFFB000;
+        else if (c3_border)
+            {r, g, b} <= 24'hFFFFFF;
+        else if (c3_l && has_frame)
+            {r, g, b} <= {3{c3_in}};
+        else if (c3_r && has_frame && !c3_mask)
+            {r, g, b} <= {3{c3_out}};
+        else if (c3_l || c3_r)
             {r, g, b} <= 24'h000000;
         else
             {r, g, b} <= 24'h202020;

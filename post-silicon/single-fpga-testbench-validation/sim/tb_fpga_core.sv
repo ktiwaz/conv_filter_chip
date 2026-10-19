@@ -35,6 +35,9 @@ module tb_fpga_core;
     logic btn_next = 0, btn_prev = 0;
     wire [3:0] kernel_index;
     wire       live_on;
+    wire       st_bypass, st_ext, st_custom;
+    wire [103:0] st_name;
+    wire [7:0] st_fps;
 
     logic [0:0]  awid = 0, arid = 0;
     logic [31:0] awaddr, araddr;
@@ -133,6 +136,7 @@ module tb_fpga_core;
         .clk(clk), .aresetn(aresetn), .start_sw(start_sw),
         .btn_next(btn_next), .btn_prev(btn_prev),
         .kernel_index(kernel_index), .live_on(live_on),
+        .st_bypass(st_bypass), .st_ext(st_ext), .st_custom(st_custom), .st_name(st_name), .st_fps(st_fps),
         .rx_clk(rx_clk), .rx_locked(rx_lock), .rx_data(rx_d), .rx_de(rx_de),
         .s_axi_awid(awid), .s_axi_awaddr(awaddr), .s_axi_awlen(awlen),
         .s_axi_awsize(awsize), .s_axi_awburst(awburst),
@@ -209,6 +213,8 @@ module tb_fpga_core;
         .rd_addr(rd_addr), .rd_in(rd_in), .rd_out(rd_out),
         .has_frame(has_frame), .out_lo(disp_lo_p), .out_hi(disp_hi_p),
         .out_masked(disp_masked_p), .pattern(video_pattern),
+        .st_live(live_on), .st_bypass(st_bypass), .st_ext(st_ext), .st_custom(st_custom),
+        .st_name(st_name), .st_fps(st_fps),
         .r(vr), .g(vg), .b(vb), .de(vde), .hs(vhs), .vs(vvs)
     );
 
@@ -250,6 +256,31 @@ module tb_fpga_core;
         end
         if (!vde && vde_q) begin vx = 0; vy++; end
     end
+
+    // Dump one whole output frame as a binary PPM (frame_dump_<n>.ppm in the sim dir)
+    bit    dump_req = 0, dumping = 0;
+    int    dump_fd, dump_n = 0;
+    always @(posedge pclk) begin
+        if (vvs && !vvs_q) begin
+            if (dumping) begin
+                $fclose(dump_fd);
+                dumping  = 0;
+                dump_req = 0;
+            end else if (dump_req) begin
+                dump_fd = $fopen($sformatf("frame_dump_%0d.ppm", dump_n), "wb");
+                $fwrite(dump_fd, "P6\n1280 720\n255\n");
+                dumping = 1;
+                dump_n++;
+            end
+        end
+        if (dumping && vde)
+            $fwrite(dump_fd, "%c%c%c", vr, vg, vb);
+    end
+
+    task automatic dump_frame();
+        dump_req = 1;
+        wait (!dump_req);
+    endtask
 
     int errors = 0;
     bit backpressure = 0;   // randomly stall W/B/R handshakes on the master side
@@ -572,6 +603,7 @@ module tb_fpga_core;
         $display("[16] HDMI picture: input and DUT output panes, every pixel of a frame");
         video_testcase("emboss",    3277, 0);
         video_testcase("test_mode", 1311, 1);
+        dump_frame();       // frame_dump_0: static image, custom (JTAG) kernel
 
         begin
             logic [7:0]  model[NUM_PIXELS];
@@ -672,6 +704,11 @@ module tb_fpga_core;
             write_reg(KSEL, 15);
             axi_read1(KSEL, v);
             check("KSEL clamps to the last preset", v, 8);
+            write_reg(KSEL, 6);
+            write_image(IN_BASE, in_img);
+            write_reg(CTRL, 32'h1);
+            wait_done();
+            dump_frame();   // frame_dump_1: static image, sobel_x preset
         end
 
         if (errors == 0) $display("PASS: all tests passed");

@@ -90,6 +90,13 @@ module fpga_tb_core #(
     output reg  [3:0]            kernel_index,
     output wire                  live_on,
 
+    // HDMI overlay status
+    output wire                  st_bypass,
+    output wire                  st_ext,
+    output reg                   st_custom,     // kernel/norm written over JTAG since the last preset
+    output wire [103:0]          st_name,       // preset name (kernel_rom)
+    output reg  [7:0]            st_fps,        // live runs in the last second, BCD (99 max)
+
     // Display frame buffers (video_frame): what went into and came out of the DUT
     output wire                  disp_start,
     output reg                   disp_done,
@@ -229,7 +236,9 @@ module fpga_tb_core #(
     assign video_pattern = config_r[3];
     reg [2:0] sw_sync;          // start switch synchronizer (see "Start" below)
     wire live      = config_r[4] || sw_sync[1];
-    assign live_on = live;
+    assign live_on   = live;
+    assign st_bypass = bypass;
+    assign st_ext    = ext;
     wire live_frame;            // a new HDMI-in frame is ready and live mode is on
     reg  src_live, src_bank;    // source of the current run (see below)
     reg [11:0] rx_h_c, rx_v_c;  // HDMI-in status, in the fabric clock domain
@@ -262,15 +271,25 @@ module fpga_tb_core #(
         .index(kernel_index),
         .kernel(rom_kernel),
         .norm(rom_norm),
-        .test_mode(rom_test_mode)
+        .test_mode(rom_test_mode),
+        .name(st_name)
     );
+
+    reg  preset_load;           // kernel_index changed: load its entry next cycle
+
+    // The overlay names the preset until the kernel or norm is written directly
+    wire kernel_wr = reg_wr && (reg_idx == R_NORM ||
+                                (reg_idx >= R_KERNEL && reg_idx < R_KERNEL + KERNEL_REGS));
+    always @(posedge clk) begin
+        if (!aresetn || preset_load) st_custom <= 1'b0;
+        else if (kernel_wr)          st_custom <= 1'b1;
+    end
 
     wire next_press, prev_press;
     button_debounce db_next (.clk(clk), .btn(btn_next), .press(next_press));
     button_debounce db_prev (.clk(clk), .btn(btn_prev), .press(prev_press));
 
     wire ksel_wr = reg_wr && reg_idx == R_KSEL && m_we[0];
-    reg  preset_load;           // kernel_index changed: load its entry next cycle
 
     always @(posedge clk) begin
         if (!aresetn) begin
@@ -444,6 +463,26 @@ module fpga_tb_core #(
                 if (busy) live_dropped <= live_dropped + 32'd1;
                 else      live_runs    <= live_runs + 32'd1;
             end
+        end
+    end
+
+    // Live runs per second for the overlay (BCD, saturating at 99)
+    reg [25:0] sec_count;
+    reg [7:0]  fps_count;
+    wire       live_run = rx_frame && live && !busy;
+    always @(posedge clk) begin
+        if (!aresetn) begin
+            sec_count <= 26'd0;
+            fps_count <= 8'd0;
+            st_fps    <= 8'd0;
+        end else if (sec_count == 26'd49_999_999) begin
+            sec_count <= 26'd0;
+            fps_count <= 8'd0;
+            st_fps    <= (fps_count > 8'd99) ? 8'h99
+                       : {fps_count / 8'd10, 4'd0} | (fps_count % 8'd10);
+        end else begin
+            sec_count <= sec_count + 26'd1;
+            if (live_run) fps_count <= fps_count + 8'd1;
         end
     end
 

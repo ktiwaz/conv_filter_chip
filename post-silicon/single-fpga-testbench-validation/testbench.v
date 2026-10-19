@@ -153,6 +153,9 @@ module testbench #(
     // led0 locked, led1 heartbeat, led2 done, led3 busy.
     wire [3:0] kernel_index;
     wire       live_on;
+    wire       st_bypass, st_ext, st_custom;
+    wire [103:0] st_name;
+    wire [7:0] st_fps;
     assign led = live_on ? kernel_index : {busy, done, led_reg, locked};
 
     //==================================================
@@ -239,6 +242,11 @@ module testbench #(
         .dut_status(dut_status),
         .kernel_index(kernel_index),
         .live_on(live_on),
+        .st_bypass(st_bypass),
+        .st_ext(st_ext),
+        .st_custom(st_custom),
+        .st_name(st_name),
+        .st_fps(st_fps),
         .disp_start(disp_start),
         .disp_done(disp_done),
         .disp_in_we(disp_in_we),
@@ -298,6 +306,12 @@ module testbench #(
         .out_hi(disp_hi_p),
         .out_masked(disp_masked_p),
         .pattern(video_pattern),
+        .st_live(live_on),
+        .st_bypass(st_bypass),
+        .st_ext(st_ext),
+        .st_custom(st_custom),
+        .st_name(st_name),
+        .st_fps(st_fps),
         .tmds_clk_p(hdmi_tx_clk_p),
         .tmds_clk_n(hdmi_tx_clk_n),
         .tmds_data_p(hdmi_tx_d_p),
