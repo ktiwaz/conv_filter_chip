@@ -17,10 +17,25 @@ proc make_ip {name vlnv cfg} {
     synth_ip [get_ips $name]
 }
 
-# 125 MHz board clock -> 50 MHz fabric clock
+# 125 MHz board clock -> 50 MHz fabric clock, 200 MHz HDMI-in IDELAY reference
 make_ip clk_wiz_0 xilinx.com:ip:clk_wiz:6.0 {
     CONFIG.PRIM_IN_FREQ {125.000}
     CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.000}
+    CONFIG.CLKOUT2_USED {true}
+    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {200.000}
+    CONFIG.USE_LOCKED {true}
+    CONFIG.USE_RESET {true}
+    CONFIG.RESET_TYPE {ACTIVE_HIGH}
+}
+
+# 50 MHz fabric clock -> HDMI TX pixel clock (720p60, 74.25 MHz) and 5x
+# serial clock from the same MMCM, so the OSERDES clocks are phase aligned
+make_ip clk_wiz_1 xilinx.com:ip:clk_wiz:6.0 {
+    CONFIG.PRIM_IN_FREQ {50.000}
+    CONFIG.PRIM_SOURCE {Global_buffer}
+    CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {74.250}
+    CONFIG.CLKOUT2_USED {true}
+    CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {371.250}
     CONFIG.USE_LOCKED {true}
     CONFIG.USE_RESET {true}
     CONFIG.RESET_TYPE {ACTIVE_HIGH}

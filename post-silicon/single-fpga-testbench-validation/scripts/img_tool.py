@@ -9,11 +9,15 @@ Hex formats:
 Commands:
   pack     <in.hex8> <out.hex32>
   png2hex  <in.png>  <out.hex8> [--size 128]   (requires Pillow)
-  hex2png  <in.hex8> <out.png>  [--width 128]  (requires Pillow)
+  hex2png  <in.hex8> <out.png>  [--width 128] [--scale N] [--offset K]
+           (no Pillow needed; --offset places pixel k at k+K, e.g. 258 to
+           line a DUT output up with its input as on the HDMI display)
   compare  <a.hex8>  <b.hex8>   [--count N]
 """
 import argparse
+import struct
 import sys
+import zlib
 
 
 def read_hex8(path):
@@ -44,13 +48,36 @@ def cmd_png2hex(args):
     write_hex8(args.output, list(img.getdata()))
 
 
+def write_png_gray(path, width, height, pixels):
+    """Write an 8-bit grayscale PNG using only the standard library."""
+    def chunk(tag, data):
+        body = tag + data
+        return struct.pack(">I", len(data)) + body + struct.pack(">I", zlib.crc32(body) & 0xFFFFFFFF)
+    raw = b"".join(b"\x00" + bytes(pixels[y * width:(y + 1) * width]) for y in range(height))
+    with open(path, "wb") as f:
+        f.write(b"\x89PNG\r\n\x1a\n")
+        f.write(chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 0, 0, 0, 0)))
+        f.write(chunk(b"IDAT", zlib.compress(raw, 9)))
+        f.write(chunk(b"IEND", b""))
+
+
 def cmd_hex2png(args):
-    from PIL import Image
     pixels = read_hex8(args.input)
-    height = len(pixels) // args.width
-    img = Image.new("L", (args.width, height))
-    img.putdata(pixels[:args.width * height])
-    img.save(args.output)
+    if args.offset:
+        placed = [0] * (args.width * args.width)
+        for k, p in enumerate(pixels):
+            if k + args.offset < len(placed):
+                placed[k + args.offset] = p
+        pixels = placed
+    width = args.width
+    height = len(pixels) // width
+    pixels = pixels[:width * height]
+    n = args.scale
+    if n > 1:
+        rows = [pixels[y * width:(y + 1) * width] for y in range(height)]
+        pixels = [p for row in rows for _ in range(n) for p in row for _ in range(n)]
+        width, height = width * n, height * n
+    write_png_gray(args.output, width, height, pixels)
 
 
 def cmd_compare(args):
@@ -90,6 +117,8 @@ def main():
     p.add_argument("input")
     p.add_argument("output")
     p.add_argument("--width", type=int, default=128)
+    p.add_argument("--scale", type=int, default=1)
+    p.add_argument("--offset", type=int, default=0)
     p.set_defaults(func=cmd_hex2png)
 
     p = sub.add_parser("compare")

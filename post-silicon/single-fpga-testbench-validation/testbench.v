@@ -1,10 +1,26 @@
 module testbench #(
-    parameter INIT_FILE = "input_image_w32.hex"
+    parameter INIT_FILE = "input_image_w32.hex",
+    parameter EDID_FILE = "edid_720p.data"
 ) (
     input  wire refclk_125,
     input  wire [1:0] sw,
     input  wire [3:0] btn,
     output wire [3:0] led,
+
+    // HDMI out (720p60)
+    output wire       hdmi_tx_clk_p,
+    output wire       hdmi_tx_clk_n,
+    output wire [2:0] hdmi_tx_d_p,
+    output wire [2:0] hdmi_tx_d_n,
+
+    // HDMI in (720p60 EDID)
+    input  wire       hdmi_rx_clk_p,
+    input  wire       hdmi_rx_clk_n,
+    input  wire [2:0] hdmi_rx_d_p,
+    input  wire [2:0] hdmi_rx_d_n,
+    inout  wire       hdmi_rx_scl,
+    inout  wire       hdmi_rx_sda,
+    output wire       hdmi_rx_hpd,
 
     // Link to the external DUT board (RPi header, see tcl/link_pins.tcl)
     output wire       chip_clk,
@@ -20,15 +36,16 @@ module testbench #(
 );
 
     wire clk;
+    wire clk_200;
     wire rst;
     wire locked;
     assign rst = sw[0];
-    assign led[0] = locked;
 
     clk_wiz_0 clk_gen
     (
         // Clock out ports
         .clk_out1(clk),     // output clk_out1
+        .clk_out2(clk_200), // output clk_out2 (HDMI-in IDELAY reference)
         // Status and control signals
         .reset(rst), // input reset
         .locked(locked),       // output locked
@@ -38,7 +55,6 @@ module testbench #(
 
     reg [25:0] counter = 0;
     reg led_reg;
-    assign led[1] = led_reg;
 
     // Flash LED to show that clock is running
     always @(posedge clk or posedge rst) begin
@@ -133,8 +149,43 @@ module testbench #(
     wire        dut_output_valid;
     wire [1:0]  dut_status;
 
-    assign led[2] = done;
-    assign led[3] = busy;
+    // Live: the LEDs show the filter preset index (binary). Otherwise
+    // led0 locked, led1 heartbeat, led2 done, led3 busy.
+    wire [3:0] kernel_index;
+    wire       live_on;
+    assign led = live_on ? kernel_index : {busy, done, led_reg, locked};
+
+    //==================================================
+    // HDMI in
+    //==================================================
+    wire        rx_clk, rx_locked, rx_de;
+    wire [23:0] rx_data;
+
+    hdmi_in #(
+        .EDID_FILE(EDID_FILE)
+    ) hdmi_rx (
+        .ref_clk_200(clk_200),
+        .rst(!locked),
+        .tmds_clk_p(hdmi_rx_clk_p),
+        .tmds_clk_n(hdmi_rx_clk_n),
+        .tmds_data_p(hdmi_rx_d_p),
+        .tmds_data_n(hdmi_rx_d_n),
+        .ddc_scl(hdmi_rx_scl),
+        .ddc_sda(hdmi_rx_sda),
+        .hpd(hdmi_rx_hpd),
+        .rx_clk(rx_clk),
+        .rx_locked(rx_locked),
+        .rx_data(rx_data),
+        .rx_de(rx_de),
+        .rx_hs(),
+        .rx_vs()
+    );
+
+    // Display frame-buffer writes from the core
+    wire        disp_start, disp_done, disp_in_we, disp_out_we, disp_masked, video_pattern;
+    wire [13:0] disp_in_addr, disp_out_addr;
+    wire [7:0]  disp_in_data, disp_out_data;
+    wire [14:0] disp_lo, disp_hi;
 
     fpga_tb_core #(
         .INIT_FILE(INIT_FILE),
@@ -143,6 +194,12 @@ module testbench #(
         .clk(clk),
         .aresetn(aresetn),
         .start_sw(sw[1]),
+        .btn_next(btn[0]),
+        .btn_prev(btn[1]),
+        .rx_clk(rx_clk),
+        .rx_locked(rx_locked),
+        .rx_data(rx_data),
+        .rx_de(rx_de),
         .s_axi_awid(axi_awid),
         .s_axi_awaddr(axi_awaddr),
         .s_axi_awlen(axi_awlen),
@@ -180,6 +237,20 @@ module testbench #(
         .dut_dataout(dut_dataout),
         .dut_output_valid(dut_output_valid),
         .dut_status(dut_status),
+        .kernel_index(kernel_index),
+        .live_on(live_on),
+        .disp_start(disp_start),
+        .disp_done(disp_done),
+        .disp_in_we(disp_in_we),
+        .disp_in_addr(disp_in_addr),
+        .disp_in_data(disp_in_data),
+        .disp_out_we(disp_out_we),
+        .disp_out_addr(disp_out_addr),
+        .disp_out_data(disp_out_data),
+        .disp_masked(disp_masked),
+        .disp_lo(disp_lo),
+        .disp_hi(disp_hi),
+        .video_pattern(video_pattern),
         .chip_clk(chip_clk),
         .chip_reset_n(chip_reset_n),
         .chip_kernel_valid(chip_kernel_valid),
@@ -192,6 +263,72 @@ module testbench #(
         .chip_status(chip_status)
     );
 
+
+    //==================================================
+    // HDMI out: TX pixel/serial clocks from the fabric clock
+    //==================================================
+    wire pclk, sclk, video_locked;
+
+    clk_wiz_1 video_clk_gen (
+        .clk_out1(pclk),    // ~74.25 MHz pixel clock
+        .clk_out2(sclk),    // 5x serial clock
+        .reset(!locked),
+        .locked(video_locked),
+        .clk_in1(clk)
+    );
+
+    wire        prst, frame_start, has_frame;
+    wire [14:0] disp_lo_p, disp_hi_p;
+    wire        disp_masked_p;
+    wire [13:0] rd_addr;
+    wire [7:0]  rd_in, rd_out;
+
+    // Display: input (left) and DUT output (right), 4x, side by side
+    video_out hdmi_out (
+        .pclk(pclk),
+        .sclk(sclk),
+        .rst(!video_locked),
+        .prst(prst),
+        .frame_start(frame_start),
+        .rd_addr(rd_addr),
+        .rd_in(rd_in),
+        .rd_out(rd_out),
+        .has_frame(has_frame),
+        .out_lo(disp_lo_p),
+        .out_hi(disp_hi_p),
+        .out_masked(disp_masked_p),
+        .pattern(video_pattern),
+        .tmds_clk_p(hdmi_tx_clk_p),
+        .tmds_clk_n(hdmi_tx_clk_n),
+        .tmds_data_p(hdmi_tx_d_p),
+        .tmds_data_n(hdmi_tx_d_n)
+    );
+
+    video_frame frames (
+        .clk(clk),
+        .aresetn(aresetn),
+        .run_start(disp_start),
+        .run_done(disp_done),
+        .run_lo(disp_lo),
+        .run_hi(disp_hi),
+        .run_masked(disp_masked),
+        .in_we(disp_in_we),
+        .in_addr(disp_in_addr),
+        .in_data(disp_in_data),
+        .out_we(disp_out_we),
+        .out_addr(disp_out_addr),
+        .out_data(disp_out_data),
+        .pclk(pclk),
+        .prst(prst),
+        .frame_start(frame_start),
+        .rd_addr(rd_addr),
+        .rd_in(rd_in),
+        .rd_out(rd_out),
+        .has_frame(has_frame),
+        .disp_lo(disp_lo_p),
+        .disp_hi(disp_hi_p),
+        .disp_masked(disp_masked_p)
+    );
 
 ila_0 your_instance_name (
 	.clk(clk), // input wire clk

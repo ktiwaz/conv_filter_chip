@@ -7,6 +7,7 @@
 set root [file normalize [file dirname [info script]]/..]
 source $root/tcl/common.tcl
 source $root/tcl/link_pins.tcl
+source $root/tcl/hdmi_pins.tcl
 
 set role [build_role]
 set top  $role_top($role)
@@ -16,6 +17,13 @@ file mkdir $out/reports
 set_part $part
 read_verilog [list $root/$top.v {*}[lsort [glob $root/rtl/*.v]]]
 read_verilog -sv [dut_sources $root]
+if {$role eq "tester"} {
+    read_vhdl -library rgb2dvi_lib [digilent_sources $root rgb2dvi]
+    read_vhdl -library dvi2rgb_lib [digilent_sources $root dvi2rgb]
+    read_xdc $root/third_party/vivado-library/ip/rgb2dvi/src/rgb2dvi.xdc
+    # dvi2rgb's constraints use instance-relative cell names
+    read_xdc -ref dvi2rgb $root/third_party/vivado-library/ip/dvi2rgb/src/dvi2rgb.xdc
+}
 # Board pins (clock, switches, LEDs) are the same on both boards
 read_xdc $root/testbench.xdc
 foreach ip $role_ips($role) {
@@ -25,11 +33,14 @@ foreach ip $role_ips($role) {
 if {$role eq "tester"} {
     # Absolute path so $readmemh doesn't depend on Vivado's working directory
     set init_file $root/input_image_w32.hex
-    synth_design -top $top -part $part -generic "INIT_FILE=\"$init_file\""
+    set edid_file $root/rtl/edid_720p.data
+    synth_design -top $top -part $part \
+        -generic "INIT_FILE=\"$init_file\"" -generic "EDID_FILE=\"$edid_file\""
 } else {
     synth_design -top $top -part $part
 }
 link_constraints $role
+if {$role eq "tester"} { hdmi_constraints }
 write_checkpoint -force $out/post_synth.dcp
 report_utilization -file $out/reports/utilization_synth.rpt
 

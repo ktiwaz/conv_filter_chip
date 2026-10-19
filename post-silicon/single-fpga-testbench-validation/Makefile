@@ -1,6 +1,7 @@
 # Non-project Vivado flow for the FPGA testbench (single board, or tester +
 # DUT board connected through the RPi header).
 #
+#   make fetch-ip     fetch Digilent rgb2dvi/dvi2rgb sources (HDMI) into third_party/
 #   make ip           generate vendor IP (clk_wiz, ila, jtag_axi, ila_dut) into ip/
 #   make bit          tester bitstream   -> build/tester/testbench.{bit,ltx}
 #   make bit-dut      DUT board bitstream -> build/dut/dut_board.{bit,ltx}
@@ -33,15 +34,20 @@ PY    ?= python3
 vivado = $(RUN) 'source $(XILINX_SETTINGS) && mkdir -p $(BUILD) && cd $(BUILD) && \
 	vivado -mode batch -nojournal -log $(BUILD)/$(1).log -source $(ROOT)/tcl/$(1).tcl $(2)'
 
-RTL      := $(wildcard rtl/*.v) dut_sources.f $(wildcard ../../hardware/src/*.sv) \
-            testbench.xdc tcl/build.tcl tcl/common.tcl tcl/link_pins.tcl
+RTL      := $(wildcard rtl/*.v) rtl/edid_720p.data dut_sources.f $(wildcard ../../hardware/src/*.sv) \
+            testbench.xdc tcl/build.tcl tcl/common.tcl tcl/link_pins.tcl tcl/hdmi_pins.tcl
 IP_STAMP := ip/.generated
 BIT      := $(BUILD)/tester/testbench.bit
 BIT_DUT  := $(BUILD)/dut/dut_board.bit
+DIGILENT := third_party/vivado-library/License.txt
 
-.PHONY: all ip bit bit-dut sim program program-dut program-all list-boards pinout hw clean distclean
+.PHONY: all fetch-ip ip bit bit-dut sim program program-dut program-all list-boards pinout hw clean distclean
 
 all: bit
+
+fetch-ip: $(DIGILENT)
+$(DIGILENT): third_party/fetch_digilent.sh
+	third_party/fetch_digilent.sh
 
 ip: $(IP_STAMP)
 $(IP_STAMP): tcl/gen_ip.tcl tcl/common.tcl
@@ -52,7 +58,7 @@ input_image_w32.hex: input_image.hex scripts/img_tool.py
 	$(PY) scripts/img_tool.py pack $< $@
 
 bit: $(BIT)
-$(BIT): $(IP_STAMP) $(RTL) testbench.v input_image_w32.hex
+$(BIT): $(IP_STAMP) $(DIGILENT) $(RTL) testbench.v input_image_w32.hex
 	$(call vivado,build,-tclargs tester)
 	@grep -h '^TIMING\|^IOB' $(BUILD)/build.log
 

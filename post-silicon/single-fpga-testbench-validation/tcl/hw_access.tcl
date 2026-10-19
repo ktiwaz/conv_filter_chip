@@ -3,7 +3,7 @@
 # Source after the device is programmed (make hw does this for you):
 #   jtb_connect                     open the tester board (tester_serial in
 #                                   boards.local.tcl when two boards are connected)
-#   jtb_id                          read ID register (expect C0F10003)
+#   jtb_id                          read ID register (expect C0F10005)
 #   jtb_selftest                    ramp write/readback of the input RAM; also
 #                                   checks burst beat ordering
 #   jtb_write_image <in.hex8>       load an image into the input RAM
@@ -18,8 +18,9 @@
 # DUT configuration (applied on every start: DUT reset, kernel, norm, pixels):
 #   jtb_set_kernel <kernel.hex>     25 signed bytes, row-major (testcases format)
 #   jtb_set_norm <value>            16-bit Q1.15 normalization value
-#   jtb_config ?-bypass 0|1? ?-test_mode 0|1? ?-ext 0|1?
+#   jtb_config ?-bypass 0|1? ?-test_mode 0|1? ?-ext 0|1? ?-pattern 0|1?
 #                                   bypass=1 captures the raw pixel stream (no DUT)
+#                                   pattern=1 shows the HDMI test pattern
 #                                   ext=1 uses the DUT board over the RPi-header link
 #   jtb_link ?-half H? ?-sample S?  link clock 25/H MHz; sample DUT outputs S fabric
 #                                   cycles (20 ns) after the link rising edge
@@ -28,6 +29,13 @@
 #   jtb_sweep_sample <testcase>     run a testcase at every sample phase (timing eye)
 #   jtb_set_gap <every> <cycles>    insert <cycles> idle cycles after every <every>
 #                                   pixels (0 0 = no gaps)
+#
+# HDMI (in: 1280x720@60 from e.g. a laptop; out: input | DUT output, 4x):
+#   jtb_video_status                HDMI-in lock, measured size, frame/run counters
+#   jtb_live on|off ?-bypass 0|1?   run the DUT on every HDMI-in frame (sw[1] up also
+#                                   turns live on, for demos without the PC)
+#   jtb_kernel_select ?n|name?      filter preset (rtl/kernel_rom.v); BTN0/BTN1 on the
+#                                   board step next/previous. No argument lists them.
 #
 # Golden testcases (<repo>/testcases):
 #   jtb_run_testcase <name|dir> ?out.hex8?
@@ -50,8 +58,16 @@ namespace eval jtb {
     variable NORM      0x00020014
     variable GAP       0x00020018
     variable KERNEL    0x00020040
+    variable VIDEO     0x00020024
+    variable RX_SIZE   0x00020028
+    variable RX_FRAMES 0x0002002C
+    variable LIVE_RUNS 0x00020030
+    variable LIVE_DROP 0x00020034
+    variable KSEL      0x00020038
+    # Order of rtl/kernel_rom.v (scripts/gen_kernel_rom.py: sorted testcases/5x5)
+    variable presets {box_blur emboss gaussian_blur identity outline sharpen sobel_x sobel_y test_mode}
     variable LINK      0x0002001C
-    variable ID_VALUE  C0F10003
+    variable ID_VALUE  C0F10005
     variable KERNEL_WORDS 25
     variable NUM_PIXELS 16384
     variable BURST      256
@@ -229,7 +245,8 @@ proc jtb_config {args} {
             -bypass    { set cfg [expr {($cfg & ~1) | ($val ? 1 : 0)}] }
             -test_mode { set cfg [expr {($cfg & ~2) | ($val ? 2 : 0)}] }
             -ext       { set cfg [expr {($cfg & ~4) | ($val ? 4 : 0)}] }
-            default    { error "usage: jtb_config ?-bypass 0|1? ?-test_mode 0|1? ?-ext 0|1?" }
+            -pattern   { set cfg [expr {($cfg & ~8) | ($val ? 8 : 0)}] }
+            default    { error "usage: jtb_config ?-bypass 0|1? ?-test_mode 0|1? ?-ext 0|1? ?-pattern 0|1?" }
         }
     }
     jtb::write $jtb::CONFIG [list $cfg]
@@ -270,6 +287,51 @@ proc jtb_sweep_sample {name} {
     jtb::write $jtb::LINK [list [expr {($orig << 8) | $h}]]
     puts "sample phase sweep at [format %.2f [expr {25.0 / $h}]] MHz: $eye"
     return $eye
+}
+
+proc jtb_video_status {} {
+    set v    [jtb::read1 $jtb::VIDEO]
+    set size [jtb::read1 $jtb::RX_SIZE]
+    set f0   [jtb::read1 $jtb::RX_FRAMES]
+    set r0   [jtb::read1 $jtb::LIVE_RUNS]
+    set t0   [clock milliseconds]
+    after 1000
+    set f1   [jtb::read1 $jtb::RX_FRAMES]
+    set r1   [jtb::read1 $jtb::LIVE_RUNS]
+    set dt   [expr {([clock milliseconds] - $t0) / 1000.0}]
+    puts [format "hdmi_in locked=%d size=%dx%d frames=%d (%.1f/s) live=%d runs=%d (%.1f/s) dropped=%d" \
+        [expr {$v & 1}] [expr {$size & 0xFFF}] [expr {($size >> 16) & 0xFFF}] \
+        $f1 [expr {($f1 - $f0) / $dt}] [expr {($v >> 1) & 1}] \
+        $r1 [expr {($r1 - $r0) / $dt}] [jtb::read1 $jtb::LIVE_DROP]]
+}
+
+proc jtb_live {state args} {
+    set cfg [jtb::read1 $jtb::CONFIG]
+    set on [expr {$state eq "on" || $state eq "1"}]
+    set cfg [expr {($cfg & ~0x10) | ($on ? 0x10 : 0)}]
+    foreach {opt val} $args {
+        switch -- $opt {
+            -bypass { set cfg [expr {($cfg & ~1) | ($val ? 1 : 0)}] }
+            default { error "usage: jtb_live on|off ?-bypass 0|1?" }
+        }
+    }
+    jtb::write $jtb::CONFIG [list $cfg]
+}
+
+proc jtb_kernel_select {{sel ""}} {
+    if {$sel ne ""} {
+        set n [lsearch -exact $jtb::presets $sel]
+        if {$n < 0} { set n $sel }
+        if {![string is integer -strict $n] || $n < 0 || $n >= [llength $jtb::presets]} {
+            error "unknown preset '$sel' (0..[expr {[llength $jtb::presets] - 1}] or one of: $jtb::presets)"
+        }
+        jtb::write $jtb::KSEL [list $n]
+    }
+    set cur [jtb::read1 $jtb::KSEL]
+    for {set i 0} {$i < [llength $jtb::presets]} {incr i} {
+        puts [format "%s %d %s" [expr {$i == $cur ? "*" : " "}] $i [lindex $jtb::presets $i]]
+    }
+    return [lindex $jtb::presets $cur]
 }
 
 proc jtb_set_gap {every cycles} {

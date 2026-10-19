@@ -6,3 +6,4 @@ ip/
 *.log
 *.str
 boards.local.tcl
+third_party/vivado-library/
