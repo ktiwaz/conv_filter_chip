@@ -6,4 +6,5 @@ ip/
 *.log
 *.str
 boards.local.tcl
+local.mk
 third_party/vivado-library/
