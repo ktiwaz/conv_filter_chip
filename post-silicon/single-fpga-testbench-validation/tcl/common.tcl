@@ -2,9 +2,9 @@
 set part xc7z020clg400-1
 
 # Build roles: tester (JTAG-AXI testbench, internal DUT + link) and dut (DUT board)
-set roles {tester dut}
-array set role_top {tester testbench dut dut_board}
-array set role_ips {tester {clk_wiz_0 clk_wiz_1 ila_0 jtag_axi_0} dut {ila_dut}}
+set roles {tester dut iolab}
+array set role_top {tester testbench dut dut_board iolab iolab}
+array set role_ips {tester {clk_wiz_0 clk_wiz_1 ila_0 jtag_axi_0} dut {ila_dut} iolab {jtag_axi_0}}
 set ip_names {clk_wiz_0 clk_wiz_1 ila_0 jtag_axi_0 ila_dut}
 
 # Digilent HDMI TMDS sources (third_party/fetch_digilent.sh), compiled into
@@ -35,4 +35,22 @@ proc build_role {} {
     if {[info exists ::argv] && [llength $::argv] > 0} { set role [lindex $::argv 0] }
     if {$role ni $roles} { error "unknown role '$role' (expected one of: $roles)" }
     return $role
+}
+
+# I/O lab variant from -tclargs: iolab <wiring> <MHz> (defaults pmod8 25)
+proc iolab_variant {} {
+    set wiring pmod8
+    set mhz 25
+    if {[info exists ::argv] && [llength $::argv] > 1} { set wiring [lindex $::argv 1] }
+    if {[info exists ::argv] && [llength $::argv] > 2} { set mhz [lindex $::argv 2] }
+    return [list $wiring $mhz]
+}
+
+# Build output directory for a role (and the I/O lab variant)
+proc role_dir {root role} {
+    if {$role eq "iolab"} {
+        lassign [iolab_variant] wiring mhz
+        return $root/build/iolab_${wiring}_${mhz}
+    }
+    return $root/build/$role
 }

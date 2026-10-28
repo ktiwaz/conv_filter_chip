@@ -8,14 +8,19 @@ set root [file normalize [file dirname [info script]]/..]
 source $root/tcl/common.tcl
 source $root/tcl/link_pins.tcl
 source $root/tcl/hdmi_pins.tcl
+source $root/tcl/iolab_pins.tcl
 
 set role [build_role]
 set top  $role_top($role)
-set out  $root/build/$role
+set out  [role_dir $root $role]
 file mkdir $out/reports
 
 set_part $part
-read_verilog [list $root/$top.v {*}[lsort [glob $root/rtl/*.v]]]
+if {$role eq "iolab"} {
+    read_verilog [list $root/iolab.v $root/iolab_board.v {*}[lsort [glob $root/rtl/*.v]]]
+} else {
+    read_verilog [list $root/$top.v {*}[lsort [glob $root/rtl/*.v]]]
+}
 read_verilog -sv [dut_sources $root]
 if {$role eq "tester"} {
     read_vhdl -library rgb2dvi_lib [digilent_sources $root rgb2dvi]
@@ -36,10 +41,19 @@ if {$role eq "tester"} {
     set edid_file $root/rtl/edid_720p.data
     synth_design -top $top -part $part \
         -generic "INIT_FILE=\"$init_file\"" -generic "EDID_FILE=\"$edid_file\""
+} elseif {$role eq "iolab"} {
+    lassign [iolab_variant] wiring mhz
+    if {![info exists iolab_div($mhz)]} { error "unsupported I/O lab frequency $mhz (one of: [array names iolab_div])" }
+    synth_design -top $top -part $part -generic DIV=$iolab_div($mhz) \
+        -generic LANES=$iolab_lanes($wiring) -generic WIRING=$iolab_wiring_id($wiring)
 } else {
     synth_design -top $top -part $part
 }
-link_constraints $role
+if {$role eq "iolab"} {
+    iolab_constraints $wiring $iolab_div($mhz)
+} else {
+    link_constraints $role
+}
 if {$role eq "tester"} { hdmi_constraints }
 write_checkpoint -force $out/post_synth.dcp
 report_utilization -file $out/reports/utilization_synth.rpt
@@ -55,6 +69,7 @@ report_timing_summary  -file $out/reports/timing_summary.rpt
 report_drc             -file $out/reports/drc.rpt
 report_ram_utilization -file $out/reports/ram_utilization.rpt
 report_io              -file $out/reports/io.rpt
+report_datasheet       -file $out/reports/datasheet.rpt
 
 write_bitstream    -force $out/$top.bit
 write_debug_probes -force $out/$top.ltx

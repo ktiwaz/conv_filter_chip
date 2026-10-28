@@ -5,33 +5,55 @@
 # the 3V3/5V pins (1, 2, 4, 17). Package pins come from the official TUL
 # "PYNQ-Z2 v1.0.xdc" (rpio_NN_r). GPIO17 (U7) is clock-capable (SRCC).
 #
+# Pin placement follows the I/O lab measurements (rtl/iolab_core.v, 50 MHz, 2026-10):
+#   - 8 header pins share their net with PMOD JA: 3, 5, 7, 26, 27, 28, 29, 31.
+#     As receivers their falling edges are ~4.7 ns slower than rising (vs
+#     1-3 ns on plain pins), leaving ~53% of a 20 ns period.
+#   - 3, 5, 27, 28 also have on-board I2C pull-ups to 3V3: ~10 ns rise/fall
+#     asymmetry as receivers. They carry only static signals here: reset_n,
+#     test_mode, status[1:0].
+#   - Pin 13 is GPIO27 on package pin V7. It is missing from the official TUL
+#     XDC and Vivado board files, but was verified with the I/O lab
+#     (jumper_check: walking one, 76% eye at 50 MHz).
+#   - Layout: the control signals sit together on 8-13 (kernel_valid,
+#     normalization_valid, clk, pixel_valid, output_valid), matching the chip
+#     PCB's header; datain[0..7] follow on 15-24 and dataout[0..7] on 31-40,
+#     each in ascending pin order.
+#     dataout[0] (31) is the only data bit on a JA-shared pin; the tester's
+#     sample phase absorbs it. pixel_valid, the deepest unregistered chip input,
+#     gets a best-tier receiver (12, ~1.2 ns asymmetry).
+#   - Unused: 7, 26, 29 (JA-shared).
+# While the tester is unprogrammed, the pulled-up pins hold chip_reset_n and
+# chip_test_mode high (the DUT board's pull-downs are weaker); harmless
+# without a forwarded clock.
+#
 #   signal                    BCM GPIO  header pin  package pin  direction (tester view)
 set link_pins {
     chip_clk                  17        11          U7           out
+    chip_kernel_valid         14        8           V6           out
+    chip_normalization_valid  15        10          Y6           out
+    chip_pixel_valid          18        12          C20          out
     chip_reset_n              2         3           W18          out
-    chip_kernel_valid         3         5           W19          out
-    chip_normalization_valid  4         7           Y18          out
-    chip_pixel_valid          14        8           V6           out
-    chip_test_mode            15        10          Y6           out
-    chip_datain[0]            18        12          C20          out
-    chip_datain[1]            22        15          U8           out
-    chip_datain[2]            23        16          W6           out
-    chip_datain[3]            24        18          Y7           out
-    chip_datain[4]            10        19          V8           out
-    chip_datain[5]            9         21          V10          out
-    chip_datain[6]            25        22          F20          out
-    chip_datain[7]            11        23          W10          out
-    chip_dataout[0]           8         24          F19          in
-    chip_dataout[1]           7         26          U19          in
-    chip_dataout[2]           5         29          Y19          in
-    chip_dataout[3]           6         31          U18          in
-    chip_dataout[4]           12        32          B20          in
-    chip_dataout[5]           13        33          W8           in
-    chip_dataout[6]           19        35          Y8           in
-    chip_dataout[7]           16        36          B19          in
-    chip_output_valid         26        37          W9           in
-    chip_status[0]            20        38          A20          in
-    chip_status[1]            21        40          Y9           in
+    chip_test_mode            3         5           W19          out
+    chip_datain[0]            22        15          U8           out
+    chip_datain[1]            23        16          W6           out
+    chip_datain[2]            24        18          Y7           out
+    chip_datain[3]            10        19          V8           out
+    chip_datain[4]            9         21          V10          out
+    chip_datain[5]            25        22          F20          out
+    chip_datain[6]            11        23          W10          out
+    chip_datain[7]            8         24          F19          out
+    chip_dataout[0]           6         31          U18          in
+    chip_dataout[1]           12        32          B20          in
+    chip_dataout[2]           13        33          W8           in
+    chip_dataout[3]           19        35          Y8           in
+    chip_dataout[4]           16        36          B19          in
+    chip_dataout[5]           26        37          W9           in
+    chip_dataout[6]           20        38          A20          in
+    chip_dataout[7]           21        40          Y9           in
+    chip_output_valid         27        13          V7           in
+    chip_status[0]            0         27          Y16          in
+    chip_status[1]            1         28          Y17          in
 }
 
 # Header GND pins to wire between the boards (use at least 4, spread out)

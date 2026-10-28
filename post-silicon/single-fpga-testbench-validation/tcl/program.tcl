@@ -9,12 +9,14 @@ source $root/tcl/boards.tcl
 
 set role [build_role]
 set top  $role_top($role)
-set serial [expr {$role eq "tester" ? $tester_serial : $dut_serial}]
+# The I/O lab runs on whichever board is the tester
+set serial [expr {$role eq "dut" ? $dut_serial : $tester_serial}]
+set dir [role_dir $root $role]
 
 set dev [open_board $serial]
-set_property PROGRAM.FILE     $root/build/$role/$top.bit $dev
-set_property PROBES.FILE      $root/build/$role/$top.ltx $dev
-set_property FULL_PROBES.FILE $root/build/$role/$top.ltx $dev
+set_property PROGRAM.FILE     $dir/$top.bit $dev
+set_property PROBES.FILE      $dir/$top.ltx $dev
+set_property FULL_PROBES.FILE $dir/$top.ltx $dev
 program_hw_devices $dev
 refresh_hw_device $dev
 puts "Programmed $role ($top) on [current_hw_target]; hw_axi cores: [get_hw_axis -quiet]"

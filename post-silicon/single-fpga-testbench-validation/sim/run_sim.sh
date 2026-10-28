@@ -8,7 +8,7 @@ cd "$work"
 
 mapfile -t dut_srcs < <(grep -vE '^\s*(#|$)' "$root/dut_sources.f" | sed "s|^|$root/|")
 
-xvlog --sv "${dut_srcs[@]}" "$root"/rtl/*.v "$root/sim/tb_fpga_core.sv"
+xvlog --sv -i "$root/sim" "${dut_srcs[@]}" "$root"/rtl/*.v "$root/sim/tb_fpga_core.sv"
 xelab tb_fpga_core -s tb_fpga_core_sim -timescale 1ns/1ps \
       -generic_top "INIT_FILE=$root/input_image_w32.hex" \
       -generic_top "IMAGE_FILE=$root/input_image.hex" \
