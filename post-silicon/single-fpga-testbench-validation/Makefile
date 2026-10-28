@@ -52,11 +52,13 @@ else
 RUN = distrobox enter $(DISTROBOX) -- bash -c
 endif
 
-# Prefix for every command that needs Vivado's tools on PATH
+# Prefix for every command that needs Vivado's tools on PATH ($(EMPTY) keeps
+# the trailing space)
+EMPTY :=
 ifneq ($(strip $(XILINX_SETTINGS)),)
-VIVADO_ENV = source $(XILINX_SETTINGS) &&
+VIVADO_ENV = source $(XILINX_SETTINGS) && $(EMPTY)
 else
-VIVADO_ENV = { command -v vivado >/dev/null || { echo "Vivado not found: source its settings64.sh or set XILINX_SETTINGS (see the top of the Makefile)" >&2; exit 1; }; } &&
+VIVADO_ENV = { command -v vivado >/dev/null || { echo "Vivado not found: source its settings64.sh or set XILINX_SETTINGS (see the top of the Makefile)" >&2; exit 1; }; } && $(EMPTY)
 endif
 
 ROOT  := $(CURDIR)
@@ -73,6 +75,8 @@ IP_STAMP := ip/.generated
 BIT      := $(BUILD)/tester/testbench.bit
 BIT_DUT  := $(BUILD)/dut/dut_board.bit
 DIGILENT := third_party/vivado-library/License.txt
+TESTCASES := ../../testcases/5x5
+GEN_RTL  := rtl/kernel_rom.v rtl/font_rom.v
 
 .PHONY: all env fetch-ip ip bit bit-dut sim program program-dut program-all list-boards pinout hw clean distclean
 
@@ -95,18 +99,25 @@ $(IP_STAMP): tcl/gen_ip.tcl tcl/common.tcl
 input_image_w32.hex: input_image.hex scripts/img_tool.py
 	$(PY) scripts/img_tool.py pack $< $@
 
+# Generated RTL. Not in git: the repo-root .gitignore excludes **_rom.v.
+rtl/kernel_rom.v: scripts/gen_kernel_rom.py $(wildcard $(TESTCASES)/*/kernel.hex $(TESTCASES)/*/config.yml)
+	$(PY) scripts/gen_kernel_rom.py $(TESTCASES) $@
+
+rtl/font_rom.v: scripts/gen_font.py
+	$(PY) scripts/gen_font.py $@
+
 bit: $(BIT)
-$(BIT): $(IP_STAMP) $(DIGILENT) $(RTL) testbench.v input_image_w32.hex
+$(BIT): $(IP_STAMP) $(DIGILENT) $(RTL) $(GEN_RTL) testbench.v input_image_w32.hex
 	$(call vivado,build,-tclargs tester)
 	@grep -h '^TIMING\|^IOB' $(BUILD)/build.log
 
 bit-dut: $(BIT_DUT)
-$(BIT_DUT): $(IP_STAMP) $(RTL) dut_board.v
+$(BIT_DUT): $(IP_STAMP) $(RTL) $(GEN_RTL) dut_board.v
 	$(RUN) '$(VIVADO_ENV)mkdir -p $(BUILD) && cd $(BUILD) && \
 		vivado -mode batch -nojournal -log $(BUILD)/build_dut.log -source $(ROOT)/tcl/build.tcl -tclargs dut'
 	@grep -h '^TIMING\|^IOB' $(BUILD)/build_dut.log
 
-sim: input_image_w32.hex
+sim: input_image_w32.hex $(GEN_RTL)
 	$(RUN) '$(VIVADO_ENV)$(ROOT)/sim/run_sim.sh'
 
 program: $(BIT)
