@@ -7,3 +7,5 @@ ip/
 *.str
 boards.local.tcl
 third_party/vivado-library/
+.venv/
+abc.history

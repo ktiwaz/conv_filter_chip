@@ -31,8 +31,13 @@
 //                              test_mode and clears bypass. Reset selects 1 (emboss).
 //   0x0002_0040 - 0x0002_0058  KERNEL RW  25 signed bytes, row-major, byte k at 0x40 + k
 module fpga_tb_core #(
-    parameter INIT_FILE = "input_image_w32.hex",
-    parameter ID_WIDTH  = 1
+    parameter INIT_FILE  = "input_image_w32.hex",
+    parameter ID_WIDTH   = 1,
+    // 0: no HDMI-in grabber (live mode never triggers; boards without HDMI in)
+    parameter HDMI       = 1,
+    // 0: the capture RAM is read-only over AXI (one write port, for block
+    // RAMs without byte-enabled writes on both ports, e.g. Gowin BSRAM)
+    parameter CAP_AXI_WR = 1
 ) (
     input  wire                  clk,
     input  wire                  aresetn,     // synchronous, active low
@@ -422,21 +427,31 @@ module fpga_tb_core #(
     wire        in_b_en;
     wire [11:0] in_b_addr;
 
-    video_downscale grabber (
-        .rx_clk(rx_clk),
-        .rx_rst(rx_rst_s[2]),
-        .rx_data(rx_data),
-        .rx_de(rx_de),
-        .frame_toggle(rx_toggle),
-        .frame_bank(rx_bank),
-        .h_active(rx_h),
-        .v_active(rx_v),
-        .clk(clk),
-        .rd_en(in_b_en),
-        .rd_bank(src_bank),
-        .rd_addr(in_b_addr),
-        .rd_data(live_dout)
-    );
+    generate
+        if (HDMI) begin : g_grabber
+            video_downscale grabber (
+                .rx_clk(rx_clk),
+                .rx_rst(rx_rst_s[2]),
+                .rx_data(rx_data),
+                .rx_de(rx_de),
+                .frame_toggle(rx_toggle),
+                .frame_bank(rx_bank),
+                .h_active(rx_h),
+                .v_active(rx_v),
+                .clk(clk),
+                .rd_en(in_b_en),
+                .rd_bank(src_bank),
+                .rd_addr(in_b_addr),
+                .rd_data(live_dout)
+            );
+        end else begin : g_no_grabber
+            assign rx_toggle = 1'b0;
+            assign rx_bank   = 1'b0;
+            assign rx_h      = 12'd0;
+            assign rx_v      = 12'd0;
+            assign live_dout = 32'd0;
+        end
+    endgenerate
 
     // Into the fabric clock: rx_bank is stable whenever the toggle has flipped
     (* ASYNC_REG = "TRUE" *) reg [2:0]  rx_toggle_s;
@@ -683,7 +698,7 @@ module fpga_tb_core #(
     ) capture_ram (
         .clk(clk),
         .a_en(cap_en),
-        .a_we(m_we),
+        .a_we(CAP_AXI_WR ? m_we : 4'b0000),
         .a_addr(word),
         .a_din(m_wdata),
         .a_dout(cap_a_dout),

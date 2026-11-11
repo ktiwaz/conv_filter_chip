@@ -1,0 +1,3 @@
+[submodule "post-silicon/single-fpga-testbench-validation/third_party/core_dbg_bridge"]
+	path = post-silicon/single-fpga-testbench-validation/third_party/core_dbg_bridge
+	url = https://github.com/ultraembedded/core_dbg_bridge
