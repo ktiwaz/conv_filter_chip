@@ -9,9 +9,13 @@
 #
 # Camera -> DUT -> 720p HDMI pipeline (tp20k_cam_top; the tester works on it too):
 #   make bit-cam / program-cam / flash-cam    build/cam.fs
+#   make flash-cam-gowin   SPI flash via Gowin's programmer_cli (see README:
+#                   openFPGALoader's flash write stalls on dense bitstreams)
 #   make sim-grab   grabber in its camera configuration vs a reference model
 #   make sim-tmds   TMDS encoder vs a reference decoder
-#   then: ../scripts/cam_host.py init && ../scripts/cam_host.py live on
+#   make sim-sccb   camera init engine + register ROM vs an SCCB monitor
+#   The camera initializes itself and goes live after reset (no PC needed);
+#   ../scripts/cam_host.py status / grab / init (manual) still work.
 #   make bit-cam-gowin / program-cam-gowin   same design with Gowin EDA (cross-check)
 #
 #   make clean
@@ -52,6 +56,8 @@ SEED       ?= 1   # any seed: 10/10 seeds meet 74.25 MHz with >= 15 % margin
 GOWIN_HOME ?= $(HOME)/.local/Gowin_EDA
 # Gowin's bundled FreeType breaks the system fontconfig; no display for gw_sh
 GW_SH      := QT_QPA_PLATFORM=minimal LD_PRELOAD=/usr/lib/libfreetype.so.6 $(GOWIN_HOME)/IDE/bin/gw_sh
+GW_PROG    := cd $(GOWIN_HOME)/Programmer/bin && QT_QPA_PLATFORM=minimal \
+              LD_PRELOAD="/usr/lib/libfreetype.so.6 /usr/lib/libz.so.1" ./programmer_cli
 
 BRIDGE  := $(ROOT)/third_party/core_dbg_bridge/src_v
 CHIP_SV := $(addprefix $(ROOT)/,$(filter %.sv,$(shell cat $(ROOT)/dut_sources.f)))
@@ -65,7 +71,7 @@ RTL := tp20k_top.v \
 INIT_FILE := $(ROOT)/input_image_w32.hex
 HOST      := $(PY) $(ROOT)/scripts/tb_host.py --baud $(BAUD) $(if $(PORT),--port $(PORT))
 
-.PHONY: all bit program flash sim host-test clean bit-cam program-cam flash-cam sim-grab bit-cam-gowin program-cam-gowin sim-tmds
+.PHONY: all bit program flash sim host-test clean bit-cam program-cam flash-cam sim-grab bit-cam-gowin program-cam-gowin sim-tmds sim-sccb flash-cam-gowin
 all: bit
 
 $(BUILD):
@@ -111,16 +117,21 @@ flash: $(BUILD)/tp20k.fs
 #--------------------------------------------------
 # Camera pipeline
 #--------------------------------------------------
-CAM_RTL := tp20k_cam_top.v rtl/hdmi_tx_gowin.v rtl/tmds_encoder.v \
+CAM_REGS := cam/ov3660_384sq_y8.txt
+CAM_RTL := tp20k_cam_top.v rtl/hdmi_tx_gowin.v rtl/tmds_encoder.v rtl/sccb_init.v \
            $(ROOT)/rtl/fpga_tb_core.v $(ROOT)/rtl/axi4_slave_native.v $(ROOT)/rtl/bram_dp_be.v \
            $(ROOT)/rtl/dut_sequencer.v $(ROOT)/rtl/link_phy.v \
            $(ROOT)/rtl/video_downscale.v $(ROOT)/rtl/video_frame.v $(ROOT)/rtl/video_out.v \
            $(ROOT)/rtl/video_timing.v $(ROOT)/rtl/text_line.v \
            $(BRIDGE)/dbg_bridge.v $(BRIDGE)/dbg_bridge_uart.v $(BRIDGE)/dbg_bridge_fifo.v \
-           $(BUILD)/kernel_rom.v $(BUILD)/font_rom.v $(BUILD)/chip.v
+           $(BUILD)/kernel_rom.v $(BUILD)/font_rom.v $(BUILD)/chip.v $(BUILD)/cam_init_rom.v
 
 $(BUILD)/font_rom.v: $(ROOT)/scripts/gen_font.py | $(BUILD)
 	$(PY) $< $@
+
+# Camera register list -> ROM for sccb_init (+ expected writes for sim-sccb)
+$(BUILD)/cam_init_rom.v $(BUILD)/cam_init_expected.hex &: $(ROOT)/scripts/gen_cam_rom.py $(CAM_REGS) | $(BUILD)
+	$(PY) $< $(CAM_REGS) $(BUILD)/cam_init_rom.v --expected $(BUILD)/cam_init_expected.hex
 
 # Two-step synth_gowin: memories without a ram_style (the font / preset
 # ROMs) go to logic. In block RAM their short address paths fail nextpnr's
@@ -152,6 +163,12 @@ program-cam: $(BUILD)/cam.fs
 flash-cam: $(BUILD)/cam.fs
 	openFPGALoader -b tangprimer20k -f $<
 
+# SPI flash through Gowin's programmer (exFlash erase, program, verify).
+# Unbind ftdi_sio from the debugger first (README); replug afterwards.
+flash-cam-gowin: $(BUILD)/cam.fs
+	$(GW_PROG) --device GW2A-18C --operation_index 9 --fsFile $(abspath $<) \
+		--cable "USB Debugger A" --channel 0
+
 # Gowin EDA build of the same design (gowin/cam.tcl): writes impl/pnr/tp20k_cam.fs
 GOWIN_FS := impl/pnr/tp20k_cam.fs
 $(GOWIN_FS): $(CAM_RTL) $(INIT_FILE) gowin/cam.tcl gowin/tp20k_cam_gowin.cst gowin/tp20k_cam.sdc
@@ -168,6 +185,13 @@ sim-tmds: | $(BUILD)
 	iverilog -g2012 -o $(BUILD)/tb_tmds.vvp -s tb_tmds sim/tb_tmds.sv rtl/tmds_encoder.v
 	vvp -n $(BUILD)/tb_tmds.vvp | tee $(BUILD)/sim_tmds.out
 	@grep -q '^PASS' $(BUILD)/sim_tmds.out
+
+sim-sccb: $(BUILD)/cam_init_rom.v $(BUILD)/cam_init_expected.hex
+	iverilog -g2012 -o $(BUILD)/tb_sccb_init.vvp -s tb_sccb_init \
+		-P tb_sccb_init.EXPECTED=\"$(BUILD)/cam_init_expected.hex\" \
+		sim/tb_sccb_init.sv rtl/sccb_init.v $(BUILD)/cam_init_rom.v
+	vvp -n $(BUILD)/tb_sccb_init.vvp | tee $(BUILD)/sim_sccb.out
+	@grep -q '^PASS' $(BUILD)/sim_sccb.out
 
 sim-grab: | $(BUILD)
 	iverilog -g2012 -o $(BUILD)/tb_cam_grab.vvp -s tb_cam_grab sim/tb_cam_grab.sv $(ROOT)/rtl/video_downscale.v

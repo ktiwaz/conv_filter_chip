@@ -1,14 +1,15 @@
 # Gowin EDA (Education Edition) build of tp20k_cam_top, the same RTL as the
 # open-source flow. Run from tp20k/ (make bit-cam-gowin):
 #   gw_sh gowin/cam.tcl
-# Generated inputs (build/kernel_rom.v, build/font_rom.v, build/chip.v) come
+# Generated inputs (build/kernel_rom.v, build/font_rom.v, build/chip.v,
+# build/cam_init_rom.v) come
 # from the open-source Makefile rules.
 
 set root [file normalize ..]
 set_device -name GW2A-18C GW2A-LV18PG256C8/I7
 
 foreach f [list \
-    tp20k_cam_top.v rtl/hdmi_tx_gowin.v rtl/tmds_encoder.v \
+    tp20k_cam_top.v rtl/hdmi_tx_gowin.v rtl/tmds_encoder.v rtl/sccb_init.v \
     $root/rtl/fpga_tb_core.v $root/rtl/axi4_slave_native.v $root/rtl/bram_dp_be.v \
     $root/rtl/dut_sequencer.v $root/rtl/link_phy.v \
     $root/rtl/video_downscale.v $root/rtl/video_frame.v $root/rtl/video_out.v \
@@ -16,7 +17,7 @@ foreach f [list \
     $root/third_party/core_dbg_bridge/src_v/dbg_bridge.v \
     $root/third_party/core_dbg_bridge/src_v/dbg_bridge_uart.v \
     $root/third_party/core_dbg_bridge/src_v/dbg_bridge_fifo.v \
-    build/kernel_rom.v build/font_rom.v build/chip.v] {
+    build/kernel_rom.v build/font_rom.v build/chip.v build/cam_init_rom.v] {
     add_file -type verilog $f
 }
 add_file -type cst gowin/tp20k_cam_gowin.cst

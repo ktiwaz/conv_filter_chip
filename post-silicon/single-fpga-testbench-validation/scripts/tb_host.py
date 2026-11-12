@@ -41,6 +41,7 @@ TESTCASES = os.path.normpath(os.path.join(ROOT, "..", "..", "testcases"))
 sys.path.insert(0, os.path.join(ROOT, "third_party", "core_dbg_bridge", "sw"))
 
 import serial                                    # noqa: E402
+GPIO_REG = 0xF000_0000                           # dbg_bridge GPIO
 import serial.tools.list_ports                   # noqa: E402
 from uart_bus_interface import UartBusInterface  # noqa: E402
 from img_tool import read_hex8, write_hex8       # noqa: E402
@@ -289,6 +290,13 @@ class Tester:
         self.read_capture(out_path)
 
     def selftest(self):
+        ctrl = self.pause_live()
+        try:
+            self._selftest()
+        finally:
+            self.resume_live(ctrl)
+
+    def _selftest(self):
         if self.id() != ID_VALUE:
             raise SystemExit(f"bad ID (expected {ID_VALUE:08X}; old bitstream?)")
         words = [0xA5000000 | (i * 0x10101) & 0xFFFFFF for i in range(256)]
@@ -301,7 +309,28 @@ class Tester:
             raise SystemExit("selftest: block readback mismatch")
         print("SELFTEST PASS")
 
+    def pause_live(self):
+        """Camera bitstream (tp20k_cam_top): live mode runs the DUT on every
+        camera frame through the same input and capture RAMs, and is on by
+        default. Turn it off (GPIO bit 5 live, bit 7 no auto live) and let a
+        run in flight finish; returns the GPIO value for resume_live. The
+        tester bitstream ignores GPIO writes and reads back 0."""
+        ctrl = self.bus.read32(GPIO_REG) >> 16 & 0xFF
+        self.bus.write32(GPIO_REG, ctrl & ~0x20 | 0x80)
+        time.sleep(0.05)                            # > one camera frame
+        return ctrl
+
+    def resume_live(self, ctrl):
+        self.bus.write32(GPIO_REG, ctrl)
+
     def run_testcase(self, name, out_path=None):
+        ctrl = self.pause_live()
+        try:
+            return self._run_testcase(name, out_path)
+        finally:
+            self.resume_live(ctrl)
+
+    def _run_testcase(self, name, out_path=None):
         d = testcase_dir(name)
         cfg = open(os.path.join(d, "config.yml")).read()
         m = re.search(r"NORMALIZATION_VALUE=(\d+)", cfg)

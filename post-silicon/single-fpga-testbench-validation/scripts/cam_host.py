@@ -1,23 +1,29 @@
 #!/usr/bin/env python3
 """Camera control for the Tang Primer 20K camera pipeline (tp20k_cam_top).
 
-Drives the OV3660 through the dbg_bridge GPIO register (power, reset, SCCB
-bit-banged on SCL/SDA) and reads the pipeline's status from fpga_tb_core.
-The tester commands (scripts/tb_host.py) work on the same bitstream.
+The bitstream initializes the OV3660 by itself after reset (sccb_init with
+the register list built in) and turns live mode on, so none of this is
+needed for normal use. This script reads the pipeline's status from
+fpga_tb_core and, for experiments, takes the camera pins over through the
+dbg_bridge GPIO register (MANUAL bit: power, reset, SCCB bit-banged on
+SCL/SDA). The tester commands (scripts/tb_host.py) work on the same bitstream.
 
   cam_host.py [--port P] [--baud B] <command>
 
 Commands:
-  init [regfile]     power up the sensor, write the register file (default
-                     tp20k/cam/ov3660_384sq_y8.txt), check the chip ID
-  status             SCCB lines, frame size and rate seen by the grabber,
-                     live runs per second
-  live on|off        live mode (DUT run on every camera frame, HDMI panes)
+  init [regfile]     manual: power up the sensor, write the register file
+                     (default tp20k/cam/ov3660_384sq_y8.txt), check the chip ID
+  auto               give the camera pins back to the FPGA's init engine
+                     (press S0 to rerun its init)
+  status             FPGA init result, SCCB lines, frame size and rate seen
+                     by the grabber, live runs per second
+  live on|off        live mode (DUT run on every camera frame, HDMI panes);
+                     off also stops the automatic live mode after init
   grab out.png       one camera frame as the grabber saw it (128x128, DUT
                      bypassed), read back over the UART
-  reg <addr> [val]   read (or write) one sensor register, hex
+  reg <addr> [val]   read (or write) one sensor register, hex (manual)
   href-invert 0|1    capture on HREF low instead of high
-  off                power the sensor down
+  off                power the sensor down (manual)
 """
 import argparse
 import os
@@ -33,7 +39,8 @@ DEFAULT_REGS = os.path.join(os.path.dirname(HERE), "tp20k", "cam", "ov3660_384sq
 
 GPIO = 0xF000_0000
 # GPIO out bits (tp20k_cam_top)
-PWDN, RUN, SCL_LOW, SDA_LOW, HREF_INV, LIVE = 1, 2, 4, 8, 16, 32
+PWDN, RUN, SCL_LOW, SDA_LOW, HREF_INV, LIVE, MANUAL, NO_AUTO_LIVE = 1, 2, 4, 8, 16, 32, 64, 128
+CAM_PINS = PWDN | RUN | SCL_LOW | SDA_LOW
 # fpga_tb_core video registers
 VIDEO, RX_SIZE, RX_FRAMES, LIVE_RUNS, LIVE_DROP = 0x0002_0024, 0x0002_0028, 0x0002_002C, 0x0002_0030, 0x0002_0034
 CHIP_IDS = {0x3660: "OV3660", 0x5640: "OV5640"}
@@ -52,8 +59,21 @@ class GpioCam(Cam):
         self.ctrl = value
         self.bus.write32(GPIO, value)
 
+    def set_pins(self, pins):
+        """Camera pins under PC control (MANUAL), other bits kept."""
+        self.set_ctrl(self.ctrl & ~CAM_PINS | MANUAL | pins)
+
+    def take_over(self):
+        """Switch to MANUAL without disturbing the sensor: powered, running,
+        SCCB released, as the FPGA's init engine leaves it."""
+        if not self.ctrl & MANUAL:
+            g = self.bus.read32(GPIO)
+            if not g >> 31 & 1:
+                sys.exit("the FPGA's camera init is still running; try again in a second")
+            self.set_pins(RUN)
+
     def _lines(self, scl, sda):
-        c = self.ctrl & ~(SCL_LOW | SDA_LOW)
+        c = self.ctrl & ~(SCL_LOW | SDA_LOW) | MANUAL
         c |= (0 if scl else SCL_LOW) | (0 if sda else SDA_LOW)
         self.set_ctrl(c)
 
@@ -105,11 +125,11 @@ def load_regs(path):
 
 
 def power_up(cam):
-    cam.set_ctrl(PWDN)                  # powered down, in reset
+    cam.set_pins(PWDN)                  # powered down, in reset
     time.sleep(0.01)
-    cam.set_ctrl(0)                     # powered, in reset
+    cam.set_pins(0)                     # powered, in reset
     time.sleep(0.005)
-    cam.set_ctrl(RUN)                   # out of reset
+    cam.set_pins(RUN)                   # out of reset
     time.sleep(0.03)
 
 
@@ -145,6 +165,11 @@ def cmd_init(t, cam, regfile):
 
 def cmd_status(t, cam):
     g = t.bus.read32(GPIO)
+    ctrl = g >> 16 & 0xFF
+    nacks = g >> 24 & 0x7F
+    init = f"done, {nacks}{'+' if nacks == 0x7F else ''} NACKs" if g >> 31 else "running"
+    print(f"FPGA camera init {init}; pins {'MANUAL (PC)' if ctrl & MANUAL else 'FPGA'}; "
+          f"auto live {'off' if ctrl & NO_AUTO_LIVE else 'on'}")
     print(f"SCL={g & 1} SDA={g >> 1 & 1} VSYNC={g >> 2 & 1} HREF={g >> 3 & 1} preset={g >> 8 & 15}")
     v, size = t.read1(VIDEO), t.read1(RX_SIZE)
     f0, r0, t0 = t.read1(RX_FRAMES), t.read1(LIVE_RUNS), time.monotonic()
@@ -163,7 +188,7 @@ def cmd_grab(t, cam, path):
     while t.read1(LIVE_RUNS) - r0 < 2:
         if time.monotonic() - t0 > 3:
             t.write1(CONFIG, cfg)
-            sys.exit("no camera frames arriving (run `init` first; check `status`)")
+            sys.exit("no camera frames arriving (check `status`)")
         time.sleep(0.02)
     t.write1(CONFIG, (cfg & ~0x1F) | 0x01)          # stop live, keep bypass
     t.wait_done()
@@ -181,6 +206,7 @@ def main():
     ap.add_argument("--baud", type=int, default=1_000_000)
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("init").add_argument("regfile", nargs="?", default=DEFAULT_REGS)
+    sub.add_parser("auto")
     sub.add_parser("status")
     sub.add_parser("live").add_argument("state", choices=["on", "off"])
     sub.add_parser("grab").add_argument("path")
@@ -196,15 +222,22 @@ def main():
 
     if a.cmd == "init":
         cmd_init(t, cam, a.regfile)
+    elif a.cmd == "auto":
+        cam.set_ctrl(cam.ctrl & ~(MANUAL | CAM_PINS))
+        print("camera pins back with the FPGA (S0 reruns its init)")
     elif a.cmd == "status":
         cmd_status(t, cam)
     elif a.cmd == "live":
-        cam.set_ctrl(cam.ctrl | LIVE if a.state == "on" else cam.ctrl & ~LIVE)
+        if a.state == "on":
+            cam.set_ctrl(cam.ctrl & ~NO_AUTO_LIVE | LIVE)
+        else:
+            cam.set_ctrl(cam.ctrl & ~LIVE | NO_AUTO_LIVE)
         print(f"live {a.state}")
     elif a.cmd == "grab":
         cmd_grab(t, cam, a.path)
     elif a.cmd == "reg":
         addr = int(a.addr, 16)
+        cam.take_over()
         if a.value is not None:
             cam.write_reg(addr, int(a.value, 16))
         v, acks = cam.read_reg_checked(addr)
@@ -212,8 +245,8 @@ def main():
     elif a.cmd == "href-invert":
         cam.set_ctrl(cam.ctrl | HREF_INV if a.on else cam.ctrl & ~HREF_INV)
     elif a.cmd == "off":
-        cam.set_ctrl(PWDN)
-        print("sensor powered down")
+        cam.set_pins(PWDN)
+        print("sensor powered down (`init`, or `auto` then S0, brings it back)")
 
 
 if __name__ == "__main__":

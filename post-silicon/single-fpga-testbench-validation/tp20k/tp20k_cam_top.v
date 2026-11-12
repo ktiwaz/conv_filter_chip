@@ -7,14 +7,20 @@
 //         pixel; the same PLL's CLKOUTD (/8) -> 46.41 MHz fabric (XCLK =
 //         23.2 MHz from it); the grabber runs on the camera's PCLK.
 //
-// Camera control through dbg_bridge GPIO (address 0xF000_0000, see
-// scripts/camcheck.py). Reset value 0 = sensor powered, held in reset,
-// SCCB released, live mode off.
+// Standalone: after reset, sccb_init powers the camera up and writes the
+// register list from cam_init_rom (cam/*.txt), then live mode turns on by
+// itself, so no PC is needed (bitstream in flash: make flash-cam).
+//
+// Camera control from the PC through dbg_bridge GPIO (address 0xF000_0000,
+// scripts/cam_host.py). Reset value 0 = automatic init and live mode.
 //   GPIO out  bit0 PWDN (1 = power down)    bit1 RESET release (1 = run)
 //             bit2 SCL low (open drain)     bit3 SDA low (open drain)
-//             bit4 invert HREF              bit5 live mode (like PYNQ sw[1])
+//             bits 0-3 apply only with bit6 MANUAL set (else sccb_init drives them)
+//             bit4 invert HREF              bit5 live mode on (like PYNQ sw[1])
+//             bit6 MANUAL camera pins       bit7 no automatic live mode after init
 //   GPIO in   bit0 SCL  bit1 SDA  bit2 VSYNC  bit3 HREF  [11:8] filter preset
 //             [23:16] GPIO out[7:0] read back
+//             bit31 init done  [30:24] init NACKs (127 = 127 or more)
 // Frame size / rate / runs: fpga_tb_core's RX_SIZE, RX_FRAMES, LIVE_RUNS.
 //
 // Buttons (active low): S0 reset, S1 / S2 next / previous filter preset.
@@ -113,12 +119,28 @@ module tp20k_cam_top #(
         .gpio_inputs_i(gpio_in), .gpio_outputs_o(gpio_out)
     );
 
-    wire cam_pwdn    = gpio_out[0];
-    wire cam_run     = gpio_out[1];
-    wire scl_low     = gpio_out[2];
-    wire sda_low     = gpio_out[3];
+    wire manual      = gpio_out[6];
     wire href_inv    = gpio_out[4];
-    wire live_sw     = gpio_out[5];
+
+    //==================================================
+    // Standalone camera init (sccb_init); the PC takes the pins with MANUAL
+    //==================================================
+    wire       init_pwdn, init_rst_n, init_scl_low, init_sda_low, init_done;
+    wire [7:0] init_nacks;
+    reg  [3:0] pins_m, pins_s;           // synchronized {HREF, VSYNC, SDA, SCL}
+
+    sccb_init #(.CLK_HZ(CLK_HZ)) cam_init (
+        .clk(clk), .rst(!aresetn),
+        .pwdn(init_pwdn), .rst_n(init_rst_n),
+        .scl_low(init_scl_low), .sda_low(init_sda_low), .sda_in(pins_s[1]),
+        .done(init_done), .nacks(init_nacks)
+    );
+
+    wire cam_pwdn = manual ? gpio_out[0] : init_pwdn;
+    wire cam_run  = manual ? gpio_out[1] : init_rst_n;
+    wire scl_low  = manual ? gpio_out[2] : init_scl_low;
+    wire sda_low  = manual ? gpio_out[3] : init_sda_low;
+    wire live_sw  = gpio_out[5] || (init_done && !gpio_out[7]);
 
     //==================================================
     // Camera pins
@@ -131,7 +153,6 @@ module tp20k_cam_top #(
     assign cmos_scl   = scl_low ? 1'b0 : 1'bz;
     assign cmos_sda   = sda_low ? 1'b0 : 1'bz;
 
-    reg [3:0] pins_m, pins_s;
     always @(posedge clk) begin
         pins_m <= {cmos_href, cmos_vsync, cmos_sda, cmos_scl};
         pins_s <= pins_m;
@@ -160,7 +181,8 @@ module tp20k_cam_top #(
     wire [7:0]  disp_in_data, disp_out_data;
     wire [14:0] disp_lo, disp_hi;
 
-    assign gpio_in = {8'd0, gpio_out[7:0], 4'd0, kernel_index, 4'd0, pins_s};
+    assign gpio_in = {init_done, init_nacks[7] ? 7'h7F : init_nacks[6:0],
+                      gpio_out[7:0], 4'd0, kernel_index, 4'd0, pins_s};
 
     fpga_tb_core #(
         .INIT_FILE(INIT_FILE),
