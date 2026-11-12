@@ -1,0 +1,6 @@
+venv/
+build-nextpnr/
+bin/
+share/
+cmake.log
+build.log

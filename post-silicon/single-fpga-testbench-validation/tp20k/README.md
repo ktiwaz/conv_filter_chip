@@ -16,21 +16,19 @@ OV3660 ──DVP──▶ grabber (3x3 average → 128x128) ──▶ DUT run pe
 The external-DUT link pins are not brought out on either bitstream.
 
 ## Tools
-- **FPGA flow:** yosys, nextpnr-himbaechel, apycula (`gowin_pack`) and openFPGALoader.
-- **apycula fix (required for the camera build):** releases up to 0.35 configure every single-ended pin in a bank that has both true-LVDS outputs and an ordinary output as `LVDS25`. On the dock that kills the 27 MHz clock input, which shares a bank with the HDMI pairs. The fix is upstream ([YosysHQ/apicula#576](https://github.com/YosysHQ/apicula/issues/576), commit `993faec`) but not yet released. Until it is, delete this line under `if bank_desc.has_true_lvds_outputs:` in `check_io_banks()` of the installed `apycula/gowin_pack.py`:
-  ```python
-  bank_desc.set_attr("IO_TYPE", default_io_type)
+- **Place and route (built locally):** nextpnr-himbaechel and apycula (`gowin_pack`) come from the submodules `../third_party/nextpnr` and `../third_party/apicula`, pinned to known-good commits. The Makefile uses only these, built into `tools/` by `tools/setup.sh` (about a minute). apycula's chip databases come from Gowin's vendor tools, so the two this board needs are committed in `tools/chipdb/`; its README says where they come from and how to refresh them. Gowin EDA isn't needed.
   ```
-  The pack rules refuse to run without the fix.
-- **sv2v:** the chip RTL uses unpacked-array ports, which yosys's own parser rejects.
+  git submodule update --init      # once, from the repository root
+  tools/setup.sh                   # needs cmake, a C++17 compiler, Boost, Eigen3, Python headers
+  ```
+  The pinned apicula includes two fixes not in release 0.35: true-LVDS banks no longer turn every single-ended pin into `LVDS25` ([#576](https://github.com/YosysHQ/apicula/issues/576); this killed the camera build's 27 MHz clock), and the IO-logic routing fix ([#565](https://github.com/YosysHQ/apicula/pull/565)) that DDR3 PHYs with IODELAY need.
+- **From PATH:** yosys, openFPGALoader, and sv2v (the chip RTL uses unpacked-array ports, which yosys's own parser rejects).
 - **Simulation:** Icarus Verilog.
 - **Host scripts:** pyserial, in `../.venv`:
   ```
   python -m venv ../.venv && ../.venv/bin/pip install pyserial
   ```
-- **Optional, Gowin EDA Education Edition** (free, no license) for the cross-check build, unpacked in `~/.local/Gowin_EDA` (or set `GOWIN_HOME`).
-
-The UART bridge is a submodule. After cloning, run `git submodule update --init`.
+- **Optional, Gowin EDA Education Edition** (free, no license) for the cross-check build and flash programming, unpacked in `~/.local/Gowin_EDA` (or set `GOWIN_HOME`).
 
 ## Usage
 Tester:
@@ -84,7 +82,7 @@ Cross-check build of the camera design with Gowin's tools: `make bit-cam-gowin` 
   - **Out:** bit 0 PWDN, 1 release reset, 2/3 SCL/SDA low (bits 0–3 apply only with bit 6), 4 invert HREF, 5 live mode on, 6 MANUAL (PC drives the camera pins instead of `sccb_init`), 7 no automatic live mode.
   - **In:** bits 3:0 SCL/SDA/VSYNC/HREF, 11:8 filter preset, 23:16 the outputs read back, 31 init done, 30:24 init NACKs (saturating at 127).
 - **Utilisation:** about 7.3k LUT4 (35%), 7.5k FF (48%), 32 LUT-RAM sites. The init ROM is about 0.7k LUT4 of that (logic, like the other ROMs).
-- **Timing:** 10 of 10 placement seeds meet every clock. Worst cases: pixel clock 84.7 MHz against 74.25 (+14%), fabric 61.9 MHz against 46.4.
+- **Timing:** 10 of 10 placement seeds meet every clock. Worst cases: pixel clock 87.7 MHz against 74.25 (+18%), fabric 66.5 MHz against 46.4.
 - **Synthesis:** two-step `synth_gowin`. Memories without a `ram_style` (the font and preset ROMs) go to logic, because in block RAM their short address paths fail nextpnr's hold check.
 - **Tried and dropped:** `synth_gowin -retime` raised the pixel clock to 91–98 MHz but **broke the design** on hardware (control state wrong after reset; 8 of 9 golden testcases failed). nextpnr's router2, timing-driven rip-up and heap timing weights gave no gain; the `static` and `sa` placers are unsupported or crash on this architecture; `--threads` without `--parallel-refine` changes nothing.
 
@@ -121,5 +119,6 @@ Cross-check build of the camera design with Gowin's tools: `make bit-cam-gowin` 
 | `cam/` | OV3660 register list |
 | `sim/` | `tb_tp20k.sv` (tester over UART), `tb_cam_grab.sv`, `tb_tmds.sv`, `tb_sccb_init.sv` |
 | `gowin/` | Gowin EDA cross-check build |
+| `tools/` | `setup.sh` (local nextpnr + apycula), `chipdb/` |
 | `camcheck/` | camera connection check bitstream (with `scripts/camcheck.py`), built by hand |
 | `hdmitest/` | 640×480 and 720p HDMI test patterns, built by hand |

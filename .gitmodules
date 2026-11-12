@@ -1,3 +1,9 @@
 [submodule "post-silicon/single-fpga-testbench-validation/third_party/core_dbg_bridge"]
 	path = post-silicon/single-fpga-testbench-validation/third_party/core_dbg_bridge
 	url = https://github.com/ultraembedded/core_dbg_bridge
+[submodule "post-silicon/single-fpga-testbench-validation/third_party/apicula"]
+	path = post-silicon/single-fpga-testbench-validation/third_party/apicula
+	url = https://github.com/YosysHQ/apicula.git
+[submodule "post-silicon/single-fpga-testbench-validation/third_party/nextpnr"]
+	path = post-silicon/single-fpga-testbench-validation/third_party/nextpnr
+	url = https://github.com/YosysHQ/nextpnr.git
