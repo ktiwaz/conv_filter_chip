@@ -4,3 +4,4 @@ bin/
 share/
 cmake.log
 build.log
+setup.out
