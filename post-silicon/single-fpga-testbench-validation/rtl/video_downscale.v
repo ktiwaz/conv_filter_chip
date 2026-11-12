@@ -12,11 +12,23 @@
 //   5. write into one bank of a 2-bank RAM; at the end of the crop window the
 //      bank is published (frame_toggle flips, frame_bank is stable before it)
 //
+// Those are the defaults (HDMI in on the PYNQ). Parameters generalize them:
+//   SCALE    box size; the crop window is 128*SCALE square from (CROP_X, CROP_Y)
+//            and the average uses (sum * round(65536/SCALE^2) + 32768) >> 16
+//   BANKS    2 (double buffered) or 1: a single bank, frame_bank stays 0. Safe
+//            when each frame is consumed (a DUT run reads it in ~0.34 ms)
+//            before the next frame's crop window starts.
+//   GRAY_IN  1: the source is already grayscale in rx_data[7:0] (e.g. a camera
+//            in Y8 mode); skip the RGB weighting
+//
 // The RAM is 32 bits wide (4 pixels per word, little-endian like the input
 // RAM) so the DUT sequencer can read it exactly like the input RAM.
 module video_downscale #(
-    parameter CROP_X = 320,
-    parameter CROP_Y = 40
+    parameter CROP_X  = 320,
+    parameter CROP_Y  = 40,
+    parameter SCALE   = 5,          // 2..7
+    parameter BANKS   = 2,          // 1 or 2
+    parameter GRAY_IN = 0
 ) (
     input  wire        rx_clk,
     input  wire        rx_rst,          // synchronous to rx_clk
@@ -72,11 +84,12 @@ module video_downscale #(
     end
 
     reg [23:0] px_q;
-    reg        px_de;
+    reg        px_de, px_nf;
     reg [11:0] px_x, px_y;
     always @(posedge rx_clk) begin
         px_q  <= rx_data;
         px_de <= rx_de && (seen_frame || new_frame);
+        px_nf <= rx_de && new_frame;    // first pixel of a frame
         px_x  <= cur_x;
         px_y  <= cur_y;
     end
@@ -89,11 +102,12 @@ module video_downscale #(
     wire [7:0] g = px_q[7:0];
 
     reg [15:0] lum;
-    reg        g_de;
+    reg        g_de, g_nf;
     reg [11:0] g_x, g_y;
     always @(posedge rx_clk) begin
-        lum  <= 16'd54 * r + 16'd183 * g + 16'd18 * bl;
+        lum  <= GRAY_IN ? {g, 8'd0} : 16'd54 * r + 16'd183 * g + 16'd18 * bl;   // GRAY_IN: rx_data[7:0]
         g_de <= px_de;
+        g_nf <= px_nf;
         g_x  <= px_x;
         g_y  <= px_y;
     end
@@ -102,14 +116,26 @@ module video_downscale #(
     //==================================================
     // 3 + 4. Crop and 5x5 box average
     //==================================================
-    wire in_crop = g_de && (g_x >= CROP_X) && (g_x < CROP_X + 640) &&
-                   (g_y >= CROP_Y) && (g_y < CROP_Y + 640);
+    localparam CROP = 128 * SCALE;
+    localparam [2:0] LAST = SCALE - 1;
+    wire in_crop = g_de && (g_x >= CROP_X) && (g_x < CROP_X + CROP) &&
+                   (g_y >= CROP_Y) && (g_y < CROP_Y + CROP);
 
     reg [2:0]  sub_x, sub_y;            // position inside the 5x5 block
     reg [6:0]  col, row;
     reg [10:0] hsum;
-    reg [12:0] acc [0:127];             // column accumulators (LUT RAM)
+    // Column accumulators: asynchronous read, so LUT RAM. The explicit style
+    // matters for the tp20k yosys flow, which turns memories without one
+    // into flip-flops (meant for small ROMs); syn_ramstyle is Gowin's name.
+    (* ram_style = "distributed", syn_ramstyle = "distributed_ram" *)
+    reg [12:0] acc [0:127];
     reg        crop_q;
+
+    wire [2:0]  sub_x_e = g_nf ? 3'd0  : sub_x;
+    wire [2:0]  sub_y_e = g_nf ? 3'd0  : sub_y;
+    wire [6:0]  col_e   = g_nf ? 7'd0  : col;
+    wire [6:0]  row_e   = g_nf ? 7'd0  : row;
+    wire [10:0] hsum_e  = g_nf ? 11'd0 : hsum;
 
     reg        wr_en;
     reg [13:0] wr_pix;
@@ -124,22 +150,30 @@ module video_downscale #(
         if (rx_rst) begin
             sub_x <= 3'd0; sub_y <= 3'd0; col <= 7'd0; row <= 7'd0; hsum <= 11'd0;
         end else if (in_crop) begin
-            if (sub_x == 3'd4) begin
+            // The *_e values restart at zero on a frame's first pixel, so a
+            // crop window that starts at the top of the frame (CROP_Y = 0, no
+            // rows above it for the branch below) also realigns every frame
+            if (sub_x_e == LAST) begin
                 sub_x <= 3'd0;
                 hsum  <= 11'd0;
-                col   <= col + 7'd1;
-                if (sub_y == 3'd0)
-                    acc[col] <= hsum + gray;
+                col   <= col_e + 7'd1;
+                sub_y <= sub_y_e;
+                row   <= row_e;
+                if (sub_y_e == 3'd0)
+                    acc[col_e] <= hsum_e + gray;
                 else
-                    acc[col] <= acc[col] + hsum + gray;
-                if (sub_y == 3'd4) begin
+                    acc[col_e] <= acc[col_e] + hsum_e + gray;
+                if (sub_y_e == LAST) begin
                     wr_en   <= 1'b1;
-                    wr_pix  <= {row, col};
-                    box_sum <= acc[col] + hsum + gray;
+                    wr_pix  <= {row_e, col_e};
+                    box_sum <= acc[col_e] + hsum_e + gray;
                 end
             end else begin
-                sub_x <= sub_x + 3'd1;
-                hsum  <= hsum + gray;
+                sub_x <= sub_x_e + 3'd1;
+                hsum  <= hsum_e + gray;
+                col   <= col_e;
+                sub_y <= sub_y_e;
+                row   <= row_e;
             end
         end else if (g_de && g_y < CROP_Y) begin
             // Above the crop window: start every frame at block row 0, so a
@@ -152,7 +186,7 @@ module video_downscale #(
             col   <= 7'd0;
             sub_x <= 3'd0;
             hsum  <= 11'd0;
-            if (sub_y == 3'd4) begin
+            if (sub_y == LAST) begin
                 sub_y <= 3'd0;
                 if (row == 7'd127) begin
                     row       <= 7'd0;
@@ -166,8 +200,9 @@ module video_downscale #(
         end
     end
 
-    // ~ box_sum / 25, rounded
-    wire [25:0] scaled = box_sum * 26'd2621 + 26'd32768;
+    // ~ box_sum / SCALE^2, rounded (SCALE = 5: * 2621)
+    localparam [25:0] MULT = (65536 + SCALE * SCALE / 2) / (SCALE * SCALE);
+    wire [25:0] scaled = box_sum * MULT + 26'd32768;
     reg         w_en;
     reg  [13:0] w_pix;
     reg  [7:0]  w_val;
@@ -191,7 +226,7 @@ module video_downscale #(
             end_d        <= 3'd0;
         end else begin
             end_d <= {end_d[1:0], frame_end};
-            if (frame_end) begin
+            if (frame_end && BANKS == 2) begin
                 frame_bank <= bank;
                 bank       <= ~bank;
             end
@@ -200,26 +235,30 @@ module video_downscale #(
         end
     end
 
+    localparam WORDS = BANKS * 4096;
     (* ram_style = "block" *)
-    reg [31:0] mem [0:8191];
+    reg [31:0] mem [0:WORDS-1];
 
     integer k;
     initial begin
-        for (k = 0; k < 8192; k = k + 1)
+        for (k = 0; k < WORDS; k = k + 1)
             mem[k] = 32'd0;
     end
+
+    wire [12:0] w_word = (BANKS == 2) ? {bank, w_pix[13:2]}  : {1'b0, w_pix[13:2]};
+    wire [12:0] r_word = (BANKS == 2) ? {rd_bank, rd_addr}   : {1'b0, rd_addr};
 
     genvar i;
     generate
         for (i = 0; i < 4; i = i + 1) begin : g_lane
             always @(posedge rx_clk)
                 if (w_en && w_pix[1:0] == i)
-                    mem[{bank, w_pix[13:2]}][i*8 +: 8] <= w_val;
+                    mem[w_word][i*8 +: 8] <= w_val;
         end
     endgenerate
 
     always @(posedge clk)
         if (rd_en)
-            rd_data <= mem[{rd_bank, rd_addr}];
+            rd_data <= mem[r_word];
 
 endmodule

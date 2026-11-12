@@ -9,3 +9,6 @@ boards.local.tcl
 third_party/vivado-library/
 .venv/
 abc.history
+impl/
+# Camera register lists (the repo root ignores *.txt)
+!tp20k/cam/*.txt

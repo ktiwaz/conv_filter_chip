@@ -10,7 +10,13 @@
 //   - disp_bank:  the bank the output is reading; it switches to ready_bank
 //                 at the start of an output frame
 // A run picks a write bank that is neither ready nor displayed.
-module video_frame (
+//
+// BANKS = 1 keeps a single bank per image (wr/ready/disp all bank 0): half
+// the block RAM, at the cost of the display possibly showing a run that is
+// still being written (a brief tear) when a run overlaps the scan-out.
+module video_frame #(
+    parameter BANKS = 3             // 3 or 1
+) (
     // Fabric clock side (writes)
     input  wire        clk,
     input  wire        aresetn,
@@ -56,12 +62,13 @@ module video_frame (
     end
 
     // First bank that is neither ready nor (possibly) being displayed
-    wire [1:0] free_bank = (ready_bank != 2'd0 && disp_bank_c2 != 2'd0) ? 2'd0 :
+    wire [1:0] free_bank = (BANKS == 1) ? 2'd0 :
+                           (ready_bank != 2'd0 && disp_bank_c2 != 2'd0) ? 2'd0 :
                            (ready_bank != 2'd1 && disp_bank_c2 != 2'd1) ? 2'd1 : 2'd2;
 
     always @(posedge clk) begin
         if (!aresetn) begin
-            wr_bank      <= 2'd1;
+            wr_bank      <= (BANKS == 1) ? 2'd0 : 2'd1;
             ready_bank   <= 2'd0;
             ready_toggle <= 1'b0;
             publish      <= 1'b0;
@@ -122,14 +129,14 @@ module video_frame (
     end
 
     //==================================================
-    // Memories: 3 banks x 16384 bytes each
+    // Memories: BANKS x 16384 bytes each (with 1 bank all bank numbers are 0)
     //==================================================
-    disp_ram in_ram (
+    disp_ram #(.DEPTH(BANKS * 16384)) in_ram (
         .clk_a(clk), .we(in_we), .waddr({wr_bank, in_addr}), .din(in_data),
         .clk_b(pclk), .raddr({disp_bank, rd_addr}), .dout(rd_in)
     );
 
-    disp_ram out_ram (
+    disp_ram #(.DEPTH(BANKS * 16384)) out_ram (
         .clk_a(clk), .we(out_we), .waddr({wr_bank, out_addr}), .din(out_data),
         .clk_b(pclk), .raddr({disp_bank, rd_addr}), .dout(rd_out)
     );

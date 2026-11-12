@@ -86,7 +86,9 @@ module video_compositor #(
     parameter PANE_L_X = 85,
     parameter PANE_R_X = 683,
     parameter PANE_Y   = 104,
-    parameter PANE     = 512
+    parameter PANE     = 512,
+    // Left title in live mode (20 characters)
+    parameter [20*8-1:0] TITLE_LIVE = "INPUT (HDMI IN)     "
 ) (
     input  wire        pclk,
     input  wire        prst,
@@ -162,7 +164,10 @@ module video_compositor #(
     reg [23:0] c1_pat;
 
     wire        square = (x >= sq_x) && (x < sq_x + SQ) && (y >= sq_y) && (y < sq_y + SQ);
-    wire [2:0]  bar    = x / 12'd160;
+    // x / 160 as parallel compares (a divider is too slow at 74.25 MHz on GW2A)
+    wire [2:0]  bar    = (x >= 12'd1120) ? 3'd7 : (x >= 12'd960) ? 3'd6 : (x >= 12'd800) ? 3'd5 :
+                         (x >= 12'd640)  ? 3'd4 : (x >= 12'd480) ? 3'd3 : (x >= 12'd320) ? 3'd2 :
+                         (x >= 12'd160)  ? 3'd1 : 3'd0;
     wire        outer  = (x == 12'd0) || (x == 12'd1279) || (y == 12'd0) || (y == 12'd719);
 
     always @(posedge pclk) begin
@@ -217,16 +222,28 @@ module video_compositor #(
     wire [7:0] fps_tens = (fps_p[7:4] == 4'd0) ? 8'h20 : 8'h30 + fps_p[7:4];
     wire [7:0] fps_ones = 8'h30 + fps_p[3:0];
 
-    wire [20*8-1:0] title_l = live_p ? "INPUT (HDMI IN)     " : "INPUT (JTAG IMAGE)  ";
+    wire [20*8-1:0] title_l = live_p ? TITLE_LIVE : "INPUT (JTAG IMAGE)  ";
     wire [21*8-1:0] title_r = bypass_p ? "BYPASS (NO FILTER)   " :
                               custom_p ? {"FILTER: ", "CUSTOM (JTAG)"} : {"FILTER: ", name_p};
     wire [15*8-1:0] mode_s  = live_p ? {"LIVE ", fps_tens, fps_ones, " FPS    "} : "STATIC IMAGE   ";
     wire [41*8-1:0] status  = {mode_s, "DUT: CHIP RTL ON ", ext_p ? "2ND FPGA " : "THIS FPGA"};
 
     wire on_l, on_r, on_s;
-    text_line #(.X0(PANE_L_X), .Y0(PANE_Y - 32),        .LEN(20)) txt_l (.pclk(pclk), .x(x), .y(y), .text(title_l), .on(on_l));
-    text_line #(.X0(PANE_R_X), .Y0(PANE_Y - 32),        .LEN(21)) txt_r (.pclk(pclk), .x(x), .y(y), .text(title_r), .on(on_r));
-    text_line #(.X0(PANE_L_X), .Y0(PANE_Y + PANE + 14), .LEN(41)) txt_s (.pclk(pclk), .x(x), .y(y), .text(status),  .on(on_s));
+    // The strings only change with the (quasi-static) status bits: register
+    // them so choosing a string isn't in the same cycle as choosing a
+    // character from it (that path limited 720p timing on GW2A)
+    reg [20*8-1:0] title_l_q;
+    reg [21*8-1:0] title_r_q;
+    reg [41*8-1:0] status_q;
+    always @(posedge pclk) begin
+        title_l_q <= title_l;
+        title_r_q <= title_r;
+        status_q  <= status;
+    end
+
+    text_line #(.X0(PANE_L_X), .Y0(PANE_Y - 32),        .LEN(20)) txt_l (.pclk(pclk), .x(x), .y(y), .text(title_l_q), .on(on_l));
+    text_line #(.X0(PANE_R_X), .Y0(PANE_Y - 32),        .LEN(21)) txt_r (.pclk(pclk), .x(x), .y(y), .text(title_r_q), .on(on_r));
+    text_line #(.X0(PANE_L_X), .Y0(PANE_Y + PANE + 14), .LEN(41)) txt_s (.pclk(pclk), .x(x), .y(y), .text(status_q),  .on(on_s));
 
     //==================================================
     // c2 -> c3: register the RAM data next to the text bits

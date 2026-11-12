@@ -2,7 +2,8 @@
 // 3x (6x8 character cells -> 18x24 pixels).
 //
 // Three pipeline stages from (x, y) to on: cell position (c1), character and
-// glyph coordinates (c2), font bit (c3). Divisions by the cell size use
+// glyph coordinates (c2), font bit (c3). Characters come from a shift
+// register advanced along the row, not a character multiplexer. Divisions by the cell size use
 // reciprocal multiplies that are exact over the ranges used here:
 //   dx / 18 = (dx * 3641) >> 16        for dx < 32768
 //   n / 3   = (n * 11) >> 5            for n < 24
@@ -29,13 +30,11 @@ module text_line #(
     wire [11:0] chr    = q[27:16];
 
     reg        c1_in;
-    reg [11:0] c1_chr;
     reg [4:0]  c1_sub;                  // pixel within the cell, 0..17
     reg [4:0]  c1_dy;                   // pixel row, 0..23
 
     always @(posedge pclk) begin
         c1_in  <= in_box;
-        c1_chr <= chr;
         c1_sub <= dx - chr * CW;
         c1_dy  <= dy[4:0];
     end
@@ -44,6 +43,14 @@ module text_line #(
     wire [9:0] col11 = c1_sub * 10'd11;
     wire [9:0] row11 = c1_dy  * 10'd11;
 
+    // Character source: a shift register loaded with the string outside the
+    // box and advanced one character at each cell's last pixel, so the
+    // current character is always its top byte. Pixels inside the box come
+    // on consecutive clocks and every scan row leaves the box, so it reloads
+    // before each row (a string change shows from the next row on). This
+    // replaces a LEN-way character multiplexer that limited 720p timing.
+    reg [LEN*8-1:0] sh;
+
     reg       c2_in;
     reg [7:0] c2_ch;
     reg [2:0] c2_col;                   // 0..5 (5 = spacing column)
@@ -51,9 +58,16 @@ module text_line #(
 
     always @(posedge pclk) begin
         c2_in  <= c1_in;
-        c2_ch  <= (c1_chr < LEN) ? text[(LEN - 1 - c1_chr) * 8 +: 8] : 8'h20;
         c2_col <= col11[7:5];
         c2_row <= row11[7:5];
+        if (!c1_in) begin
+            sh    <= text;
+            c2_ch <= 8'h20;
+        end else begin
+            c2_ch <= sh[LEN*8-1 -: 8];
+            if (c1_sub == CW - 1)
+                sh <= sh << 8;
+        end
     end
 
     // c2 -> c3: font bit

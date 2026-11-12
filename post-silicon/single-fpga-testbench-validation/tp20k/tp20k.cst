@@ -11,7 +11,7 @@ IO_PORT "uart_tx" IO_TYPE=LVCMOS33 PULL_MODE=UP DRIVE=8;
 IO_LOC  "uart_rx" T13;
 IO_PORT "uart_rx" IO_TYPE=LVCMOS33 PULL_MODE=UP;
 
-// Push buttons, active low (T3/T2 are in a 1.5 V bank)
+// Push buttons S0 (reset), S1 (next), S2 (prev), active low; T3/T2 are in a 1.5 V bank
 IO_LOC  "rst_n" T10;
 IO_PORT "rst_n" IO_TYPE=LVCMOS33 PULL_MODE=UP;
 IO_LOC  "btn_next_n" T3;

@@ -5,7 +5,8 @@
 // The PC talks to the bridge over the onboard debugger's USB UART
 // (scripts/tb_host.py). LEDs (active low): led0 heartbeat (PLL running),
 // led1 run done, led5..led2 filter preset index. Buttons (active low):
-// rst_n resets the tester, btn_next_n / btn_prev_n step the filter preset.
+// S0 (rst_n) resets the tester, S1 / S2 (btn_next_n / btn_prev_n) step the
+// filter preset.
 module tp20k_top #(
     parameter CLK_HZ       = 48_000_000,
     parameter BAUD         = 1_000_000,

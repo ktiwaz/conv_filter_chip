@@ -37,7 +37,19 @@ module fpga_tb_core #(
     parameter HDMI       = 1,
     // 0: the capture RAM is read-only over AXI (one write port, for block
     // RAMs without byte-enabled writes on both ports, e.g. Gowin BSRAM)
-    parameter CAP_AXI_WR = 1
+    parameter CAP_AXI_WR = 1,
+    // 0: AXI writes to the input RAM are whole words (all strobes assumed set);
+    // needed for Gowin block RAM, which can't mix byte enables and reads on a port
+    parameter IN_BYTE_WE = 1,
+    // Fabric clock frequency (the live-mode fps counter counts one second)
+    parameter CLK_HZ     = 50_000_000,
+    // HDMI-in / camera grabber (video_downscale): crop origin, box size,
+    // number of RAM banks, and whether rx_data[7:0] is already grayscale
+    parameter GRAB_CROP_X  = 320,
+    parameter GRAB_CROP_Y  = 40,
+    parameter GRAB_SCALE   = 5,
+    parameter GRAB_BANKS   = 2,
+    parameter GRAB_GRAY_IN = 0
 ) (
     input  wire                  clk,
     input  wire                  aresetn,     // synchronous, active low
@@ -429,7 +441,13 @@ module fpga_tb_core #(
 
     generate
         if (HDMI) begin : g_grabber
-            video_downscale grabber (
+            video_downscale #(
+                .CROP_X(GRAB_CROP_X),
+                .CROP_Y(GRAB_CROP_Y),
+                .SCALE(GRAB_SCALE),
+                .BANKS(GRAB_BANKS),
+                .GRAY_IN(GRAB_GRAY_IN)
+            ) grabber (
                 .rx_clk(rx_clk),
                 .rx_rst(rx_rst_s[2]),
                 .rx_data(rx_data),
@@ -490,7 +508,7 @@ module fpga_tb_core #(
             sec_count <= 26'd0;
             fps_count <= 8'd0;
             st_fps    <= 8'd0;
-        end else if (sec_count == 26'd49_999_999) begin
+        end else if (sec_count == CLK_HZ - 1) begin
             sec_count <= 26'd0;
             fps_count <= 8'd0;
             st_fps    <= (fps_count > 8'd99) ? 8'h99
@@ -676,7 +694,8 @@ module fpga_tb_core #(
     bram_dp_be #(
         .ADDR_WIDTH(12),
         .NUM_BYTES(4),
-        .INIT_FILE(INIT_FILE)
+        .INIT_FILE(INIT_FILE),
+        .A_BYTE_WE(IN_BYTE_WE)
     ) input_ram (
         .clk(clk),
         .a_en(in_en),
