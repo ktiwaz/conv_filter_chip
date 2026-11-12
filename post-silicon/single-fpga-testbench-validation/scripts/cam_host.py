@@ -181,20 +181,25 @@ def cmd_status(t, cam):
 
 
 def cmd_grab(t, cam, path):
+    # Live mode is also held on by the GPIO switch (automatic after init);
+    # pause it, or later frames overwrite the capture RAM during readout.
+    ctrl = t.pause_live()
     cfg = t.read1(CONFIG)
-    r0 = t.read1(LIVE_RUNS)
-    t.write1(CONFIG, (cfg & ~0x1F) | 0x11)          # live + bypass: capture = camera frame
-    t0 = time.monotonic()
-    while t.read1(LIVE_RUNS) - r0 < 2:
-        if time.monotonic() - t0 > 3:
-            t.write1(CONFIG, cfg)
-            sys.exit("no camera frames arriving (check `status`)")
-        time.sleep(0.02)
-    t.write1(CONFIG, (cfg & ~0x1F) | 0x01)          # stop live, keep bypass
-    t.wait_done()
-    count = t.read1(CAP_COUNT)
-    pixels = t.read_pixels(CAP_BASE, count)
-    t.write1(CONFIG, cfg)
+    try:
+        r0 = t.read1(LIVE_RUNS)
+        t.write1(CONFIG, (cfg & ~0x1F) | 0x11)      # live + bypass: capture = camera frame
+        t0 = time.monotonic()
+        while t.read1(LIVE_RUNS) - r0 < 2:
+            if time.monotonic() - t0 > 3:
+                sys.exit("no camera frames arriving (check `status`)")
+            time.sleep(0.02)
+        t.write1(CONFIG, (cfg & ~0x1F) | 0x01)      # stop live, keep bypass
+        t.wait_done()
+        count = t.read1(CAP_COUNT)
+        pixels = t.read_pixels(CAP_BASE, count)
+    finally:
+        t.write1(CONFIG, cfg)
+        t.resume_live(ctrl)
     pixels += [0] * (128 * 128 - len(pixels))
     write_png_gray(path, 128, 128, pixels)
     print(f"Wrote {count} pixels to {path} (min {min(pixels)}, max {max(pixels)})")
