@@ -18,6 +18,10 @@
 //   BANKS    2 (double buffered) or 1: a single bank, frame_bank stays 0. Safe
 //            when each frame is consumed (a DUT run reads it in ~0.34 ms)
 //            before the next frame's crop window starts.
+//   PIX_CE   1: rx_ce marks the cycles that carry a pixel (e.g. a camera
+//            sending 2 bytes per pixel); it must keep running in the
+//            blanking too, since line ends are seen on rx_ce cycles.
+//            0: every rx_clk cycle is a pixel slot (rx_ce unused)
 //   GRAY_IN  1: the source is already grayscale in rx_data[7:0] (e.g. a camera
 //            in Y8 mode); skip the RGB weighting
 //
@@ -28,12 +32,14 @@ module video_downscale #(
     parameter CROP_Y  = 40,
     parameter SCALE   = 5,          // 2..7
     parameter BANKS   = 2,          // 1 or 2
-    parameter GRAY_IN = 0
+    parameter GRAY_IN = 0,
+    parameter PIX_CE  = 0
 ) (
     input  wire        rx_clk,
     input  wire        rx_rst,          // synchronous to rx_clk
     input  wire [23:0] rx_data,         // {R, B, G} (Digilent dvi2rgb order)
     input  wire        rx_de,
+    input  wire        rx_ce,           // PIX_CE = 1: pixel slot
 
     output reg         frame_toggle,    // flips when a 128x128 frame is complete
     output reg         frame_bank,      // bank holding that frame (stable before the flip)
@@ -56,6 +62,7 @@ module video_downscale #(
     reg        de_q;
     reg        seen_frame;              // y is meaningful (a vertical blank was seen)
 
+    wire        ce         = PIX_CE ? rx_ce : 1'b1;
     wire        line_start = rx_de && !de_q;
     wire        new_frame  = line_start && (blank > 13'd4000);
     wire [11:0] cur_x      = de_q ? x : 12'd0;
@@ -65,7 +72,7 @@ module video_downscale #(
         if (rx_rst) begin
             x <= 12'd0; y <= 12'd0; blank <= 13'd0; de_q <= 1'b0; seen_frame <= 1'b0;
             h_active <= 12'd0; v_active <= 12'd0;
-        end else begin
+        end else if (ce) begin
             de_q <= rx_de;
             if (rx_de) begin
                 x <= cur_x + 12'd1;
@@ -84,12 +91,13 @@ module video_downscale #(
     end
 
     reg [23:0] px_q;
-    reg        px_de, px_nf;
+    reg        px_de, px_nf, px_ce;
     reg [11:0] px_x, px_y;
     always @(posedge rx_clk) begin
         px_q  <= rx_data;
-        px_de <= rx_de && (seen_frame || new_frame);
-        px_nf <= rx_de && new_frame;    // first pixel of a frame
+        px_de <= ce && rx_de && (seen_frame || new_frame);
+        px_nf <= ce && rx_de && new_frame;    // first pixel of a frame
+        px_ce <= ce;
         px_x  <= cur_x;
         px_y  <= cur_y;
     end
@@ -102,12 +110,13 @@ module video_downscale #(
     wire [7:0] g = px_q[7:0];
 
     reg [15:0] lum;
-    reg        g_de, g_nf;
+    reg        g_de, g_nf, g_ce;
     reg [11:0] g_x, g_y;
     always @(posedge rx_clk) begin
         lum  <= GRAY_IN ? {g, 8'd0} : 16'd54 * r + 16'd183 * g + 16'd18 * bl;   // GRAY_IN: rx_data[7:0]
         g_de <= px_de;
         g_nf <= px_nf;
+        g_ce <= px_ce;
         g_x  <= px_x;
         g_y  <= px_y;
     end
@@ -146,7 +155,7 @@ module video_downscale #(
     always @(posedge rx_clk) begin
         wr_en     <= 1'b0;
         frame_end <= 1'b0;
-        crop_q    <= in_crop;
+        if (g_ce) crop_q <= in_crop;
         if (rx_rst) begin
             sub_x <= 3'd0; sub_y <= 3'd0; col <= 7'd0; row <= 7'd0; hsum <= 11'd0;
         end else if (in_crop) begin
@@ -175,13 +184,13 @@ module video_downscale #(
                 sub_y <= sub_y_e;
                 row   <= row_e;
             end
-        end else if (g_de && g_y < CROP_Y) begin
+        end else if (g_ce && g_de && g_y < CROP_Y) begin
             // Above the crop window: start every frame at block row 0, so a
             // partial or irregular frame (e.g. the source restarting its
             // link) can't leave the row count out of step for good
             col <= 7'd0; sub_x <= 3'd0; hsum <= 11'd0;
             row <= 7'd0; sub_y <= 3'd0;
-        end else if (crop_q) begin
+        end else if (g_ce && crop_q) begin
             // Left the crop window at the end of a cropped line
             col   <= 7'd0;
             sub_x <= 3'd0;

@@ -42,6 +42,7 @@ sys.path.insert(0, os.path.join(ROOT, "third_party", "core_dbg_bridge", "sw"))
 
 import serial                                    # noqa: E402
 GPIO_REG = 0xF000_0000                           # dbg_bridge GPIO
+DDR_BASE = 0x1000_0000                           # camera bitstream: DDR3 window
 import serial.tools.list_ports                   # noqa: E402
 from uart_bus_interface import UartBusInterface  # noqa: E402
 from img_tool import read_hex8, write_hex8       # noqa: E402
@@ -309,6 +310,45 @@ class Tester:
             raise SystemExit("selftest: block readback mismatch")
         print("SELFTEST PASS")
 
+    def ddr_test(self, kbytes=64):
+        """Camera bitstream: DDR3 through the bridge window (0x1000_0000).
+        Random data at 16 MB, the middle and the end of the 128 MB (the first
+        megabytes hold the camera preview frames, which change all the time),
+        plus odd byte writes, read back and compared."""
+        g = self.bus.read32(GPIO_REG)
+        if g >> 13 & 1:
+            raise SystemExit("DDR3 calibration failed (GPIO in bit 13)")
+        if not g >> 12 & 1:
+            raise SystemExit("DDR3 not calibrated (GPIO in bit 12); camera bitstream?")
+        import random
+        rnd = random.Random(kbytes)
+        n = kbytes * 1024
+        bad = 0
+        t0 = time.monotonic()
+        for off in (16 << 20, 64 << 20, (128 << 20) - n):
+            data = bytes(rnd.getrandbits(8) for _ in range(n))
+            self.bus.write(DDR_BASE + off, data)
+            back = self.bus.read(DDR_BASE + off, n)
+            if back != data:
+                i = next(i for i in range(n) if back[i] != data[i])
+                print(f"  mismatch at 0x{off + i:07x}: got {back[i]:02x} want {data[i]:02x}")
+                bad += 1
+        # single bytes into a known word: the byte strobes
+        sb = DDR_BASE + (16 << 20) - 0x100
+        self.bus.write(sb, bytes(16))
+        for i, v in ((1, 0x11), (6, 0x66), (13, 0xdd)):
+            self.bus.write(sb + i, bytes([v]))
+        want = bytearray(16)
+        want[1], want[6], want[13] = 0x11, 0x66, 0xdd
+        back = self.bus.read(sb, 16)
+        if back != want:
+            print(f"  byte strobes: got {back.hex()} want {want.hex()}")
+            bad += 1
+        dt = time.monotonic() - t0
+        print(f"DDR3 {'PASS' if not bad else 'FAIL'}: 3 x {kbytes} KB + byte strobes, "
+              f"{2 * 3 * n / dt / 1024:.0f} KB/s over the UART")
+        return not bad
+
     def pause_live(self):
         """Camera bitstream (tp20k_cam_top): live mode runs the DUT on every
         camera frame through the same input and capture RAMs, and is on by
@@ -435,6 +475,7 @@ def main():
     p.add_argument("out_path", nargs="?")
     sub.add_parser("run-all").add_argument("group", nargs="?", default="5x5")
     sub.add_parser("sweep-sample").add_argument("name")
+    sub.add_parser("ddr-test").add_argument("kbytes", nargs="?", type=int, default=64)
     a = ap.parse_args()
 
     t = Tester(a.port, a.baud, a.clk_mhz)
@@ -447,6 +488,8 @@ def main():
         t.config(a.bypass, a.test_mode, a.ext)
     elif a.cmd == "link":
         t.link(a.half, a.sample)
+    elif a.cmd == "ddr-test":
+        ok = t.ddr_test(a.kbytes)
     elif a.cmd in ("run-testcase", "run-all"):
         ok = t.run_testcase(a.name, a.out_path) if a.cmd == "run-testcase" else t.run_all(a.group)
     else:

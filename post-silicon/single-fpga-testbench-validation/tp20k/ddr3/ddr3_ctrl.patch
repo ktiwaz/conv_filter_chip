@@ -1,0 +1,63 @@
+--- a/ddr3/ddr3_ctrl.sv
++++ b/ddr3/ddr3_ctrl.sv
+@@ -13,7 +13,9 @@
+ // latency stays predictable.
+ //
+ // Usage: while busy is low, pulse rd, wr or refresh for one clk cycle with
+-// addr (and din/be). busy rises in the next cycle and drops when the access
++// addr (and din/be). With wr_burst high during wr, the write covers the whole
++// aligned BL8 burst instead: din_burst (word j at addr[2:0] = j) with byte
++// enables be_burst, and addr[2:0] is ignored. busy rises in the next cycle and drops when the access
+ // is done; for reads data_ready pulses together with dout/dout_burst.
+ // Refresh is up to the user: one every 7.8us (tREFI) on average.
+ //
+@@ -52,6 +54,9 @@
+     input          [ADDR_W-1:0] addr,
+     input            [DQ_W-1:0] din,
+     input           [LANES-1:0] be,             // byte enables for wr
++    input                       wr_burst,       // wr writes the whole aligned burst
++    input          [8*DQ_W-1:0] din_burst,
++    input         [8*LANES-1:0] be_burst,
+     output reg       [DQ_W-1:0] dout,
+     output reg     [8*DQ_W-1:0] dout_burst, // the whole aligned BL8 burst
+     output reg                  data_ready,
+@@ -116,7 +121,13 @@
+ reg  [ADDR_W-1:0] u_addr;
+ reg    [DQ_W-1:0] u_din;
+ reg   [LANES-1:0] u_be;
++reg               u_burst;
++reg  [8*DQ_W-1:0] u_din_burst;
++reg [8*LANES-1:0] u_be_burst;
+ initial begin
++    u_burst = 0;
++    u_din_burst = 0;
++    u_be_burst = 0;
+     u_valid = 0;
+     u_op = 0;
+     u_addr = 0;
+@@ -131,12 +142,13 @@
+ assign op       = in_init ? i_op    : in_calib ? c_op    : u_op;
+ assign op_ba    = in_init ? i_ba    : in_calib ? c_ba    : u_addr[ADDR_W-1 -: BA_W];
+ assign op_a     = in_init ? i_a     : in_calib ? c_a     : u_addr[COL_W +: ROW_W];
+-assign op_col   = in_calib ? c_col : u_addr[COL_W-1:0];
+-assign op_wdata = in_calib ? c_wdata : {8{u_din}};
++assign op_col   = in_calib ? c_col : u_burst ? {u_addr[COL_W-1:3], 3'b000} : u_addr[COL_W-1:0];
++assign op_wdata = in_calib ? c_wdata : u_burst ? u_din_burst : {8{u_din}};
+ 
+ wire [2:0] u_beat = u_addr[2:0];
+ for (genvar j = 0; j < 8; j++) begin : g_mask
+     assign op_wmask[LANES*j +: LANES] = in_calib ? c_wmask[LANES*j +: LANES]
++                                      : u_burst ? ~u_be_burst[LANES*j +: LANES]
+                                       : 3'(j) == u_beat ? ~u_be : '1;
+ end
+ 
+@@ -200,6 +212,9 @@
+             u_addr <= addr;
+             u_din <= din;
+             u_be <= be;
++            u_burst <= wr && !rd && wr_burst;
++            u_din_burst <= din_burst;
++            u_be_burst <= be_burst;
+         end
+         if (ce) begin
+             if (calib_done && !req && !pending && busy && !u_valid) busy <= 0;  // after init/calibration

@@ -1,0 +1,285 @@
+# OV3660 register setup for the Tang Primer 20K camera pipeline:
+# 384x384 RGB565 from the sensor's 1:1 window (1536x1536, binned
+# 2x2 to 768x768 and scaled to 384x384), ~30 fps with a 24 MHz XCLK (PCLK 2x: 2 bytes per pixel).
+#
+# Format: "<addr> <data>" in hex, "delay <ms>", "#" comments. Used by
+# scripts/camcheck.py (init) and, later, the FPGA's SCCB init ROM.
+#
+# Derived from Espressif esp32-camera (sensors/ov3660.c and
+# sensors/private_include/ov3660_settings.h), Copyright Espressif Systems,
+# licensed under the Apache License 2.0
+# (https://www.apache.org/licenses/LICENSE-2.0). Changes: register names
+# resolved to addresses; the reset + default + set_ae_level(0) +
+# set_pixformat(GRAYSCALE) + set_framesize() sequence flattened for a
+# custom 384x384 size on the 1:1 window; PLL retuned for 24 MHz XCLK / ~30 fps.
+
+# --- reset() / sensor_default_regs ---
+3008 82    # software reset
+delay 100   # reset() waits 100 ms after the software reset (the table itself has 10)
+3103 13
+3008 42
+3017 ff
+3018 ff
+302c c3
+4740 21
+3611 01
+3612 2d
+3032 00
+3614 80
+3618 00
+3619 75
+3622 80
+3623 00
+3624 03
+3630 52
+3632 07
+3633 d2
+3704 80
+3708 66
+3709 12
+370b 12
+3717 00
+371b 60
+371c 00
+3901 13
+3600 08
+3620 43
+3702 20
+3739 48
+3730 20
+370c 0c
+3a18 00
+3a19 f8
+3000 10
+3004 ef
+6700 05
+6701 19
+6702 fd
+6703 d1
+6704 ff
+6705 ff
+3c01 80
+3c00 04
+3a08 00
+3a09 62    # 50Hz Band Width Step (10bit)
+3a0e 08    # 50Hz Max Bands in One Frame (6 bit)
+3a0a 00
+3a0b 52    # 60Hz Band Width Step (10bit)
+3a0d 09    # 60Hz Max Bands in One Frame (6 bit)
+3a00 3a    # night mode off
+3a14 09
+3a15 30
+3a02 09
+3a03 30
+440e 08
+4520 0b
+460b 37
+4713 02
+471c d0
+5086 00
+5002 00
+501f 00
+3008 02
+5180 ff
+5181 f2
+5182 00
+5183 14
+5184 25
+5185 24
+5186 16
+5187 16
+5188 16
+5189 68
+518a 60
+518b e0
+518c b2
+518d 42
+518e 35
+518f 56
+5190 56
+5191 f8
+5192 04
+5193 70
+5194 f0
+5195 f0
+5196 03
+5197 01
+5198 04
+5199 12
+519a 04
+519b 00
+519c 06
+519d 82
+519e 38
+5381 1d
+5382 60
+5383 03
+5384 0c
+5385 78
+5386 84
+5387 7d
+5388 6b
+5389 12
+538a 01
+538b 98
+5480 01
+5481 05
+5482 09
+5483 10
+5484 3a
+5485 4c
+5486 5a
+5487 68
+5488 74
+5489 80
+548a 8e
+548b a4
+548c b4
+548d c8
+548e de
+548f f0
+5490 15
+5000 a7
+5800 0c
+5801 09
+5802 0c
+5803 0c
+5804 0d
+5805 17
+5806 06
+5807 05
+5808 04
+5809 06
+580a 09
+580b 0e
+580c 05
+580d 01
+580e 01
+580f 01
+5810 05
+5811 0d
+5812 05
+5813 01
+5814 01
+5815 01
+5816 05
+5817 0d
+5818 08
+5819 06
+581a 05
+581b 07
+581c 0b
+581d 0d
+581e 12
+581f 0d
+5820 0e
+5821 10
+5822 10
+5823 1e
+5824 53
+5825 15
+5826 05
+5827 14
+5828 54
+5829 25
+582a 33
+582b 33
+582c 34
+582d 16
+582e 24
+582f 41
+5830 50
+5831 42
+5832 15
+5833 25
+5834 34
+5835 33
+5836 24
+5837 26
+5838 54
+5839 25
+583a 15
+583b 25
+583c 53
+583d cf
+3a0f 30
+3a10 28
+3a1b 30
+3a1e 28
+3a11 60
+3a1f 14
+5302 28
+5303 20
+5306 1c    # de-noise offset 1
+5307 28    # de-noise offset 2
+4002 c5
+4003 81
+4005 12
+5688 11
+5689 11
+568a 11
+568b 11
+568c 11
+568d 11
+568e 11
+568f 11
+5580 06
+5588 00
+5583 40
+5584 2c
+5001 83    # turn color matrix, awb and SDE
+
+# --- set_ae_level(0) ---
+3a0f 3b
+3a10 32
+3a1b 3b
+3a1e 32
+3a11 76
+3a1f 19
+delay 100
+
+# --- set_pixformat(RGB565) ---
+501f 01    # FORMAT_CTRL: RGB path
+4300 61    # FORMAT_CTRL00: RGB565 {R[4:0],G[5:3]} {G[2:0],B[4:0]}
+
+# --- set_framesize(384x384) on the 1:1 window (ratio_table entry 1x1) ---
+# window start x=256 y=0, end x=1823 y=1547, output 384x384
+3800 01
+3801 00
+3802 00
+3803 00
+3804 07
+3805 1f
+3806 06
+3807 0b
+3808 01
+3809 80
+380a 01
+380b 80
+# binning (384 <= 768): HTS 2044, VTS 1564/2+1 = 783, ISP offset 8, 2
+380c 07
+380d fc
+380e 03
+380f 0f
+3810 00
+3811 08
+3812 00
+3813 03
+5001 a3    # ISP_CONTROL_01: defaults 0x83 + scale enable (0x20)
+# set_image_options(): binning, no flip/mirror
+3820 01
+3821 01
+4514 aa
+4520 0b
+3814 31
+3815 31
+
+# --- set_pll(): XCLK 24 MHz x 8 = 192 MHz PLLCLK, SYSCLK 48 MHz (~30 fps
+# with 2044 x 783), PCLK = 192 / 2 / 4 = 24 MHz (manual PCLK ratio).
+# esp32-camera tunes for 16 MHz XCLK / 8 MHz PCLK; this is faster.
+303a 00    # PLL not bypassed
+303b 08    # multiplier 8
+303c 11    # charge pump 1, sys_div 1
+303d 00    # pre_div /1, seld5 /1
+3824 02    # PCLK ratio 2: 2 bytes per pixel
+460c 22    # PCLK manual

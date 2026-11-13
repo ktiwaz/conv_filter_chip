@@ -49,7 +49,8 @@ module fpga_tb_core #(
     parameter GRAB_CROP_Y  = 40,
     parameter GRAB_SCALE   = 5,
     parameter GRAB_BANKS   = 2,
-    parameter GRAB_GRAY_IN = 0
+    parameter GRAB_GRAY_IN = 0,
+    parameter GRAB_PIX_CE  = 0      // 1: rx_ce marks pixel slots (see video_downscale)
 ) (
     input  wire                  clk,
     input  wire                  aresetn,     // synchronous, active low
@@ -63,6 +64,7 @@ module fpga_tb_core #(
     input  wire                  rx_locked,
     input  wire [23:0]           rx_data,     // {R, B, G}
     input  wire                  rx_de,
+    input  wire                  rx_ce,       // GRAB_PIX_CE = 1 only
 
     // AXI4 slave (from jtag_axi)
     input  wire [ID_WIDTH-1:0]   s_axi_awid,
@@ -446,12 +448,14 @@ module fpga_tb_core #(
                 .CROP_Y(GRAB_CROP_Y),
                 .SCALE(GRAB_SCALE),
                 .BANKS(GRAB_BANKS),
-                .GRAY_IN(GRAB_GRAY_IN)
+                .GRAY_IN(GRAB_GRAY_IN),
+                .PIX_CE(GRAB_PIX_CE)
             ) grabber (
                 .rx_clk(rx_clk),
                 .rx_rst(rx_rst_s[2]),
                 .rx_data(rx_data),
                 .rx_de(rx_de),
+                .rx_ce(rx_ce),
                 .frame_toggle(rx_toggle),
                 .frame_bank(rx_bank),
                 .h_active(rx_h),

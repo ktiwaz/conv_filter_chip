@@ -14,6 +14,10 @@
 #   make sim-grab   grabber in its camera configuration vs a reference model
 #   make sim-tmds   TMDS encoder vs a reference decoder
 #   make sim-sccb   camera init engine + register ROM vs an SCCB monitor
+#   make sim-ddrarb DDR3 arbiter + AXI window vs a model of the controller
+#   make sim-pvwr   RGB565 capture + preview writer vs a synthetic camera
+#   make sim-pvrd   preview reader vs a 720p scan (DDR side out of reset late)
+#   make sim-ddrsys preview writer + AXI window + reader traffic on one arbiter
 #   The camera initializes itself and goes live after reset (no PC needed);
 #   ../scripts/cam_host.py status / grab / init (manual) still work.
 #   make bit-cam-gowin / program-cam-gowin   same design with Gowin EDA (cross-check)
@@ -64,7 +68,7 @@ RTL := tp20k_top.v \
 INIT_FILE := $(ROOT)/input_image_w32.hex
 HOST      := $(PY) $(ROOT)/scripts/tb_host.py --baud $(BAUD) $(if $(PORT),--port $(PORT))
 
-.PHONY: all bit program flash sim host-test clean bit-cam program-cam flash-cam sim-grab bit-cam-gowin program-cam-gowin sim-tmds sim-sccb flash-cam-gowin
+.PHONY: all bit program flash sim host-test clean bit-cam program-cam flash-cam sim-grab bit-cam-gowin program-cam-gowin sim-tmds sim-sccb flash-cam-gowin sim-ddrarb sim-pvwr sim-pvrd sim-ddrsys
 all: bit
 
 $(BUILD):
@@ -101,8 +105,14 @@ $(BUILD)/tp20k.fs: $(BUILD)/tp20k_pnr.json
 
 bit: $(BUILD)/tp20k.fs
 
+# SRAM loads first reconfigure from flash over JTAG (RELOAD, openFPGALoader
+# --reset): erasing SRAM directly hangs while the camera + DDR3 bitstream is
+# running (status stays in edit mode, MEMORY_ERASE never sets) until a power
+# cycle; over the flash design it always works.
+LOAD = openFPGALoader -b tangprimer20k --reset && sleep 2 && openFPGALoader -b tangprimer20k
+
 program: $(BUILD)/tp20k.fs
-	openFPGALoader -b tangprimer20k $<
+	$(LOAD) $<
 
 flash: $(BUILD)/tp20k.fs
 	openFPGALoader -b tangprimer20k -f $<
@@ -110,14 +120,28 @@ flash: $(BUILD)/tp20k.fs
 #--------------------------------------------------
 # Camera pipeline
 #--------------------------------------------------
-CAM_REGS := cam/ov3660_384sq_y8.txt
+CAM_REGS := cam/ov3660_384sq_rgb565.txt
 CAM_RTL := tp20k_cam_top.v rtl/hdmi_tx_gowin.v rtl/tmds_encoder.v rtl/sccb_init.v \
            $(ROOT)/rtl/fpga_tb_core.v $(ROOT)/rtl/axi4_slave_native.v $(ROOT)/rtl/bram_dp_be.v \
            $(ROOT)/rtl/dut_sequencer.v $(ROOT)/rtl/link_phy.v \
            $(ROOT)/rtl/video_downscale.v $(ROOT)/rtl/video_frame.v $(ROOT)/rtl/video_out.v \
            $(ROOT)/rtl/video_timing.v $(ROOT)/rtl/text_line.v \
            $(BRIDGE)/dbg_bridge.v $(BRIDGE)/dbg_bridge_uart.v $(BRIDGE)/dbg_bridge_fifo.v \
-           $(BUILD)/kernel_rom.v $(BUILD)/font_rom.v $(BUILD)/chip.v $(BUILD)/cam_init_rom.v
+           $(BUILD)/kernel_rom.v $(BUILD)/font_rom.v $(BUILD)/chip.v $(BUILD)/cam_init_rom.v \
+           rtl/ddr_arb.v rtl/axi_ddr.v rtl/async_fifo.v rtl/pix565.v rtl/preview_wr.v \
+           rtl/preview_rd.v rtl/cam_compositor.v
+# DDR3 (SystemVerilog, gowin-ddr3 submodule + our burst-write patch)
+DDR3    := $(ROOT)/third_party/gowin-ddr3
+CAM_SV  := rtl/ddr3_sys.sv
+CAM_SV_DEPS := $(CAM_SV) $(BUILD)/ddr3/ddr3_ctrl.sv $(BUILD)/ddr3/ddr3_phy_2to1.sv $(wildcard $(DDR3)/ddr3/*.sv $(DDR3)/ddr3/clk/*.sv)
+
+# gowin-ddr3 files we patch (ddr3/*.patch): ddr3_ctrl with BL8 burst writes,
+# ddr3_phy_2to1 holding the write data instead of a 9-deep pipeline. The
+# copies go to $(BUILD)/ddr3, which comes first on the include path.
+$(BUILD)/ddr3/%.sv: $(DDR3)/ddr3/%.sv ddr3/%.patch | $(BUILD)
+	mkdir -p $(BUILD)/ddr3
+	cp $< $@
+	patch -s -p1 -d $(BUILD) < ddr3/$*.patch
 
 $(BUILD)/font_rom.v: $(ROOT)/scripts/gen_font.py | $(BUILD)
 	$(PY) $< $@
@@ -130,8 +154,9 @@ $(BUILD)/cam_init_rom.v $(BUILD)/cam_init_expected.hex &: $(ROOT)/scripts/gen_ca
 # ROMs) go to logic. In block RAM their short address paths fail nextpnr's
 # hold check at 74.25 MHz.
 CAM_CLK_HZ := 46406250   # 371.25 MHz / 8 (tp20k_cam_top's single PLL)
-$(BUILD)/cam.json: $(CAM_RTL) $(INIT_FILE)
+$(BUILD)/cam.json: $(CAM_RTL) $(CAM_SV_DEPS) $(INIT_FILE)
 	yosys -q -l $(BUILD)/yosys_cam.log -p "read_verilog -defer $(CAM_RTL); \
+		read_verilog -sv -defer -I$(abspath $(BUILD)) -I$(DDR3) $(CAM_SV); \
 		hierarchy -top tp20k_cam_top -chparam CLK_HZ $(CAM_CLK_HZ) -chparam BAUD $(BAUD); \
 		synth_gowin -top tp20k_cam_top -family gw2a -run :map_ram; \
 		setattr -set ram_style \"logic\" t:\$$mem_v2 a:ram_style %d; \
@@ -151,7 +176,7 @@ $(BUILD)/cam.fs: $(BUILD)/cam_pnr.json
 bit-cam: $(BUILD)/cam.fs
 
 program-cam: $(BUILD)/cam.fs
-	openFPGALoader -b tangprimer20k $<
+	$(LOAD) $<
 
 flash-cam: $(BUILD)/cam.fs
 	openFPGALoader -b tangprimer20k -f $<
@@ -178,6 +203,28 @@ sim-tmds: | $(BUILD)
 	iverilog -g2012 -o $(BUILD)/tb_tmds.vvp -s tb_tmds sim/tb_tmds.sv rtl/tmds_encoder.v
 	vvp -n $(BUILD)/tb_tmds.vvp | tee $(BUILD)/sim_tmds.out
 	@grep -q '^PASS' $(BUILD)/sim_tmds.out
+
+sim-pvwr: | $(BUILD)
+	iverilog -g2012 -o $(BUILD)/tb_preview_wr.vvp -s tb_preview_wr sim/tb_preview_wr.sv \
+		rtl/pix565.v rtl/async_fifo.v rtl/preview_wr.v
+	vvp -n $(BUILD)/tb_preview_wr.vvp | tee $(BUILD)/sim_pvwr.out
+	@grep -q '^PASS' $(BUILD)/sim_pvwr.out
+
+sim-pvrd: | $(BUILD)
+	iverilog -g2012 -o $(BUILD)/tb_preview_rd.vvp -s tb_preview_rd sim/tb_preview_rd.sv rtl/preview_rd.v
+	vvp -n $(BUILD)/tb_preview_rd.vvp | tee $(BUILD)/sim_pvrd.out
+	@grep -q '^PASS' $(BUILD)/sim_pvrd.out
+
+sim-ddrsys: | $(BUILD)
+	iverilog -g2012 -o $(BUILD)/tb_ddr_sys.vvp -s tb_ddr_sys sim/tb_ddr_sys.sv rtl/ddr_arb.v \
+		rtl/axi_ddr.v rtl/pix565.v rtl/async_fifo.v rtl/preview_wr.v
+	vvp -n $(BUILD)/tb_ddr_sys.vvp | tee $(BUILD)/sim_ddrsys.out
+	@grep -q '^PASS' $(BUILD)/sim_ddrsys.out
+
+sim-ddrarb: | $(BUILD)
+	iverilog -g2012 -o $(BUILD)/tb_ddr_arb.vvp -s tb_ddr_arb sim/tb_ddr_arb.sv rtl/ddr_arb.v rtl/axi_ddr.v
+	vvp -n $(BUILD)/tb_ddr_arb.vvp | tee $(BUILD)/sim_ddrarb.out
+	@grep -q '^PASS' $(BUILD)/sim_ddrarb.out
 
 sim-sccb: $(BUILD)/cam_init_rom.v $(BUILD)/cam_init_expected.hex
 	iverilog -g2012 -o $(BUILD)/tb_sccb_init.vvp -s tb_sccb_init \

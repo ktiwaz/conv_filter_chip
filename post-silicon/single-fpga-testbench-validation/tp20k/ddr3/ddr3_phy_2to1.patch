@@ -1,0 +1,40 @@
+--- a/ddr3/ddr3_phy_2to1.sv
++++ b/ddr3/ddr3_phy_2to1.sv
+@@ -166,18 +166,19 @@
+ // Writes: the WRITE goes out with the cycle's command, its first DQS rising
+ // edge is due at the CWL-th CK edge after it, so the ODDRs take DQS and beats
+ // 0 and 1 CWL cycles after the WRITE, the other beats in the 3 cycles after.
++// The data is held from the WRITE on rather than delayed in a W-deep
++// pipeline: with ddr3_ctrl's closed-page accesses, one at a time, WRITEs are
++// far more than W cycles apart (ACT ... precharge for every access).
+ localparam W = CWL + 3;
+ reg [W-1:0] w_act;
+ initial w_act = '0;
+-reg [8*DQ_W-1:0] w_data [W];
+-reg [DQ_W-1:0] w_mask [W];
++reg [8*DQ_W-1:0] w_hold;
++reg [DQ_W-1:0] w_hold_mask;
+ always @(posedge clk) begin
+     w_act <= {w_act[W-2:0], phy_wr};
+-    w_data[0] <= phy_wdata;
+-    w_mask[0] <= phy_wmask;
+-    for (int i = 1; i < W; i++) begin
+-        w_data[i] <= w_data[i-1];
+-        w_mask[i] <= w_mask[i-1];
++    if (phy_wr) begin
++        w_hold <= phy_wdata;
++        w_hold_mask <= phy_wmask;
+     end
+ end
+ // beat pair k (0..3) of the burst whose WRITE was CWL+k cycles ago
+@@ -190,8 +191,8 @@
+     w_pair_mask = '1;
+     for (int k = 0; k < 4; k++)
+         if (w_on[k]) begin
+-            w_pair = w_data[CWL-1+k][2*DQ_W*k +: 2*DQ_W];
+-            w_pair_mask = w_mask[CWL-1+k][2*LANES*k +: 2*LANES];
++            w_pair = w_hold[2*DQ_W*k +: 2*DQ_W];
++            w_pair_mask = w_hold_mask[2*LANES*k +: 2*LANES];
+         end
+ end
+ 
