@@ -27,8 +27,11 @@ $(BUILD)/pnr.json: $(BUILD)/synth.json
 $(BUILD)/top.fs: $(BUILD)/pnr.json
 	$(PACK) -d GW2A-18C -o $@ $<
 
+OFL     := $(TOOLS)/bin/openFPGALoader
+
+# reconfigure from flash first, as tp20k/Makefile's program targets do
 program: $(BUILD)/top.fs
-	openFPGALoader -b tangprimer20k $<
+	$(OFL) -b tangprimer20k --reset && sleep 2 && $(OFL) -b tangprimer20k $<
 
 clean:
 	rm -rf $(BUILD)

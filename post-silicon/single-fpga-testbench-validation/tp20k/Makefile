@@ -9,25 +9,23 @@
 #
 # Camera -> DUT -> 720p HDMI pipeline (tp20k_cam_top; the tester works on it too):
 #   make bit-cam / program-cam / flash-cam    build/cam.fs
-#   make flash-cam-gowin   SPI flash via Gowin's programmer_cli (see README:
-#                   openFPGALoader's flash write stalls on dense bitstreams)
 #   make sim-grab   grabber in its camera configuration vs a reference model
 #   make sim-tmds   TMDS encoder vs a reference decoder
 #   make sim-sccb   camera init engine + register ROM vs an SCCB monitor
 #   make sim-ddrarb DDR3 arbiter + AXI window vs a model of the controller
 #   make sim-pvwr   RGB565 capture + preview writer vs a synthetic camera
 #   make sim-pvrd   preview reader vs a 720p scan (DDR side out of reset late)
-#   make sim-ddrsys preview writer + AXI window + reader traffic on one arbiter
+#   make sim-ddrsys all five DDR3 ports on one arbiter (preview, grabber, DMA, bridge window)
+#   make sim-cgrab  colour grabber -> DDR3 -> plane DMA vs reference averages
 #   The camera initializes itself and goes live after reset (no PC needed);
 #   ../scripts/cam_host.py status / grab / init (manual) still work.
-#   make bit-cam-gowin / program-cam-gowin   same design with Gowin EDA (cross-check)
 #
 #   make clean
 #
 # First: git submodule update --init, then tools/setup.sh (nextpnr + apycula).
 #
 # Variables: BAUD (default 1000000), PORT (default: autodetect), PY,
-#   SEED (nextpnr placement seed for the camera build), GOWIN_HOME.
+#   SEED (nextpnr placement seed for the camera build).
 # Needs sv2v (the chip RTL uses unpacked-array ports) and pyserial for the host.
 #
 # Place-and-route tools are built locally from the pinned submodules
@@ -46,15 +44,11 @@ PORT    ?=
 TOOLS   := $(abspath tools)
 NEXTPNR := $(TOOLS)/bin/nextpnr-himbaechel
 PACK    := $(TOOLS)/venv/bin/gowin_pack
+OFL     := $(TOOLS)/bin/openFPGALoader
 define check_tools
-	@test -x $(NEXTPNR) -a -x $(PACK) || { echo "local toolchain missing: run tools/setup.sh" >&2; false; }
+	@test -x $(NEXTPNR) -a -x $(PACK) -a -x $(OFL) || { echo "local toolchain missing: run tools/setup.sh" >&2; false; }
 endef
 SEED       ?= 1   # any seed: 10/10 seeds meet 74.25 MHz with >= 15 % margin
-GOWIN_HOME ?= $(HOME)/.local/Gowin_EDA
-# Gowin's bundled FreeType breaks the system fontconfig; no display for gw_sh
-GW_SH      := QT_QPA_PLATFORM=minimal LD_PRELOAD=/usr/lib/libfreetype.so.6 $(GOWIN_HOME)/IDE/bin/gw_sh
-GW_PROG    := cd $(GOWIN_HOME)/Programmer/bin && QT_QPA_PLATFORM=minimal \
-              LD_PRELOAD="/usr/lib/libfreetype.so.6 /usr/lib/libz.so.1" ./programmer_cli
 
 BRIDGE  := $(ROOT)/third_party/core_dbg_bridge/src_v
 CHIP_SV := $(addprefix $(ROOT)/,$(filter %.sv,$(shell cat $(ROOT)/dut_sources.f)))
@@ -68,7 +62,7 @@ RTL := tp20k_top.v \
 INIT_FILE := $(ROOT)/input_image_w32.hex
 HOST      := $(PY) $(ROOT)/scripts/tb_host.py --baud $(BAUD) $(if $(PORT),--port $(PORT))
 
-.PHONY: all bit program flash sim host-test clean bit-cam program-cam flash-cam sim-grab bit-cam-gowin program-cam-gowin sim-tmds sim-sccb flash-cam-gowin sim-ddrarb sim-pvwr sim-pvrd sim-ddrsys
+.PHONY: all bit program flash sim host-test clean bit-cam program-cam flash-cam sim-grab sim-tmds sim-sccb sim-ddrarb sim-pvwr sim-pvrd sim-ddrsys sim-cgrab
 all: bit
 
 $(BUILD):
@@ -109,13 +103,16 @@ bit: $(BUILD)/tp20k.fs
 # --reset): erasing SRAM directly hangs while the camera + DDR3 bitstream is
 # running (status stays in edit mode, MEMORY_ERASE never sets) until a power
 # cycle; over the flash design it always works.
-LOAD = openFPGALoader -b tangprimer20k --reset && sleep 2 && openFPGALoader -b tangprimer20k
+LOAD  = $(OFL) -b tangprimer20k --reset && sleep 2 && $(OFL) -b tangprimer20k
+# SPI flash, read back and compared (our openFPGALoader writes 128-byte chunks)
+FLASH = $(OFL) -b tangprimer20k --reset && sleep 2 && $(OFL) -b tangprimer20k -f --verify
 
 program: $(BUILD)/tp20k.fs
 	$(LOAD) $<
 
 flash: $(BUILD)/tp20k.fs
-	openFPGALoader -b tangprimer20k -f $<
+	$(check_tools)
+	$(FLASH) $<
 
 #--------------------------------------------------
 # Camera pipeline
@@ -129,7 +126,8 @@ CAM_RTL := tp20k_cam_top.v rtl/hdmi_tx_gowin.v rtl/tmds_encoder.v rtl/sccb_init.
            $(BRIDGE)/dbg_bridge.v $(BRIDGE)/dbg_bridge_uart.v $(BRIDGE)/dbg_bridge_fifo.v \
            $(BUILD)/kernel_rom.v $(BUILD)/font_rom.v $(BUILD)/chip.v $(BUILD)/cam_init_rom.v \
            rtl/ddr_arb.v rtl/axi_ddr.v rtl/async_fifo.v rtl/pix565.v rtl/preview_wr.v \
-           rtl/preview_rd.v rtl/cam_compositor.v
+           rtl/preview_rd.v rtl/cam_compositor.v rtl/rgb_grab.v rtl/plane_dma.v rtl/color_live.v \
+           rtl/color_frame.v
 # DDR3 (SystemVerilog, gowin-ddr3 submodule + our burst-write patch)
 DDR3    := $(ROOT)/third_party/gowin-ddr3
 CAM_SV  := rtl/ddr3_sys.sv
@@ -179,25 +177,8 @@ program-cam: $(BUILD)/cam.fs
 	$(LOAD) $<
 
 flash-cam: $(BUILD)/cam.fs
-	openFPGALoader -b tangprimer20k -f $<
-
-# SPI flash through Gowin's programmer (exFlash erase, program, verify).
-# Unbind ftdi_sio from the debugger first (README); replug afterwards.
-flash-cam-gowin: $(BUILD)/cam.fs
-	$(GW_PROG) --device GW2A-18C --operation_index 9 --fsFile $(abspath $<) \
-		--cable "USB Debugger A" --channel 0
-
-# Gowin EDA build of the same design (gowin/cam.tcl): writes impl/pnr/tp20k_cam.fs
-GOWIN_FS := impl/pnr/tp20k_cam.fs
-$(GOWIN_FS): $(CAM_RTL) $(INIT_FILE) gowin/cam.tcl gowin/tp20k_cam_gowin.cst gowin/tp20k_cam.sdc
-	rm -rf impl
-	$(GW_SH) gowin/cam.tcl > $(BUILD)/gowin_cam.log 2>&1 || (grep -E '^ERROR' $(BUILD)/gowin_cam.log; false)
-	@test -f $@
-
-bit-cam-gowin: $(GOWIN_FS)
-
-program-cam-gowin: $(GOWIN_FS)
-	openFPGALoader -b tangprimer20k $<
+	$(check_tools)
+	$(FLASH) $<
 
 sim-tmds: | $(BUILD)
 	iverilog -g2012 -o $(BUILD)/tb_tmds.vvp -s tb_tmds sim/tb_tmds.sv rtl/tmds_encoder.v
@@ -216,10 +197,16 @@ sim-pvrd: | $(BUILD)
 	@grep -q '^PASS' $(BUILD)/sim_pvrd.out
 
 sim-ddrsys: | $(BUILD)
-	iverilog -g2012 -o $(BUILD)/tb_ddr_sys.vvp -s tb_ddr_sys sim/tb_ddr_sys.sv rtl/ddr_arb.v \
-		rtl/axi_ddr.v rtl/pix565.v rtl/async_fifo.v rtl/preview_wr.v
-	vvp -n $(BUILD)/tb_ddr_sys.vvp | tee $(BUILD)/sim_ddrsys.out
+	iverilog -g2012 -o $(BUILD)/tb_ddr_all.vvp -s tb_ddr_all sim/tb_ddr_all.sv rtl/ddr_arb.v \
+		rtl/axi_ddr.v rtl/pix565.v rtl/async_fifo.v rtl/preview_wr.v rtl/rgb_grab.v rtl/plane_dma.v
+	vvp -n $(BUILD)/tb_ddr_all.vvp | tee $(BUILD)/sim_ddrsys.out
 	@grep -q '^PASS' $(BUILD)/sim_ddrsys.out
+
+sim-cgrab: | $(BUILD)
+	iverilog -g2012 -o $(BUILD)/tb_color_grab.vvp -s tb_color_grab sim/tb_color_grab.sv rtl/pix565.v \
+		rtl/async_fifo.v rtl/rgb_grab.v rtl/plane_dma.v rtl/ddr_arb.v
+	vvp -n $(BUILD)/tb_color_grab.vvp | tee $(BUILD)/sim_cgrab.out
+	@grep -q '^PASS' $(BUILD)/sim_cgrab.out
 
 sim-ddrarb: | $(BUILD)
 	iverilog -g2012 -o $(BUILD)/tb_ddr_arb.vvp -s tb_ddr_arb sim/tb_ddr_arb.sv rtl/ddr_arb.v rtl/axi_ddr.v
@@ -255,4 +242,4 @@ host-test:
 	$(HOST) run-all
 
 clean:
-	rm -rf $(BUILD) impl
+	rm -rf $(BUILD)

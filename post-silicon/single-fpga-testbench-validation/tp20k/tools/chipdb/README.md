@@ -14,5 +14,6 @@ build of the pinned commit, so the toolchain builds without Gowin EDA:
 
 When bumping the apicula submodule, replace both with the databases of the
 new commit: take the `0.0.0.dev` tarball right after that commit's
-"Chipdb builder" run, or build them with `make` in apicula with `GOWINHOME`
-set (Gowin EDA 1.9.10.03). Then rerun `tools/setup.sh`.
+"Chipdb builder" run (`gh release download 0.0.0.dev -R YosysHQ/apicula`),
+check that the run built that commit, and update the hashes here. Then rerun
+`tools/setup.sh`.

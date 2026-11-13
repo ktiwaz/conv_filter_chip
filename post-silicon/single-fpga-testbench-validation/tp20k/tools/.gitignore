@@ -5,3 +5,6 @@ share/
 cmake.log
 build.log
 setup.out
+build-openfpgaloader/
+cmake_ofl.log
+build_ofl.log

@@ -46,11 +46,12 @@ module axi_ddr #(
     output reg                 d_req,
     output reg                 d_we,
     output reg  [AW-5:0]       d_baddr,
-    output reg  [127:0]        d_wdata,         // registered on the DDR clock with d_req
-    output reg  [15:0]         d_wbe,
+    output wire [127:0]        d_wdata,         // from DDR-clock registers, stable while d_req
+    output wire [15:0]         d_wbe,
     input  wire                d_gnt,
     input  wire                d_rvalid,
-    input  wire [127:0]        d_rdata
+    input  wire [127:0]        d_rdata,
+    output reg                 d_timeout        // sticky (DDR clock): a request was abandoned
 );
 
     localparam S_IDLE = 3'd0, S_WDATA = 3'd1, S_WWAIT = 3'd2, S_WRESP = 3'd3,
@@ -144,39 +145,73 @@ module axi_ddr #(
 
     //==================================================
     // DDR clock side
+    //
+    // A write beat is a read-modify-write of its whole burst: read it, merge
+    // the strobed bytes, write all 16 bytes back. Masked partial writes (DM)
+    // are avoided: on the board, about one in 8000 of them put the next
+    // beat's byte 0 into the low byte lane while other ports were writing
+    // (not reproducible in simulation, so a DRAM-side timing effect); the
+    // full-burst writes the video ports use have shown no errors.
     //==================================================
     (* ASYNC_REG = "TRUE" *) reg [2:0] req_s = 3'b000;
     wire new_req = req_s[2] != req_s[1];
-    reg  busy;
+    reg  busy, rmw_rd;                   // rmw_rd: the read half of a write beat
+    reg  [20:0] wait_cnt;                // DDR cycles the current request has waited
     wire [3:0] lane = {q_addr[3:2], 2'b00};          // byte offset of the beat in the burst
+    reg  [127:0] buf_w;                  // the burst being written
+    assign d_wdata = buf_w;
+    assign d_wbe   = 16'hFFFF;
 
+    integer i;
     always @(posedge dclk) begin
         req_s <= {req_s[1:0], req_t};
         if (drst) begin
-            d_req <= 1'b0;
-            busy  <= 1'b0;
+            d_req  <= 1'b0;
+            busy   <= 1'b0;
+            rmw_rd <= 1'b0;
+            d_timeout <= 1'b0;
         end else begin
+            // a request not served within 2^21 cycles (~22 ms) is abandoned,
+            // so the bridge can't hang; d_timeout records it
+            wait_cnt <= busy ? wait_cnt + 21'd1 : 21'd0;
+            if (busy && d_req && wait_cnt == 21'h1FFFFF) begin
+                d_req     <= 1'b0;
+                d_timeout <= 1'b1;
+                ack_data  <= 32'hDEADDEAD;
+                ack_t     <= !ack_t;
+                busy      <= 1'b0;
+                rmw_rd    <= 1'b0;
+            end
             if (new_req && !busy) begin
+                // first a read in both cases (q_* are fabric-clock registers,
+                // stable since the toggle)
                 d_req   <= 1'b1;
-                d_we    <= q_we;
+                d_we    <= 1'b0;
                 d_baddr <= q_addr[AW-1:4];
-                // registered here, so the controller only sees DDR-clock
-                // registers (q_* are fabric-clock, stable since the toggle)
-                d_wdata <= {96'd0, q_data} << (8 * lane);
-                d_wbe   <= {12'd0, q_strb} << lane;
+                rmw_rd  <= q_we;
                 busy    <= 1'b1;
             end
             if (d_gnt) begin
                 d_req <= 1'b0;
-                if (d_we) begin
+                if (d_we) begin              // the write half: done
                     ack_t <= !ack_t;
                     busy  <= 1'b0;
                 end
             end
             if (d_rvalid) begin
-                ack_data <= d_rdata >> (8 * lane);
-                ack_t    <= !ack_t;
-                busy     <= 1'b0;
+                if (rmw_rd) begin
+                    // merge the strobed bytes, then write the whole burst
+                    for (i = 0; i < 16; i = i + 1)
+                        buf_w[8 * i +: 8] <= (i >= lane && i < lane + 4 && q_strb[i - lane])
+                                             ? q_data[8 * (i - lane) +: 8] : d_rdata[8 * i +: 8];
+                    rmw_rd <= 1'b0;
+                    d_we   <= 1'b1;
+                    d_req  <= 1'b1;
+                end else begin
+                    ack_data <= d_rdata >> (8 * lane);
+                    ack_t    <= !ack_t;
+                    busy     <= 1'b0;
+                end
             end
         end
     end

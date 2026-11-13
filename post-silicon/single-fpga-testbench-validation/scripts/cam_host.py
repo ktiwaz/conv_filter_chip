@@ -23,6 +23,7 @@ Commands:
                      bypassed), read back over the UART
   reg <addr> [val]   read (or write) one sensor register, hex (manual)
   href-invert 0|1    capture on HREF low instead of high
+  color auto|gray|on DUT output per preset (edge detectors gray), or forced
   off                power the sensor down (manual)
 """
 import argparse
@@ -40,6 +41,7 @@ DEFAULT_REGS = os.path.join(os.path.dirname(HERE), "tp20k", "cam", "ov3660_384sq
 GPIO = 0xF000_0000
 # GPIO out bits (tp20k_cam_top)
 PWDN, RUN, SCL_LOW, SDA_LOW, HREF_INV, LIVE, MANUAL, NO_AUTO_LIVE = 1, 2, 4, 8, 16, 32, 64, 128
+FREEZE, FORCE_GRAY, FORCE_COLOR = 0x100, 0x200, 0x400
 CAM_PINS = PWDN | RUN | SCL_LOW | SDA_LOW
 # fpga_tb_core video registers
 VIDEO, RX_SIZE, RX_FRAMES, LIVE_RUNS, LIVE_DROP = 0x0002_0024, 0x0002_0028, 0x0002_002C, 0x0002_0030, 0x0002_0034
@@ -52,7 +54,7 @@ class GpioCam(Cam):
 
     def __init__(self, bus, check_acks=False):
         self.bus = bus
-        self.ctrl = bus.read32(GPIO) >> 16 & 0xFF
+        self.ctrl = bus.read32(GPIO) >> 16 & 0xFFF       # GPIO out [11:0] read back
         self.check_acks = check_acks
 
     def set_ctrl(self, value):
@@ -165,11 +167,13 @@ def cmd_init(t, cam, regfile):
 
 def cmd_status(t, cam):
     g = t.bus.read32(GPIO)
-    ctrl = g >> 16 & 0xFF
-    nacks = g >> 24 & 0x7F
-    init = f"done, {nacks}{'+' if nacks == 0x7F else ''} NACKs" if g >> 31 else "running"
+    ctrl = g >> 16 & 0xFFF
+    nacks = g >> 28 & 7
+    init = f"done, {nacks}{'+' if nacks == 7 else ''} NACKs" if g >> 31 else "running"
+    mode = "gray (forced)" if ctrl & FORCE_GRAY else "colour (forced)" if ctrl & FORCE_COLOR else "per preset"
     print(f"FPGA camera init {init}; pins {'MANUAL (PC)' if ctrl & MANUAL else 'FPGA'}; "
-          f"auto live {'off' if ctrl & NO_AUTO_LIVE else 'on'}")
+          f"auto live {'off' if ctrl & NO_AUTO_LIVE else 'on'}; DUT output {mode}, "
+          f"now {'colour' if g >> 5 & 1 else 'gray'}")
     print(f"SCL={g & 1} SDA={g >> 1 & 1} VSYNC={g >> 2 & 1} HREF={g >> 3 & 1} preset={g >> 8 & 15}")
     v, size = t.read1(VIDEO), t.read1(RX_SIZE)
     f0, r0, t0 = t.read1(RX_FRAMES), t.read1(LIVE_RUNS), time.monotonic()
@@ -183,7 +187,10 @@ def cmd_status(t, cam):
 def cmd_grab(t, cam, path):
     # Live mode is also held on by the GPIO switch (automatic after init);
     # pause it, or later frames overwrite the capture RAM during readout.
+    # Gray mode: one run per frame on luminance, so the capture RAM holds the
+    # luminance input (in colour mode it would end with the blue run).
     ctrl = t.pause_live()
+    t.bus.write32(GPIO, (ctrl & ~0x20 | 0x80) & ~FORCE_COLOR | FORCE_GRAY)
     cfg = t.read1(CONFIG)
     try:
         r0 = t.read1(LIVE_RUNS)
@@ -212,6 +219,7 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("init").add_argument("regfile", nargs="?", default=DEFAULT_REGS)
     sub.add_parser("auto")
+    sub.add_parser("color").add_argument("mode", choices=["auto", "gray", "on"])
     sub.add_parser("status")
     sub.add_parser("live").add_argument("state", choices=["on", "off"])
     sub.add_parser("grab").add_argument("path")
@@ -227,6 +235,10 @@ def main():
 
     if a.cmd == "init":
         cmd_init(t, cam, a.regfile)
+    elif a.cmd == "color":
+        bits = {"auto": 0, "gray": FORCE_GRAY, "on": FORCE_COLOR}[a.mode]
+        cam.set_ctrl(cam.ctrl & ~(FORCE_GRAY | FORCE_COLOR) | bits)
+        print(f"DUT output: {a.mode}")
     elif a.cmd == "auto":
         cam.set_ctrl(cam.ctrl & ~(MANUAL | CAM_PINS))
         print("camera pins back with the FPGA (S0 reruns its init)")

@@ -1,7 +1,7 @@
 // video_downscale in its camera configuration: a synthetic OV3660-like DVP
 // stream (Y8, one byte per PCLK while HREF is high, line and frame blanking)
 // -> 3x3 box average -> 128x128, single bank. Default: 384x384 frames, the
-// whole frame averaged (crop at 0,0), as tp20k_cam_top uses it. Every output
+// whole frame averaged (crop at 0,0), with a pixel enable (PIX_CE). Every output
 // pixel is compared with a reference model.
 `timescale 1ns/1ps
 

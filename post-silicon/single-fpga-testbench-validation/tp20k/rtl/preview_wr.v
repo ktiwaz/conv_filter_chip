@@ -74,8 +74,15 @@ module preview_wr #(
     reg [2:0]  sub;
     reg        last_pending;             // the pending burst ends the frame
 
-    wire        sof = f_rdata[17], sol = f_rdata[16];
-    wire [15:0] pix = f_rdata[15:0];
+    // the FIFO's block RAM output is registered first (timing)
+    reg         q_valid;
+    reg  [17:0] q_data;
+    always @(posedge dclk) begin
+        q_valid <= f_rvalid;
+        q_data  <= f_rdata;
+    end
+    wire        sof = q_data[17], sol = q_data[16];
+    wire [15:0] pix = q_data[15:0];
     wire [1:0]  free_bank = (ready_bank != 2'd0 && disp_bank != 2'd0) ? 2'd0 :
                             (ready_bank != 2'd1 && disp_bank != 2'd1) ? 2'd1 : 2'd2;
 
@@ -95,10 +102,12 @@ module preview_wr #(
             frames     <= 16'd0;
             y <= 9'd0; bx <= 6'd0; sub <= 3'd0;
         end else begin
-            // pop while no burst is waiting, and not right after the pixel
-            // that completes one: req only rises with that pixel, and a pixel
-            // popped meanwhile would land in slot 0 of the burst still waiting
-            f_rd <= !req && !f_empty && !f_rd && !(f_rvalid && sub_e == 3'd7);
+            // pop while no burst is waiting, one pixel in flight at a time
+            // (one every 3 cycles, 31.5 M/s at 94.5 MHz), and not when the
+            // pixel being processed completes a burst: req only rises with
+            // it, and a pixel popped meanwhile would land in slot 0 of the
+            // burst still waiting
+            f_rd <= !req && !f_empty && !f_rd && !f_rvalid && !(q_valid && sub_e == 3'd7);
             if (gnt) begin
                 req <= 1'b0;
                 if (last_pending) begin
@@ -107,7 +116,7 @@ module preview_wr #(
                     frames     <= frames + 16'd1;
                 end
             end
-            if (f_rvalid) begin
+            if (q_valid) begin
                 if (sof) begin
                     started <= 1'b1;
                     wr_bank <= free_bank;

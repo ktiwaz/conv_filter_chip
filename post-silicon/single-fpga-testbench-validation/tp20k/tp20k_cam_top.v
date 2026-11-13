@@ -1,11 +1,14 @@
-// Tang Primer 20K camera pipeline: OV3660 (DVP, Y8 384x384) -> grabber
-// (3x3 box average -> 128x128) -> DUT run per frame (fpga_tb_core live mode)
-// -> 720p HDMI with input and output panes (the PYNQ video_compositor).
+// Tang Primer 20K camera pipeline: OV3660 (DVP, RGB565 384x384) ->
+//   preview_wr -> DDR3 -> preview_rd: colour preview, 576x576 on 720p HDMI;
+//   rgb_grab (3x3 average -> 128x128 R, G, B, Y) -> DDR3 -> plane_dma -> DUT
+//   run per channel (color_live, fpga_tb_core LIVE_EXT) -> color_frame:
+//   the 128x128 output, colour or gray per preset (cam_compositor).
 // The UART tester (scripts/tb_host.py) works on this bitstream too.
 //
 // Clocks: 27 MHz -> rPLL -> 371.25 MHz HDMI serial -> CLKDIV /5 -> 74.25 MHz
 //         pixel; the same PLL's CLKOUTD (/8) -> 46.41 MHz fabric (XCLK =
-//         23.2 MHz from it); the grabber runs on the camera's PCLK.
+//         23.2 MHz from it); the camera side runs on its PCLK; a second
+//         rPLL makes the 94.5 MHz DDR3 clock.
 //
 // Standalone: after reset, sccb_init powers the camera up and writes the
 // register list from cam_init_rom (cam/*.txt), then live mode turns on by
@@ -18,10 +21,13 @@
 //             bits 0-3 apply only with bit6 MANUAL set (else sccb_init drives them)
 //             bit4 invert HREF              bit5 live mode on (like PYNQ sw[1])
 //             bit6 MANUAL camera pins       bit7 no automatic live mode after init
-//   GPIO in   bit0 SCL  bit1 SDA  bit2 VSYNC  bit3 HREF  [11:8] filter preset
-//             [23:16] GPIO out[7:0] read back
-//             bit31 init done  [30:24] init NACKs (127 = 127 or more)
-//             bit12 DDR3 calibrated  bit13 DDR3 calibration failed
+//             bit8 freeze the preview writer (read a frame from DDR3)
+//             bits 10:9 DUT output: 00 per preset, 01 gray (luma), 10 colour
+//   GPIO in   bit0 SCL  bit1 SDA  bit2 VSYNC  bit3 HREF  bit4 a preview frame exists
+//             bit5 the output shown is colour  bit6 the bridge window abandoned a request
+//             [11:8] filter preset  bit12 DDR3 calibrated  bit13 DDR3 calibration failed
+//             [15:14] newest preview bank  [27:16] GPIO out[11:0] read back
+//             bit31 init done  [30:28] init NACKs (7 = 7 or more)
 // DDR3 (128 MB) is readable and writable over the bridge at 0x1000_0000.
 // Frame size / rate / runs: fpga_tb_core's RX_SIZE, RX_FRAMES, LIVE_RUNS.
 //
@@ -179,7 +185,9 @@ module tp20k_cam_top #(
     // DDR3: controller + PHY on their own PLL (dclk 94.5 MHz), arbiter,
     // AXI window for the bridge (port 0)
     //==================================================
-    localparam NP = 3;          // 0 preview read, 1 preview write, 2 AXI window
+    // 0 preview read, 1 preview write, 2 AXI window, 3 colour grabber, 4 plane DMA
+    // (the window's traffic is tiny; the grabber has a FIFO, the DMA frame time)
+    localparam NP = 5;
     wire         dclk, drst, d_calib_done, d_calib_fail;
     wire         c_rd, c_wr, c_refresh, c_busy, c_data_ready;
     wire [25:0]  c_addr;
@@ -190,6 +198,7 @@ module tp20k_cam_top #(
     wire [NP*128-1:0] a_wdata;
     wire [NP*16-1:0]  a_wbe;
     wire [31:0]  ddr_accesses;
+    wire         win_timeout;           // bridge window gave up on a request (sticky)
 
     ddr3_sys ddr3 (
         .clk27(clk27), .dclk(dclk), .drst(drst),
@@ -229,7 +238,8 @@ module tp20k_cam_top #(
         .dclk(dclk), .drst(drst),
         .d_req(a_req[2]), .d_we(a_we[2]), .d_baddr(a_baddr[2*23 +: 23]),
         .d_wdata(a_wdata[2*128 +: 128]), .d_wbe(a_wbe[2*16 +: 16]),
-        .d_gnt(a_gnt[2]), .d_rvalid(a_rvalid[2]), .d_rdata(a_rdata)
+        .d_gnt(a_gnt[2]), .d_rvalid(a_rvalid[2]), .d_rdata(a_rdata),
+        .d_timeout(win_timeout)
     );
 
     // DDR3 status into the fabric clock (GPIO in [15:12])
@@ -366,9 +376,18 @@ module tp20k_cam_top #(
     wire [7:0]  disp_in_data, disp_out_data;
     wire [14:0] disp_lo, disp_hi;
 
-    assign gpio_in = {init_done, init_nacks[7] ? 7'h7F : init_nacks[6:0],
-                      gpio_out[7:0], pv_rb_s1[1:0], cal_fail_s[1], cal_ok_s[1], kernel_index,
-                      3'd0, pv_rb_s1[2], pins_s};
+    (* ASYNC_REG = "TRUE" *) reg [1:0] win_timeout_s = 2'b00;
+    always @(posedge clk) win_timeout_s <= {win_timeout_s[0], win_timeout};
+
+    // colour live mode (color_live, below)
+    wire        ext_frame, ext_drop, ext_start, ext_rd_en, frame_color;
+    wire [11:0] ext_rd_addr;
+    wire [31:0] ext_rd_data;
+    reg  [11:0] grab_h_s0, grab_h_s1, grab_v_s0, grab_v_s1;   // quasi-static
+
+    assign gpio_in = {init_done, init_nacks[7:3] != 5'd0 ? 3'd7 : init_nacks[2:0],
+                      gpio_out[11:0], pv_rb_s1[1:0], cal_fail_s[1], cal_ok_s[1], kernel_index,
+                      1'b0, win_timeout_s[1], frame_color, pv_rb_s1[2], pins_s};
 
     fpga_tb_core #(
         .INIT_FILE(INIT_FILE),
@@ -382,7 +401,8 @@ module tp20k_cam_top #(
         .GRAB_SCALE(3),
         .GRAB_BANKS(1),
         .GRAB_GRAY_IN(0),       // luminance from the RGB565 pixels
-        .GRAB_PIX_CE(1)         // one pixel every other PCLK
+        .GRAB_PIX_CE(1),        // one pixel every other PCLK
+        .LIVE_EXT(1)            // live runs from color_live (no internal grabber)
     ) core (
         .clk(clk),
         .aresetn(aresetn),
@@ -394,6 +414,9 @@ module tp20k_cam_top #(
         .rx_data(px_rbg),
         .rx_de(px_de),
         .rx_ce(px_ce),
+        .ext_frame(ext_frame), .ext_drop(ext_drop), .ext_start(ext_start),
+        .ext_rd_en(ext_rd_en), .ext_rd_addr(ext_rd_addr), .ext_rd_data(ext_rd_data),
+        .ext_h(grab_h_s1), .ext_v(grab_v_s1),
         .s_axi_awid(1'b0), .s_axi_awaddr(awaddr), .s_axi_awlen(awlen),
         .s_axi_awsize(3'd2), .s_axi_awburst(awburst),
         .s_axi_awvalid(awvalid), .s_axi_awready(awready),
@@ -422,21 +445,73 @@ module tp20k_cam_top #(
     );
 
     //==================================================
-    // Display: frame buffers (single bank) -> compositor -> HDMI
+    // Colour DUT runs: rgb_grab (camera -> 128x128 R, G, B, Y in DDR3) ->
+    // color_live: per channel plane_dma (DDR3 -> DUT input RAM) and a live
+    // run; outputs into color_frame's channel planes
+    //==================================================
+    localparam [22:0] GR_BASE = 23'h020000, GR_BANK = 23'h001000;
+    wire        gr_toggle, gr_bank;
+    wire [15:0] gr_frames;
+    wire [11:0] grab_h, grab_v;
+    rgb_grab #(.BASE(GR_BASE), .BANK_STRIDE(GR_BANK)) grab (
+        .rx_clk(cmos_pclk), .rx_rst(cam_rst),
+        .ce(px_ce), .px_de(px_de), .px_sol(px_sol), .px_sof(px_sof), .px(px565),
+        .h_active(grab_h), .v_active(grab_v),
+        .dclk(dclk), .drst(drst),
+        .req(a_req[3]), .baddr(a_baddr[3*23 +: 23]), .wdata(a_wdata[3*128 +: 128]),
+        .gnt(a_gnt[3]), .frame_toggle(gr_toggle), .frame_bank(gr_bank), .frames(gr_frames)
+    );
+    assign a_we[3] = 1'b1;
+    assign a_wbe[3*16 +: 16] = 16'hFFFF;
+    always @(posedge clk) begin
+        grab_h_s0 <= grab_h; grab_h_s1 <= grab_h_s0;
+        grab_v_s0 <= grab_v; grab_v_s1 <= grab_v_s0;
+    end
+
+    wire       dma_bank, dma_req_t, dma_done_t;
+    wire [1:0] dma_ch;
+    plane_dma #(.BASE(GR_BASE), .BANK_STRIDE(GR_BANK)) dma (
+        .clk(clk), .bank(dma_bank), .ch(dma_ch), .req_t(dma_req_t), .done_t(dma_done_t),
+        .rd_en(ext_rd_en), .rd_addr(ext_rd_addr), .rd_data(ext_rd_data),
+        .dclk(dclk), .drst(drst),
+        .req(a_req[4]), .baddr(a_baddr[4*23 +: 23]), .gnt(a_gnt[4]),
+        .rvalid(a_rvalid[4]), .rdata(a_rdata)
+    );
+    assign a_we[4] = 1'b0;
+    assign a_wdata[4*128 +: 128] = 128'd0;
+    assign a_wbe[4*16 +: 16] = 16'd0;
+
+    // Colour or gray per frame: GPIO out [10:9] = 01 forces gray, 10 colour;
+    // otherwise the preset decides (edge detectors gray), custom kernels colour
+    wire preset_color;
+    kernel_color kcolor (.index(kernel_index), .color(preset_color));
+    wire want_color = gpio_out[9] ? 1'b0 : gpio_out[10] ? 1'b1 : (st_custom || preset_color);
+
+    wire [2:0] ch_we;
+    color_live clive (
+        .clk(clk), .aresetn(aresetn),
+        .frame_toggle(gr_toggle), .frame_bank(gr_bank),
+        .live(live_on), .color(want_color), .busy(busy), .run_done(disp_done),
+        .dma_bank(dma_bank), .dma_ch(dma_ch), .dma_req_t(dma_req_t), .dma_done_t(dma_done_t),
+        .ext_frame(ext_frame), .ext_drop(ext_drop), .ext_start(ext_start),
+        .ch_we(ch_we), .frame_color(frame_color)
+    );
+
+    //==================================================
+    // Display: colour output planes -> compositor -> HDMI
     //==================================================
     wire        has_frame, disp_masked_p;
     wire [14:0] disp_lo_p, disp_hi_p;
     wire [13:0] rd_addr;
-    wire [7:0]  rd_in, rd_out;
+    wire [4:0]  rd_r, rd_g, rd_b;
 
-    video_frame #(.BANKS(1)) frames (
+    color_frame frames (
         .clk(clk), .aresetn(aresetn),
-        .run_start(disp_start), .run_done(disp_done),
+        .ch_we(ch_we), .run_done(disp_done),
         .run_lo(disp_lo), .run_hi(disp_hi), .run_masked(disp_masked),
-        .in_we(disp_in_we), .in_addr(disp_in_addr), .in_data(disp_in_data),
         .out_we(disp_out_we), .out_addr(disp_out_addr), .out_data(disp_out_data),
         .pclk(pclk_v), .prst(prst), .frame_start(frame_start),
-        .rd_addr(rd_addr), .rd_in(rd_in), .rd_out(rd_out),
+        .rd_addr(rd_addr), .rd_r(rd_r), .rd_g(rd_g), .rd_b(rd_b),
         .has_frame(has_frame),
         .disp_lo(disp_lo_p), .disp_hi(disp_hi_p), .disp_masked(disp_masked_p)
     );
@@ -448,8 +523,9 @@ module tp20k_cam_top #(
         .pclk(pclk_v), .prst(prst),
         .frame_start(frame_start),
         .need_s(pv_need_s), .pv_addr(pv_addr), .pv_data(pv_data), .pv_valid(pv_valid_p[1]),
-        .rd_addr(rd_addr), .rd_out(rd_out),
+        .rd_addr(rd_addr), .rd_r(rd_r), .rd_g(rd_g), .rd_b(rd_b),
         .has_frame(has_frame), .out_lo(disp_lo_p), .out_hi(disp_hi_p),
+        .st_color(frame_color),
         .out_masked(disp_masked_p), .pattern(video_pattern),
         .st_live(live_on), .st_bypass(st_bypass), .st_ext(st_ext), .st_custom(st_custom),
         .st_name(st_name), .st_fps(st_fps),

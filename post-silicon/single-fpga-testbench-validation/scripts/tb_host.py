@@ -355,7 +355,7 @@ class Tester:
         default. Turn it off (GPIO bit 5 live, bit 7 no auto live) and let a
         run in flight finish; returns the GPIO value for resume_live. The
         tester bitstream ignores GPIO writes and reads back 0."""
-        ctrl = self.bus.read32(GPIO_REG) >> 16 & 0xFF
+        ctrl = self.bus.read32(GPIO_REG) >> 16 & 0xFFF   # GPIO out [11:0] read back
         self.bus.write32(GPIO_REG, ctrl & ~0x20 | 0x80)
         time.sleep(0.05)                            # > one camera frame
         return ctrl

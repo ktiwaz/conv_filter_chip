@@ -1,17 +1,19 @@
-// System version of tb_ddr_arb: port 0 random reads (preview reader stand-in),
-// port 1 the real preview_wr fed by a synthetic RGB565 camera, port 2 axi_ddr.
-// Checks the AXI data while the camera writes. Derived from tb_ddr_arb.sv.
-// ddr_arb + axi_ddr against a behavioural model of ddr3_ctrl's user side
-// (rd / wr with wr_burst / refresh, busy, data_ready, dout_burst).
-//   - port 0: random burst writes and reads (a stand-in for the video clients),
-//     checked against a reference memory
-//   - port 1: axi_ddr, driven by AXI transactions from the fabric clock like
-//     the debug bridge: word writes with strobes, bursts, reads back
-// Checks the data, that every refresh interval stays below 2 x 7.8 us, and
-// that the controller never sees a request while busy.
+// All five DDR3 ports in tp20k_cam_top's priority order, at realistic rates,
+// against a behavioural model of ddr3_ctrl's user side (derived from
+// tb_ddr_arb.sv):
+//   0 random burst writes and reads (preview reader stand-in), checked
+//     against a reference memory
+//   1 preview_wr fed by a synthetic RGB565 camera
+//   2 axi_ddr, driven like the debug bridge: word writes with strobes,
+//     bursts, reads back
+//   3 rgb_grab
+//   4 plane_dma loading planes continuously
+// Checks the data, that the DMA always completes, that every refresh interval
+// stays below 2 x 7.8 us, and that the controller never sees a request while
+// busy.
 `timescale 1ns/1ps
 
-module tb_ddr_sys;
+module tb_ddr_all;
 
     localparam BA_W = 23;
     reg dclk = 0, clk = 0;
@@ -74,7 +76,7 @@ module tb_ddr_sys;
     // DUT: arbiter, port 0 traffic generator, port 1 axi_ddr
     //==================================================
     reg  [1:0]  req = 0, we = 0;
-    wire [2:0]  gnt, rvalid;
+    wire [4:0]  gnt, rvalid;
     wire [127:0] rdata;
     reg  [BA_W-1:0] p0_baddr = 0;
     reg  [127:0] p0_wdata = 0;
@@ -87,11 +89,15 @@ module tb_ddr_sys;
     wire        pv_req;
     wire [BA_W-1:0] pv_baddr;
     wire [127:0] pv_wdata;
-    ddr_arb #(.NP(3), .BA_W(BA_W), .REFRESH_CYC(737)) arb (
+    wire        gr_req, dm_req;
+    wire [BA_W-1:0] gr_baddr, dm_baddr;
+    wire [127:0] gr_wdata;
+    ddr_arb #(.NP(5), .BA_W(BA_W), .REFRESH_CYC(737)) arb (
         .clk(dclk), .rst(drst), .ready(1'b1),
-        .req({d_req, pv_req, req[0]}), .we({d_we, 1'b1, we[0]}),
-        .baddr({d_baddr, pv_baddr, p0_baddr}), .wdata({d_wdata, pv_wdata, p0_wdata}),
-        .wbe({d_wbe, 16'hFFFF, 16'hFFFF}),
+        .req({dm_req, gr_req, d_req, pv_req, req[0]}), .we({1'b0, 1'b1, d_we, 1'b1, we[0]}),
+        .baddr({dm_baddr, gr_baddr, d_baddr, pv_baddr, p0_baddr}),
+        .wdata({128'd0, gr_wdata, d_wdata, pv_wdata, p0_wdata}),
+        .wbe({16'h0, 16'hFFFF, d_wbe, 16'hFFFF, 16'hFFFF}),
         .gnt(gnt), .rvalid(rvalid), .rdata(rdata),
         .c_rd(c_rd), .c_wr(c_wr), .c_refresh(c_refresh), .c_addr(c_addr),
         .c_din_burst(c_din_burst), .c_be_burst(c_be_burst),
@@ -118,7 +124,7 @@ module tb_ddr_sys;
             p0_reads++;
             p0_wait <= 0;
         end
-        if (p0_run && !req[0] && !gnt[0] && !p0_wait && $urandom_range(0, 3) == 0) begin
+        if (p0_run && !req[0] && !gnt[0] && !p0_wait && $urandom_range(0, 70) == 0) begin
             reg [BA_W-1:0] a;
             a = 23'h50000 + $urandom_range(0, 63);
             req[0] <= 1;
@@ -162,6 +168,37 @@ module tb_ddr_sys;
         .px(px), .freeze(1'b0), .overflow(ovf), .dclk(dclk), .drst(drst),
         .req(pv_req), .baddr(pv_baddr), .wdata(pv_wdata), .gnt(gnt[1]),
         .disp_bank(2'd0), .ready_bank(rb), .have_frame(hf), .frames(frs));
+    wire gt, gb; wire [15:0] gf; wire [11:0] gh, gv;
+    rgb_grab grab (.rx_clk(pclk), .rx_rst(drst), .ce(ce), .px_de(px_de), .px_sol(px_sol), .px_sof(px_sof),
+        .px(px), .h_active(gh), .v_active(gv), .dclk(dclk), .drst(drst),
+        .req(gr_req), .baddr(gr_baddr), .wdata(gr_wdata), .gnt(gnt[3]),
+        .frame_toggle(gt), .frame_bank(gb), .frames(gf));
+    // plane DMA, loading planes back to back (fabric clock side)
+    reg dm_req_t = 0; wire dm_done_t; wire [31:0] dm_rd;
+    int dma_done = 0;
+    plane_dma dma (.clk(clk), .bank(1'b0), .ch(2'd1), .req_t(dm_req_t), .done_t(dm_done_t),
+        .rd_en(1'b0), .rd_addr(12'd0), .rd_data(dm_rd),
+        .dclk(dclk), .drst(drst), .req(dm_req), .baddr(dm_baddr), .gnt(gnt[4]),
+        .rvalid(rvalid[4]), .rdata(rdata));
+    initial begin
+        reg [2:0] s; s = 0;
+        @(negedge drst);
+        forever begin
+            #10ms;                       // the real pipeline: 3 planes per 33 ms frame
+            dm_req_t <= !dm_req_t;
+            fork
+                begin : wait_done
+                    reg q; q = dm_done_t;
+                    while (dm_done_t == q) @(posedge clk);
+                end
+                begin : timeout
+                    #25ms; $display("  FAIL plane DMA never finished: busy %b sent %0d got %0d req %b; grants so far %0d, port0 issued %0d", dma.busy, dma.sent, dma.got, dm_req, accesses, p0_done); errors++; $finish;
+                end
+            join_any
+            disable fork;
+            dma_done++;
+        end
+    end
 
     // Port 2: AXI master tasks (fabric clock)
     reg  [31:0] awaddr = 0, araddr = 0, wdata = 0;
@@ -234,7 +271,7 @@ module tb_ddr_sys;
     endtask
 
     initial begin
-        #30ms;
+        #200ms;
         $display("TIMEOUT: axi state %0d, d_req %b, arb busy %b, accesses %0d", ddr_axi.state, d_req, c_busy, accesses);
         $finish;
     end
@@ -267,12 +304,29 @@ module tb_ddr_sys;
             axi_write(32'h308000 + blk * 1024, d, 4'hF);
         end
         for (int blk = 0; blk < 16; blk++) axi_read_check(32'h308000 + blk * 1024, 256);
+        // keep writing and checking while the plane DMAs run, paced to 1 KB
+        // per 430 us (2.3 MB/s; the real bridge at 1 Mbaud moves ~0.1 MB/s):
+        // back to back, the window (above the DMA) would starve it, which
+        // the bridge can't do
+        while (dma_done < 3) begin
+            for (int blk = 0; blk < 4; blk++) begin
+                d = new[256]; foreach (d[i]) d[i] = $urandom;
+                axi_write(32'h308000 + blk * 1024, d, 4'hF);
+                repeat (20000) @(posedge clk);
+            end
+            for (int blk = 0; blk < 4; blk++) begin
+                axi_read_check(32'h308000 + blk * 1024, 256);
+                repeat (20000) @(posedge clk);
+            end
+        end
 
         // let port 0 run a while longer for the refresh statistics
         repeat (2000) @(posedge dclk);
         p0_run <= 0;
         repeat (200) @(posedge dclk);
 
+        $display("plane DMAs completed %0d", dma_done);
+        if (dma_done < 3) begin $display("  FAIL too few DMAs"); errors++; end
         $display("accesses %0d (port 0: %0d issued, %0d reads checked), refreshes %0d, max refresh gap %0t",
                  accesses, p0_done, p0_reads, n_ref, max_gap);
         if (max_gap > 2 * 7800) begin $display("  FAIL refresh gap"); errors++; end

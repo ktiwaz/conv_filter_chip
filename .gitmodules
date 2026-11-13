@@ -10,3 +10,6 @@
 [submodule "post-silicon/single-fpga-testbench-validation/third_party/gowin-ddr3"]
 	path = post-silicon/single-fpga-testbench-validation/third_party/gowin-ddr3
 	url = https://github.com/e-karge/gowin-ddr3.git
+[submodule "post-silicon/single-fpga-testbench-validation/third_party/openFPGALoader"]
+	path = post-silicon/single-fpga-testbench-validation/third_party/openFPGALoader
+	url = https://github.com/trabucayre/openFPGALoader.git

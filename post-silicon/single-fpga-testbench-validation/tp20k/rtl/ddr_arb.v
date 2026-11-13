@@ -29,7 +29,7 @@ module ddr_arb #(
     input  wire [NP*16-1:0]   wbe,
     output reg  [NP-1:0]      gnt,
     output reg  [NP-1:0]      rvalid,
-    output reg  [127:0]       rdata,
+    output wire [127:0]       rdata,         // the controller's dout_burst (stable until the next read)
 
     // ddr3_ctrl user side
     output reg                c_rd,
@@ -90,6 +90,10 @@ module ddr_arb #(
             end
     end
 
+    // dout_burst is a register in ddr3_ctrl that only changes when the next
+    // read completes, at least ~20 cycles later: rdata needs no copy
+    assign rdata = c_dout_burst;
+
     wire idle = ready && !c_busy && !c_rd && !c_wr && !c_refresh;
     reg [NP-1:0] owner;                  // port of the read in flight
     reg [NP-1:0] issued;                 // port of the access being issued
@@ -133,10 +137,8 @@ module ddr_arb #(
                     if (!p_we) owner <= pick;
                 end
             end
-            if (c_data_ready) begin
+            if (c_data_ready)
                 rvalid <= owner;
-                rdata  <= c_dout_burst;
-            end
         end
     end
 

@@ -50,7 +50,11 @@ module fpga_tb_core #(
     parameter GRAB_SCALE   = 5,
     parameter GRAB_BANKS   = 2,
     parameter GRAB_GRAY_IN = 0,
-    parameter GRAB_PIX_CE  = 0      // 1: rx_ce marks pixel slots (see video_downscale)
+    parameter GRAB_PIX_CE  = 0,     // 1: rx_ce marks pixel slots (see video_downscale)
+    // 1: no internal grabber; an external controller starts live runs
+    // (ext_start), supplies their pixels (ext_rd_* is the sequencer's read
+    // port) and reports frames (ext_frame) and frame size (ext_h, ext_v)
+    parameter LIVE_EXT     = 0
 ) (
     input  wire                  clk,
     input  wire                  aresetn,     // synchronous, active low
@@ -65,6 +69,16 @@ module fpga_tb_core #(
     input  wire [23:0]           rx_data,     // {R, B, G}
     input  wire                  rx_de,
     input  wire                  rx_ce,       // GRAB_PIX_CE = 1 only
+
+    // LIVE_EXT = 1 only (fabric clock)
+    input  wire                  ext_frame,   // pulse: a frame was taken for live runs
+    input  wire                  ext_drop,    // pulse: a frame was skipped (still busy)
+    input  wire                  ext_start,   // pulse: start a run on ext_rd_data
+    output wire                  ext_rd_en,   // sequencer read port, 1-cycle latency
+    output wire [11:0]           ext_rd_addr,
+    input  wire [31:0]           ext_rd_data,
+    input  wire [11:0]           ext_h,
+    input  wire [11:0]           ext_v,
 
     // AXI4 slave (from jtag_axi)
     input  wire [ID_WIDTH-1:0]   s_axi_awid,
@@ -442,7 +456,7 @@ module fpga_tb_core #(
     wire [11:0] in_b_addr;
 
     generate
-        if (HDMI) begin : g_grabber
+        if (HDMI && !LIVE_EXT) begin : g_grabber
             video_downscale #(
                 .CROP_X(GRAB_CROP_X),
                 .CROP_Y(GRAB_CROP_Y),
@@ -471,7 +485,7 @@ module fpga_tb_core #(
             assign rx_bank   = 1'b0;
             assign rx_h      = 12'd0;
             assign rx_v      = 12'd0;
-            assign live_dout = 32'd0;
+            assign live_dout = LIVE_EXT ? ext_rd_data : 32'd0;
         end
     endgenerate
 
@@ -482,17 +496,25 @@ module fpga_tb_core #(
     reg        frame_ready_bank;
 
     wire rx_frame = rx_toggle_s[2] != rx_toggle_s[1];
-    assign live_frame = live && rx_frame;
+    assign live_frame = LIVE_EXT ? ext_start : live && rx_frame;
+    assign ext_rd_en   = in_b_en;
+    assign ext_rd_addr = in_b_addr;
 
     always @(posedge clk) begin
         rx_toggle_s <= {rx_toggle_s[1:0], rx_toggle};
         rx_locked_s <= {rx_locked_s[0], rx_locked};
         rx_locked_c <= rx_locked_s[1];
-        rx_h_s <= rx_h;  rx_h_c <= rx_h_s;
-        rx_v_s <= rx_v;  rx_v_c <= rx_v_s;
+        rx_h_s <= LIVE_EXT ? ext_h : rx_h;  rx_h_c <= rx_h_s;
+        rx_v_s <= LIVE_EXT ? ext_v : rx_v;  rx_v_c <= rx_v_s;
         if (!aresetn) begin
             rx_frames <= 32'd0; live_runs <= 32'd0; live_dropped <= 32'd0;
             frame_ready_bank <= 1'b0;
+        end else if (LIVE_EXT) begin
+            // the external controller counts frames, not runs (a colour
+            // frame takes three)
+            if (ext_frame || ext_drop) rx_frames    <= rx_frames + 32'd1;
+            if (ext_frame)             live_runs    <= live_runs + 32'd1;
+            if (ext_drop)              live_dropped <= live_dropped + 32'd1;
         end else if (rx_frame) begin
             rx_frames        <= rx_frames + 32'd1;
             frame_ready_bank <= rx_bank;
@@ -506,7 +528,7 @@ module fpga_tb_core #(
     // Live runs per second for the overlay (BCD, saturating at 99)
     reg [25:0] sec_count;
     reg [7:0]  fps_count;
-    wire       live_run = rx_frame && live && !busy;
+    wire       live_run = LIVE_EXT ? ext_frame : rx_frame && live && !busy;
     always @(posedge clk) begin
         if (!aresetn) begin
             sec_count <= 26'd0;
@@ -531,7 +553,7 @@ module fpga_tb_core #(
             src_live <= 1'b0;
             src_bank <= 1'b0;
         end else if (start_go) begin
-            src_live <= live && rx_frame;
+            src_live <= LIVE_EXT ? ext_start : live && rx_frame;
             src_bank <= rx_frame ? rx_bank : frame_ready_bank;
         end
     end

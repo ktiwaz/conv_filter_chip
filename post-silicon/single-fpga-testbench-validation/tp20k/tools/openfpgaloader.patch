@@ -1,0 +1,34 @@
+--- a/src/spiFlash.cpp
++++ b/src/spiFlash.cpp
+@@ -18,6 +18,13 @@
+ #include "spiFlashdb.hpp"
+ #include "flashInterface.hpp"
+ 
++/* Page-program in 128-byte chunks instead of whole 256-byte pages: the
++ * Sipeed BL702 debugger (an FT2232 clone, Tang Primer 20K dock) stops
++ * answering partway through long flash writes with 256-byte chunks
++ * (openFPGALoader#573). A write starting on a 128-byte boundary (bitstreams
++ * start at 0) never crosses a 256-byte page with 128-byte chunks. */
++#define FLASH_WRITE_CHUNK 128
++
+ /* read/write status register : 0B addr + 0 dummy */
+ #define FLASH_WRSR     0x01
+ #define FLASH_RDSR     0x05
+@@ -504,7 +510,7 @@
+ 		const uint32_t sec_len = sec.getLength(); // section length
+ 		const uint8_t *ptr = sec.getRecord().data(); // data
+ 		for (uint32_t addr = 0; addr < sec_len; addr += size, ptr+=size, len_done+=size) {
+-			size = (addr + 256 > sec_len) ? (sec_len - addr) : 256;
++			size = (addr + FLASH_WRITE_CHUNK > sec_len) ? (sec_len - addr) : FLASH_WRITE_CHUNK;
+ 			if ((_jedec_id >> 8) == 0xbf258d) {
+ 				size = 1;
+ 			}
+@@ -537,7 +543,7 @@
+ 	const uint8_t *ptr = data;
+ 	int size = 0;
+ 	for (int addr = 0; addr < len; addr += size, ptr+=size) {
+-		size = (addr + 256 > len)?(len-addr) : 256;
++		size = (addr + FLASH_WRITE_CHUNK > len)?(len-addr) : FLASH_WRITE_CHUNK;
+ 		if ((_jedec_id >> 8) == 0xbf258d) {
+ 			size = 1;
+ 		}

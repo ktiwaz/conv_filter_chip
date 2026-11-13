@@ -28,13 +28,16 @@ module cam_compositor #(
 
     // DUT output (video_frame)
     output reg  [13:0] rd_addr,
-    input  wire [7:0]  rd_out,
+    input  wire [4:0]  rd_r,            // 1-cycle latency, 5 bits per channel
+    input  wire [4:0]  rd_g,
+    input  wire [4:0]  rd_b,
     input  wire        has_frame,
     input  wire [14:0] out_lo,
     input  wire [14:0] out_hi,
     input  wire        out_masked,
 
     input  wire        pattern,
+    input  wire        st_color,        // the output is colour (three runs), else gray
     input  wire        st_live,
     input  wire        st_bypass,
     input  wire        st_ext,
@@ -132,8 +135,11 @@ module cam_compositor #(
     // quasi-static status: one register stage (a rare mid-change sample only
     // shows for a frame)
     reg [117:0] st_s2;
-    always @(posedge pclk)
-        st_s2 <= {st_live, st_bypass, st_ext, st_custom, st_name, st_fps, 2'b00};
+    reg         color_p;
+    always @(posedge pclk) begin
+        st_s2   <= {st_live, st_bypass, st_ext, st_custom, st_name, st_fps, 2'b00};
+        color_p <= st_color;
+    end
     wire         live_p   = st_s2[117];
     wire         bypass_p = st_s2[116];
     wire         ext_p    = st_s2[115];
@@ -148,19 +154,15 @@ module cam_compositor #(
     wire [21*8-1:0] title_r = bypass_p ? "BYPASS (NO FILTER)   " :
                               custom_p ? {"FILTER: ", "CUSTOM (JTAG)"} : {"FILTER: ", name_p};
     wire [15*8-1:0] mode_s  = live_p ? {"LIVE ", fps_tens, fps_ones, " FPS    "} : "STATIC IMAGE   ";
-    wire [41*8-1:0] status  = {mode_s, "DUT: CHIP RTL ON ", ext_p ? "2ND FPGA " : "THIS FPGA"};
+    wire [41*8-1:0] status  = {mode_s, color_p ? "COLOR " : "GRAY  ", "DUT ON ", ext_p ? "2ND FPGA   " : "THIS FPGA  ", "  "};
 
+    // text_line copies its string into its own shift register outside the
+    // text box, so the strings need no register here
     wire on_l, on_r, on_s;
-    reg [21*8-1:0] title_r_q;
-    reg [41*8-1:0] status_q;
-    always @(posedge pclk) begin
-        title_r_q <= title_r;
-        status_q  <= status;
-    end
 
     text_line #(.X0(PV_X),  .Y0(PV_Y - 32),      .LEN(20)) txt_l (.pclk(pclk), .x(x), .y(y), .text(title_l),   .on(on_l));
-    text_line #(.X0(OUT_X), .Y0(OUT_Y - 32),     .LEN(21)) txt_r (.pclk(pclk), .x(x), .y(y), .text(title_r_q), .on(on_r));
-    text_line #(.X0(PV_X),  .Y0(PV_Y + PV + 14), .LEN(41)) txt_s (.pclk(pclk), .x(x), .y(y), .text(status_q),  .on(on_s));
+    text_line #(.X0(OUT_X), .Y0(OUT_Y - 32),     .LEN(21)) txt_r (.pclk(pclk), .x(x), .y(y), .text(title_r), .on(on_r));
+    text_line #(.X0(PV_X),  .Y0(PV_Y + PV + 14), .LEN(41)) txt_s (.pclk(pclk), .x(x), .y(y), .text(status),  .on(on_s));
 
     //==================================================
     // c2 -> c3: register the RAM data next to the text bits
@@ -168,13 +170,13 @@ module cam_compositor #(
     reg       c3_p, c3_o, c3_border, c3_mask, c3_de, c3_hs, c3_vs;
     reg [23:0] c3_pat;
     reg [15:0] c3_pv;
-    reg [7:0]  c3_out;
+    reg [14:0] c3_out;
     always @(posedge pclk) begin
         {c3_p, c3_o, c3_border, c3_mask, c3_de, c3_hs, c3_vs} <=
             {c2_p, c2_o, c2_border, c2_mask, c2_de, c2_hs, c2_vs};
         c3_pat <= c2_pat;
         c3_pv  <= pv_data;
-        c3_out <= rd_out;
+        c3_out <= {rd_r, rd_g, rd_b};
     end
 
     wire [4:0] pr = c3_pv[15:11];
@@ -201,7 +203,7 @@ module cam_compositor #(
         else if (c3_p && pv_valid)
             {r, g, b} <= {pr, pr[4:2], pg, pg[5:4], pb, pb[4:2]};
         else if (c3_o && has_frame && !c3_mask)
-            {r, g, b} <= {3{c3_out}};
+            {r, g, b} <= {c3_out[14:10], c3_out[14:12], c3_out[9:5], c3_out[9:7], c3_out[4:0], c3_out[4:2]};
         else if (c3_p || c3_o)
             {r, g, b} <= 24'h000000;
         else

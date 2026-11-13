@@ -12,6 +12,9 @@ import re
 import sys
 
 NAME_LEN = 13   # longest testcase name: gaussian_blur
+# Presets that run on luminance only in the colour camera pipeline: edge
+# detectors give meaningless colour fringes when run per channel
+GRAY_PRESETS = ("outline", "sobel")
 
 
 def main(case_dir, out):
@@ -53,6 +56,23 @@ def main(case_dir, out):
         "        endcase",
         "    end",
         "",
+        "endmodule",
+        "",
+        "// Colour camera pipeline (tp20k): whether a preset runs per colour channel",
+        f"// (1) or once on luminance (0: {', '.join(GRAY_PRESETS)}).",
+        "module kernel_color (",
+        "    input  wire [3:0] index,",
+        "    output reg        color",
+        ");",
+        "    always @(*) begin",
+        "        case (index)",
+    ]
+    for i, (name, *_rest) in enumerate(entries):
+        lines.append(f"            4'd{i}: color = 1'b{0 if name.startswith(GRAY_PRESETS) else 1};   // {name}")
+    lines += [
+        "            default: color = 1'b1;",
+        "        endcase",
+        "    end",
         "endmodule",
         "",
     ]

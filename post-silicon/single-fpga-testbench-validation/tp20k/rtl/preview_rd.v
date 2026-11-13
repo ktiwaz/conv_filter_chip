@@ -113,7 +113,6 @@ module preview_rd #(
     reg [9:0]  lim;                      // d_need + 3: the last line that may be fetched
     reg        may_start;                // n may be fetched (registered: n < HEIGHT, n <= lim)
     reg        settle;                   // n / lim just changed, may_start is stale
-    reg [127:0] hold;
     reg [3:0]  wcnt;                     // words of hold still to write
     reg [5:0]  hold_bx;
     reg [8:0]  hold_n;
@@ -145,7 +144,6 @@ module preview_rd #(
             end
             inflight <= inflight + (gnt ? 2'd1 : 2'd0) - (rvalid ? 2'd1 : 2'd0);
             if (rvalid) begin
-                hold    <= rdata;
                 hold_bx <= got;
                 hold_n  <= n;
                 wcnt    <= 4'd8;
@@ -186,7 +184,7 @@ module preview_rd #(
             if (wcnt != 4'd0) begin
                 lb_we <= 1'b1;
                 lb_wa <= {hold_n[1:0], hold_bx, 3'd0} + (4'd8 - wcnt);
-                lb_wd <= hold[16 * (8 - wcnt) +: 16];
+                lb_wd <= rdata[16 * (8 - wcnt) +: 16];   // stable until the next read completes
                 wcnt  <= wcnt - 4'd1;
             end
         end
